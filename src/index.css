@@ -1,0 +1,374 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    --background: 240 20% 99%;
+    --foreground: 240 10% 10%;
+
+    --card: 240 20% 99%;
+    --card-foreground: 240 10% 10%;
+
+    --popover: 240 20% 99%;
+    --popover-foreground: 240 10% 10%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 240 10% 10%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 240 5% 45%;
+
+    --accent: 195 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 90%;
+    --input: 240 10% 90%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.75rem;
+
+    /* Modern Portfolio Colors */
+    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(285, 70%, 50%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(195, 100%, 50%) 0%, hsl(262, 83%, 58%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(330, 100%, 70%) 0%, hsl(195, 100%, 50%) 100%);
+    --glassmorphism: rgba(255, 255, 255, 0.15);
+    --glassmorphism-border: rgba(147, 97, 227, 0.3);
+    
+    /* Graph Background Colors */
+    --graph-line: rgba(147, 97, 227, 0.15);
+    --graph-dot: rgba(147, 97, 227, 0.4);
+    --graph-glow: rgba(147, 97, 227, 0.1);
+  }
+
+  .dark {
+    --background: 240 15% 8%;
+    --foreground: 240 5% 96%;
+
+    --card: 240 15% 10%;
+    --card-foreground: 240 5% 96%;
+
+    --popover: 240 15% 10%;
+    --popover-foreground: 240 5% 96%;
+
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 10% 15%;
+    --secondary-foreground: 240 5% 96%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 195 100% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 262 83% 65%;
+
+    --glassmorphism: rgba(255, 255, 255, 0.05);
+    --glassmorphism-border: rgba(147, 97, 227, 0.2);
+    
+    /* Graph Background Colors */
+    --graph-line: rgba(147, 97, 227, 0.25);
+    --graph-dot: rgba(147, 97, 227, 0.6);
+    --graph-glow: rgba(147, 97, 227, 0.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    scroll-behavior: smooth;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Network Graph Background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: 
+      radial-gradient(circle at 15% 25%, var(--graph-glow) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, var(--graph-glow) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, var(--graph-glow) 0%, transparent 50%),
+      radial-gradient(circle at 30% 80%, var(--graph-glow) 0%, transparent 35%),
+      radial-gradient(circle at 70% 20%, var(--graph-glow) 0%, transparent 35%);
+    animation: glowPulse 12s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer components {
+  .glassmorphism {
+    background: var(--glassmorphism);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glassmorphism-border);
+    box-shadow: 0 8px 32px 0 rgba(147, 97, 227, 0.1);
+  }
+
+  /* Network Graph with Connected Nodes and Edges */
+  #network-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Floating Lines Animation */
+  .floating-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .floating-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, var(--graph-dot), transparent);
+    animation: floatLine 15s ease-in-out infinite;
+  }
+
+  .floating-line:nth-child(1) {
+    top: 15%;
+    left: -100%;
+    width: 250px;
+    height: 2px;
+    animation-delay: 0s;
+  }
+
+  .floating-line:nth-child(2) {
+    top: 35%;
+    left: -100%;
+    width: 350px;
+    height: 2px;
+    animation-delay: 3s;
+  }
+
+  .floating-line:nth-child(3) {
+    top: 55%;
+    left: -100%;
+    width: 280px;
+    height: 2px;
+    animation-delay: 6s;
+  }
+
+  .floating-line:nth-child(4) {
+    top: 75%;
+    left: -100%;
+    width: 220px;
+    height: 2px;
+    animation-delay: 9s;
+  }
+
+  .floating-line:nth-child(5) {
+    top: 25%;
+    left: -100%;
+    width: 300px;
+    height: 2px;
+    animation-delay: 12s;
+  }
+
+  .floating-line:nth-child(6) {
+    top: 65%;
+    left: -100%;
+    width: 260px;
+    height: 2px;
+    animation-delay: 15s;
+  }
+
+  @keyframes floatLine {
+    0% {
+      transform: translateX(0) translateY(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(200vw) translateY(-80px);
+      opacity: 0;
+    }
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .skill-card {
+    @apply glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+
+  .project-card {
+    @apply glassmorphism rounded-xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl;
+  }
+
+  /* Certificate Card Styles */
+  .certificate-card {
+    @apply relative bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/20;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+  }
+
+  /* Scrollbar Hide */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 3D Flip Card Styles */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* Blog post content styling */
+  .prose h1 { @apply text-3xl font-bold mt-8 mb-4; }
+  .prose h2 { @apply text-2xl font-bold mt-6 mb-3; }
+  .prose h3 { @apply text-xl font-bold mt-4 mb-2; }
+  .prose p { @apply mb-4 leading-relaxed; }
+  .prose ul { @apply list-disc pl-6 mb-4; }
+  .prose ol { @apply list-decimal pl-6 mb-4; }
+  .prose li { @apply mb-2; }
+  .prose code { @apply bg-muted px-2 py-1 rounded text-sm; }
+  .prose blockquote { @apply border-l-4 border-primary pl-4 italic my-4; }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Infinite Marquee Animations */
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 25s linear infinite;
+  }
+
+  .animate-marquee-smooth {
+    animation: marquee-smooth 20s linear infinite;
+  }
+
+  .animate-marquee-reverse-smooth {
+    animation: marquee-reverse-smooth 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes marquee-smooth {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes marquee-reverse-smooth {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  /* Pause animation on hover */
+  .animate-marquee:hover,
+  .animate-marquee-reverse:hover,
+  .animate-marquee-smooth:hover,
+  .animate-marquee-reverse-smooth:hover {
+    animation-play-state: paused;
+  }
+}
