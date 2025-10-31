@@ -59,7 +59,7 @@ const About = () => {
                   className="absolute left-4 sm:-left-4 top-1/2 transform -translate-y-1/2 glassmorphism rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/20"
                 >
                   <div className="text-center">
-                    <div className="text-lg sm:text-2xl font-bold gradient-text">5+</div>
+                    <div className="text-lg sm:text-2xl font-bold gradient-text">3+</div>
                     <div className="text-xs text-muted-foreground whitespace-nowrap">Years</div>
                   </div>
                 </motion.div>
