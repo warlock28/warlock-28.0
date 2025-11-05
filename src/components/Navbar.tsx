@@ -64,7 +64,7 @@ const Navbar = () => {
             className="text-2xl font-bold gradient-text cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={() => scrollToSection('#home')}
           >
-            Nitin Kumar
+            Warlock
           </motion.div>
 
           {/* Desktop Navigation */}
