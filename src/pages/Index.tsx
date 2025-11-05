@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import NetworkBackground from '@/components/NetworkBackground';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Skills from '@/components/Skills';
+import SkillsNew from '@/components/SkillsNew';
 import Projects from '@/components/Projects';
 import Certifications from '@/components/Certifications';
 import Blog from '@/components/Blog';
@@ -42,7 +42,8 @@ const Index = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-background"
+      className="min-h-screen"
+      style={{ background: 'transparent' }}
     >
       <NetworkBackground />
       <Navbar />
@@ -50,7 +51,7 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        <Skills />
+        <SkillsNew />
         <Projects />
         <Certifications />
         <Blog />

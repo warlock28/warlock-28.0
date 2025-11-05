@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { projects } from '@/data/portfolio';
+import { projects } from '@/data/projects';
 import { useStore } from '@/store/useStore';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -100,24 +100,6 @@ const Projects = () => {
                         alt={project.title}
                         className="w-full h-32 object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-70 transition-opacity duration-300 flex items-center justify-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          onClick={() => window.open(project.demoUrl, '_blank')}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => window.open(project.githubUrl, '_blank')}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur"
-                        >
-                          <Github className="w-4 h-4" />
-                        </Button>
-                      </div>
                     </div>
 
                     {/* Description */}
@@ -191,28 +173,6 @@ const Projects = () => {
                   alt={project.title}
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="flex space-x-4">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => window.open(project.demoUrl, '_blank')}
-                      className="flex items-center gap-2"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(project.githubUrl, '_blank')}
-                      className="bg-white/20 backdrop-blur flex items-center gap-2"
-                    >
-                      <Github className="w-4 h-4" />
-                      GitHub
-                    </Button>
-                  </div>
-                </div>
                 {project.featured && (
                   <Badge className="absolute top-4 right-4 bg-gradient-secondary text-white flex items-center gap-1">
                     <Star className="w-3 h-3" />

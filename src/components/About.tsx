@@ -33,13 +33,9 @@ const About = () => {
               className="lg:col-span-2 relative order-2 lg:order-1"
             >
               <div className="relative max-w-sm sm:max-w-md mx-auto">
-                {/* Floating Elements - Hidden on mobile to prevent overflow */}
-                <div className="hidden sm:block absolute -top-6 -left-6 w-20 sm:w-24 h-20 sm:h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-lg animate-float"></div>
-                <div className="hidden sm:block absolute -bottom-6 -right-6 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-lg animate-float" style={{animationDelay: '2s'}}></div>
-                
                 {/* Main Image Container */}
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-2xl opacity-30 scale-105"></div>
+                  <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-2xl opacity-20 scale-105"></div>
                   <div className="relative glassmorphism rounded-3xl p-2 border-2 border-white/20">
                     <img
                       src={personalInfo.profileImage}
@@ -118,7 +114,7 @@ const About = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileHover={{ scale: 1.02 }}
                     className="glassmorphism rounded-lg sm:rounded-xl p-4 sm:p-6 text-center border border-white/10 hover:border-primary/30 transition-all duration-300 group"
                   >
                     <div className="mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300">

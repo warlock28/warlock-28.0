@@ -24,8 +24,8 @@ const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Subtle accent blobs */}
-      <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-32 sm:w-48 md:w-72 h-32 sm:h-48 md:h-72 bg-primary/5 rounded-full filter blur-3xl opacity-50 animate-float"></div>
-      <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-32 sm:w-48 md:w-72 h-32 sm:h-48 md:h-72 bg-accent/5 rounded-full filter blur-3xl opacity-50 animate-float" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-32 sm:w-48 md:w-72 h-32 sm:h-48 md:h-72 bg-primary/5 rounded-full filter blur-3xl opacity-30"></div>
+      <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-32 sm:w-48 md:w-72 h-32 sm:h-48 md:h-72 bg-accent/5 rounded-full filter blur-3xl opacity-30"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
@@ -129,7 +129,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden sm:flex"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -137,7 +137,6 @@ const Hero = () => {
           className="flex flex-col items-center text-primary"
         >
           <ChevronDown className="w-6 h-6" />
-          <div className="text-xs mt-1">Scroll</div>
         </motion.div>
       </motion.div>
     </section>

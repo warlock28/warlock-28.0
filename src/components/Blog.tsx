@@ -81,7 +81,7 @@ const Blog = () => {
               </div>
               <h1 className="text-4xl font-bold mb-4 gradient-text">{selectedPost.title}</h1>
               <div className="flex items-center gap-4 text-muted-foreground mb-6">
-                <span>{selectedPost.publishedDate}</span>
+                <span>{selectedPost.date}</span>
                 <div className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
                   <span>{selectedPost.readTime} min read</span>
@@ -232,7 +232,7 @@ const Blog = () => {
                     
                     <CardContent>
                       <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <span>{post.publishedDate}</span>
+                        <span>{post.date}</span>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
                           <span>{post.readTime} min</span>
@@ -283,7 +283,7 @@ const Blog = () => {
                     
                     <CardContent>
                       <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <span>{post.publishedDate}</span>
+                        <span>{post.date}</span>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
                           <span>{post.readTime} min</span>

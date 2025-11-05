@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { certifications } from '@/data/portfolio';
+import { certifications } from '@/data/certifications';
 import { ExternalLink, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 
@@ -143,41 +143,63 @@ const Certifications = () => {
                         </Badge>
                         
                         <p className="text-xs text-muted-foreground">
-                          Tap to see details
+                          Tap to see certificate
                         </p>
                       </CardContent>
                     </Card>
 
-                    {/* Back of card */}
-                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
-                      <CardContent className="p-4 h-full flex flex-col justify-center">
-                        <div className="mb-4">
-                          <h4 className="text-base font-semibold mb-2 text-primary">
-                            Certification Details
-                          </h4>
-                          <p className="text-xs text-muted-foreground mb-2">
-                            Issued by: <span className="font-medium">{cert.issuer}</span>
-                          </p>
-                          <p className="text-xs text-muted-foreground mb-3">
-                            Date: <span className="font-medium">{cert.date}</span>
-                          </p>
-                        </div>
-                        
-                        <div className="space-y-2 mt-auto">
-                          <Button 
-                            variant="default" 
-                            size="sm"
-                            className="w-full group"
-                            onClick={() => window.open(cert.credentialUrl, '_blank')}
-                          >
-                            <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
-                            View Certificate
-                          </Button>
-                          
-                          <p className="text-xs text-muted-foreground text-center">
-                            Tap to verify credentials
-                          </p>
-                        </div>
+                    {/* Back of card - Certificate Image */}
+                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180 overflow-hidden">
+                      <CardContent className="p-0 h-full relative">
+                        {/* Certificate Image */}
+                        {cert.image ? (
+                          <>
+                            <img
+                              src={cert.image}
+                              alt={`${cert.name} Certificate`}
+                              className="w-full h-full object-cover"
+                            />
+                            {/* Overlay with action button */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
+                              {cert.credentialUrl && (
+                                <Button 
+                                  variant="default" 
+                                  size="sm"
+                                  className="w-full group bg-primary/90 hover:bg-primary"
+                                  onClick={() => window.open(cert.credentialUrl, '_blank')}
+                                >
+                                  <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                                  View Certificate
+                                </Button>
+                              )}
+                            </div>
+                          </>
+                        ) : (
+                          // Fallback if no image
+                          <div className="p-4 h-full flex flex-col justify-center items-center text-center">
+                            <Award className="w-12 h-12 text-primary mb-4" />
+                            <h4 className="text-base font-semibold mb-2 text-primary">
+                              {cert.name}
+                            </h4>
+                            <p className="text-xs text-muted-foreground mb-2">
+                              Issued by: <span className="font-medium">{cert.issuer}</span>
+                            </p>
+                            <p className="text-xs text-muted-foreground mb-4">
+                              Date: <span className="font-medium">{cert.date}</span>
+                            </p>
+                            {cert.credentialUrl && (
+                              <Button 
+                                variant="default" 
+                                size="sm"
+                                className="w-full group"
+                                onClick={() => window.open(cert.credentialUrl, '_blank')}
+                              >
+                                <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                                View Certificate
+                              </Button>
+                            )}
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   </div>
@@ -222,40 +244,67 @@ const Certifications = () => {
                             </Badge>
                             
                             <p className="text-sm text-muted-foreground">
-                              Hover to see details
+                              Hover to see certificate
                             </p>
                           </CardContent>
                         </Card>
 
-                        {/* Back of card */}
-                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
-                          <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center">
-                            <div className="mb-6">
-                              <h4 className="text-lg font-semibold mb-2 text-primary">
-                                Certification Details
-                              </h4>
-                              <p className="text-sm text-muted-foreground mb-4">
-                                Issued by: <span className="font-medium">{cert.issuer}</span>
-                              </p>
-                              <p className="text-sm text-muted-foreground mb-4">
-                                Date: <span className="font-medium">{cert.date}</span>
-                              </p>
-                            </div>
-                            
-                            <div className="space-y-3 mt-auto">
-                              <Button 
-                                variant="default" 
-                                className="w-full group"
-                                onClick={() => window.open(cert.credentialUrl, '_blank')}
-                              >
-                                <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                                View Certificate
-                              </Button>
-                              
-                              <p className="text-xs text-muted-foreground text-center">
-                                Click to verify credentials
-                              </p>
-                            </div>
+                        {/* Back of card - Certificate Image */}
+                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180 overflow-hidden">
+                          <CardContent className="p-0 h-full relative">
+                            {/* Certificate Image */}
+                            {cert.image ? (
+                              <>
+                                <img
+                                  src={cert.image}
+                                  alt={`${cert.name} Certificate`}
+                                  className="w-full h-full object-cover"
+                                />
+                                {/* Overlay with action button */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                                  {cert.credentialUrl && (
+                                    <Button 
+                                      variant="default" 
+                                      className="w-full group bg-primary/90 hover:bg-primary"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        window.open(cert.credentialUrl, '_blank');
+                                      }}
+                                    >
+                                      <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                                      View Certificate
+                                    </Button>
+                                  )}
+                                </div>
+                              </>
+                            ) : (
+                              // Fallback if no image
+                              <div className="p-6 lg:p-8 h-full flex flex-col justify-center items-center text-center">
+                                <Award className="w-16 h-16 text-primary mb-4" />
+                                <h4 className="text-lg font-semibold mb-2 text-primary">
+                                  {cert.name}
+                                </h4>
+                                <p className="text-sm text-muted-foreground mb-4">
+                                  Issued by: <span className="font-medium">{cert.issuer}</span>
+                                </p>
+                                <p className="text-sm text-muted-foreground mb-6">
+                                  Date: <span className="font-medium">{cert.date}</span>
+                                </p>
+                                {cert.credentialUrl && (
+                                  <Button 
+                                    variant="default" 
+                                    className="w-full group"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      window.open(cert.credentialUrl, '_blank');
+                                    }}
+                                  >
+                                    <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                                    View Certificate
+                                  </Button>
+                                )}
+                              </div>
+                            )}
                           </CardContent>
                         </Card>
                       </div>

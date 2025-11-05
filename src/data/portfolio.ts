@@ -1,3 +1,7 @@
+// Re-export from separated data files for backwards compatibility
+export { projects, type Project } from './projects';
+export { certifications, type Certification } from './certifications';
+export { blogPosts, type BlogPost } from './blog';
 
 export const personalInfo = {
   name: "Nitin Kumar",
@@ -24,7 +28,8 @@ export const skills = [
       { name: "TypeScript", level: 90, icon: "🔷" },
       { name: "Next.js", level: 85, icon: "▲" },
       { name: "Tailwind CSS", level: 92, icon: "🎨" },
-      { name: "Framer Motion", level: 80, icon: "🎭" }
+      { name: "Framer Motion", level: 80, icon: "🎭" },
+      { name: "Vue.js", level: 75, icon: "💚" }
     ]
   },
   {
@@ -32,9 +37,27 @@ export const skills = [
     items: [
       { name: "Node.js", level: 88, icon: "🟢" },
       { name: "Python", level: 85, icon: "🐍" },
+      { name: "Express.js", level: 90, icon: "🚀" },
+      { name: "Django", level: 78, icon: "🎯" },
+      { name: "GraphQL", level: 75, icon: "🔗" }
+    ]
+  },
+  {
+    category: "Database",
+    items: [
       { name: "PostgreSQL", level: 82, icon: "🐘" },
       { name: "MongoDB", level: 78, icon: "🍃" },
-      { name: "GraphQL", level: 75, icon: "🔗" }
+      { name: "Redis", level: 80, icon: "🔴" },
+      { name: "MySQL", level: 75, icon: "💾" }
+    ]
+  },
+  {
+    category: "Cloud & DevOps",
+    items: [
+      { name: "AWS", level: 80, icon: "☁️" },
+      { name: "Docker", level: 85, icon: "🐳" },
+      { name: "Kubernetes", level: 70, icon: "⚙️" },
+      { name: "CI/CD", level: 75, icon: "🔄" }
     ]
   },
   {
@@ -47,60 +70,13 @@ export const skills = [
     ]
   },
   {
-    category: "Tools & Others",
+    category: "Tools",
     items: [
-      { name: "Docker", level: 85, icon: "🐳" },
-      { name: "AWS", level: 80, icon: "☁️" },
       { name: "Git", level: 90, icon: "📝" },
-      { name: "Linux", level: 88, icon: "🐧" }
+      { name: "Linux", level: 88, icon: "🐧" },
+      { name: "Figma", level: 70, icon: "🎨" },
+      { name: "VS Code", level: 95, icon: "💻" }
     ]
-  }
-];
-
-export const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
-    image: "/placeholder.svg",
-    technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
-    category: "fullstack",
-    demoUrl: "https://demo.example.com",
-    githubUrl: "https://github.com/nitin/ecommerce",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Security Audit Tool",
-    description: "Automated web application security scanner with vulnerability reporting",
-    image: "/placeholder.svg",
-    technologies: ["Python", "Django", "SQLite", "BeautifulSoup"],
-    category: "security",
-    demoUrl: "https://security-tool.example.com",
-    githubUrl: "https://github.com/nitin/security-scanner",
-    featured: true
-  },
-  {
-    id: 3,
-    title: "Task Management App",
-    description: "Collaborative task management with real-time updates and team features",
-    image: "/placeholder.svg",
-    technologies: ["React", "Firebase", "Material-UI"],
-    category: "frontend",
-    demoUrl: "https://tasks.example.com",
-    githubUrl: "https://github.com/nitin/task-manager",
-    featured: false
-  },
-  {
-    id: 4,
-    title: "API Gateway",
-    description: "Microservices API gateway with authentication and rate limiting",
-    image: "/placeholder.svg",
-    technologies: ["Node.js", "Express", "Redis", "JWT"],
-    category: "backend",
-    demoUrl: "https://api.example.com",
-    githubUrl: "https://github.com/nitin/api-gateway",
-    featured: false
   }
 ];
 
@@ -179,33 +155,10 @@ export const testimonials = [
   },
   {
     id: 3,
-    name: "Emily Davis",
-    role: "Security Consultant",
-    content: "Nitin's cybersecurity audit helped us identify and fix critical vulnerabilities. His recommendations were practical and effective.",
+    name: "Emily Rodriguez",
+    role: "Security Analyst at CyberShield",
+    content: "Nitin's security audit uncovered critical vulnerabilities we didn't know existed. His recommendations were practical and easy to implement.",
     rating: 5
   }
 ];
 
-export const certifications = [
-  {
-    id: 1,
-    name: "AWS Certified Solutions Architect",
-    issuer: "Amazon Web Services",
-    date: "2023",
-    credentialUrl: "https://aws.amazon.com/certification/"
-  },
-  {
-    id: 2,
-    name: "Certified Ethical Hacker (CEH)",
-    issuer: "EC-Council",
-    date: "2022",
-    credentialUrl: "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/"
-  },
-  {
-    id: 3,
-    name: "React Developer Certification",
-    issuer: "Meta",
-    date: "2021",
-    credentialUrl: "https://developers.facebook.com/developercircles/"
-  }
-];

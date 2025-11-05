@@ -6,85 +6,89 @@
 
 @layer base {
   :root {
-    --background: 240 20% 99%;
-    --foreground: 240 10% 10%;
+    --background: 0 34% 7%;
+    --foreground: 0 0% 98%;
 
-    --card: 240 20% 99%;
-    --card-foreground: 240 10% 10%;
+    --card: 0 34% 7%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 240 20% 99%;
-    --popover-foreground: 240 10% 10%;
+    --popover: 0 34% 7%;
+    --popover-foreground: 0 0% 98%;
 
     --primary: 262 83% 58%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 240 10% 10%;
+    --secondary: 240 5% 26%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 240 5% 45%;
+    --muted: 0 34% 15%;
+    --muted-foreground: 240 5% 64%;
 
-    --accent: 195 100% 50%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 10% 90%;
-    --input: 240 10% 90%;
-    --ring: 262 83% 58%;
-
-    --radius: 0.75rem;
-
-    /* Modern Portfolio Colors */
-    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(285, 70%, 50%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(195, 100%, 50%) 0%, hsl(262, 83%, 58%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(330, 100%, 70%) 0%, hsl(195, 100%, 50%) 100%);
-    --glassmorphism: rgba(255, 255, 255, 0.15);
-    --glassmorphism-border: rgba(147, 97, 227, 0.3);
-    
-    /* Graph Background Colors */
-    --graph-line: rgba(147, 97, 227, 0.15);
-    --graph-dot: rgba(147, 97, 227, 0.4);
-    --graph-glow: rgba(147, 97, 227, 0.1);
-  }
-
-  .dark {
-    --background: 240 15% 8%;
-    --foreground: 240 5% 96%;
-
-    --card: 240 15% 10%;
-    --card-foreground: 240 5% 96%;
-
-    --popover: 240 15% 10%;
-    --popover-foreground: 240 5% 96%;
-
-    --primary: 262 83% 65%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 240 10% 15%;
-    --secondary-foreground: 240 5% 96%;
-
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 65%;
-
-    --accent: 195 100% 55%;
+    --accent: 262 83% 58%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 240 10% 20%;
-    --input: 240 10% 20%;
-    --ring: 262 83% 65%;
+    --input: 0 34% 15%;
+    --ring: 262 83% 58%;
 
-    --glassmorphism: rgba(255, 255, 255, 0.05);
+    --radius: 0.75rem;
+
+    /* Professional Cyberpunk Colors */
+    --cyber-dark: #001122;
+    --cyber-green: #00ff41;
+    --cyber-purple: #9361e3;
+    --cyber-pink: #e361c7;
+    --gradient-primary: linear-gradient(135deg, #9361e3 0%, #e361c7 100%);
+    --gradient-secondary: linear-gradient(135deg, #e361c7 0%, #9361e3 100%);
+    --gradient-accent: linear-gradient(135deg, #6366f1 0%, #9361e3 100%);
+    --glassmorphism: rgba(147, 97, 227, 0.05);
     --glassmorphism-border: rgba(147, 97, 227, 0.2);
     
-    /* Graph Background Colors */
-    --graph-line: rgba(147, 97, 227, 0.25);
-    --graph-dot: rgba(147, 97, 227, 0.6);
-    --graph-glow: rgba(147, 97, 227, 0.15);
+    /* Background accent colors */
+    --graph-line: rgba(147, 97, 227, 0.15);
+    --graph-dot: rgba(147, 97, 227, 0.4);
+    --graph-glow: rgba(147, 97, 227, 0.1);
+  }
+
+  .dark {
+    --background: 0 34% 7%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 34% 7%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 34% 7%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 26%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 34% 15%;
+    --muted-foreground: 240 5% 64%;
+
+    --accent: 262 83% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 20%;
+    --input: 0 34% 15%;
+    --ring: 262 83% 65%;
+
+    --glassmorphism: rgba(147, 97, 227, 0.08);
+    --glassmorphism-border: rgba(147, 97, 227, 0.25);
+    
+    /* Background accent colors */
+    --graph-line: rgba(147, 97, 227, 0.2);
+    --graph-dot: rgba(147, 97, 227, 0.5);
+    --graph-glow: rgba(147, 97, 227, 0.12);
   }
 }
 
@@ -94,13 +98,14 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: var(--cyber-dark);
     scroll-behavior: smooth;
     position: relative;
     overflow-x: hidden;
   }
 
-  /* Network Graph Background */
+  /* Subtle Ambient Glow */
   body::before {
     content: '';
     position: fixed;
@@ -110,30 +115,21 @@
     height: 100%;
     z-index: -2;
     background: 
-      radial-gradient(circle at 15% 25%, var(--graph-glow) 0%, transparent 40%),
-      radial-gradient(circle at 85% 75%, var(--graph-glow) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, var(--graph-glow) 0%, transparent 50%),
-      radial-gradient(circle at 30% 80%, var(--graph-glow) 0%, transparent 35%),
-      radial-gradient(circle at 70% 20%, var(--graph-glow) 0%, transparent 35%);
-    animation: glowPulse 12s ease-in-out infinite;
-  }
-
-  @keyframes glowPulse {
-    0%, 100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
+      radial-gradient(circle at 15% 25%, rgba(147, 97, 227, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(227, 97, 199, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(147, 97, 227, 0.04) 0%, transparent 50%);
+    opacity: 0.7;
   }
 }
 
 @layer components {
   .glassmorphism {
-    background: var(--glassmorphism);
+    background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid var(--glassmorphism-border);
-    box-shadow: 0 8px 32px 0 rgba(147, 97, 227, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
   }
 
   /* Network Graph with Connected Nodes and Edges */
@@ -235,35 +231,59 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 2px 8px rgba(147, 97, 227, 0.3));
   }
 
   .bg-gradient-primary {
     background: var(--gradient-primary);
+    box-shadow: 0 4px 20px rgba(147, 97, 227, 0.3);
   }
 
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: subtleFloat 8s ease-in-out infinite;
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+  @keyframes subtleFloat {
+    0%, 100% { transform: translateY(0px); opacity: 0.6; }
+    50% { transform: translateY(-5px); opacity: 0.8; }
   }
 
   .skill-card {
-    @apply glassmorphism rounded-xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+    @apply glassmorphism rounded-xl p-6 transition-all duration-300;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px 0 rgba(147, 97, 227, 0.25);
+    border-color: rgba(147, 97, 227, 0.4);
+    background: rgba(30, 41, 59, 0.85);
   }
 
   .project-card {
-    @apply glassmorphism rounded-xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl;
+    @apply glassmorphism rounded-xl overflow-hidden transition-all duration-500;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px 0 rgba(227, 97, 199, 0.25);
+    border-color: rgba(227, 97, 199, 0.4);
+    background: rgba(30, 41, 59, 0.85);
   }
 
   /* Certificate Card Styles */
   .certificate-card {
-    @apply relative bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/20;
+    @apply relative backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/20;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 80%, rgba(147, 97, 227, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(227, 97, 199, 0.08) 0%, transparent 50%);
+    transition: all 0.3s ease;
+  }
+
+  .certificate-card:hover {
+    border-color: rgba(147, 97, 227, 0.3);
+    box-shadow: 0 20px 60px 0 rgba(147, 97, 227, 0.15);
+    transform: translateY(-2px);
   }
 
   /* Scrollbar Hide */
@@ -370,5 +390,19 @@
   .animate-marquee-smooth:hover,
   .animate-marquee-reverse-smooth:hover {
     animation-play-state: paused;
+  }
+
+  /* Shimmer animation for progress bars */
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 }

@@ -1,0 +1,116 @@
+/* Base container */
+.cyberpunk-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #001122;
+  overflow: hidden;
+  perspective: 800px;
+  z-index: -10;
+}
+
+/* Infinite grid plane */
+.grid-plane {
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  left: -50vw;
+  top: -50vh;
+  transform: rotateX(65deg) translateZ(-200px);
+  transform-style: preserve-3d;
+  animation: gridScroll 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes gridScroll {
+  0% {
+    transform: rotateX(65deg) translateZ(-200px) translateY(0);
+  }
+  100% {
+    transform: rotateX(65deg) translateZ(-200px) translateY(60px);
+  }
+}
+
+/* Grid lines */
+.grid-lines-vertical,
+.grid-lines-horizontal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 60px 60px;
+  opacity: 0.4;
+}
+
+.grid-lines-vertical {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 59px,
+    #00ff41 59px,
+    #00ff41 60px
+  );
+}
+
+.grid-lines-horizontal {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 59px,
+    #00ff41 59px,
+    #00ff41 60px
+  );
+}
+
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .cyberpunk-background {
+    perspective: 600px;
+  }
+
+  .grid-plane {
+    animation-duration: 40s;
+  }
+
+  .hexagonal-prism {
+    width: 96px;
+    height: 96px;
+  }
+
+  .prism-container {
+    width: 96px;
+    height: 96px;
+  }
+
+  .hex-face {
+    width: 96px;
+    height: 96px;
+  }
+
+  .coord-label {
+    font-size: 9px;
+  }
+
+  .coord-label .arrow {
+    font-size: 12px;
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .grid-plane,
+  .hexagonal-prism,
+  .coord-label {
+    animation: none;
+  }
+}
+
+/* Force GPU acceleration */
+.cyberpunk-background,
+.grid-plane,
+.hexagonal-prism {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}

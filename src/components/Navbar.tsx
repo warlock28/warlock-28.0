@@ -49,13 +49,20 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'glassmorphism shadow-xl border-b border-white/10' 
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 px-2.5 pt-2.5"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`max-w-7xl mx-auto rounded-2xl transition-all duration-500 ${
+        scrolled 
+          ? 'glassmorphism shadow-2xl border border-white/20' 
+          : 'glassmorphism border border-white/10'
+      }`}
+      style={{
+        boxShadow: scrolled 
+          ? '0 8px 32px rgba(0, 255, 65, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1) inset'
+          : '0 4px 16px rgba(0, 255, 65, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.05) inset'
+      }}
+      >
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -191,6 +198,7 @@ const Navbar = () => {
             ))}
           </div>
         </motion.div>
+      </div>
       </div>
     </motion.nav>
   );

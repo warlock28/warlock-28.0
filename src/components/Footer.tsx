@@ -23,14 +23,19 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative overflow-hidden">
-      {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background to-background/80 backdrop-blur-xl"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
-      
-      {/* Main Content */}
-      <div className="relative z-10 py-16 sm:py-20 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <footer className="relative overflow-hidden pb-4 px-2.5">
+      {/* Floating glassmorphism container - matches Navbar */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto rounded-2xl glassmorphism border border-white/10 shadow-2xl"
+        style={{
+          boxShadow: '0 8px 32px rgba(0, 255, 65, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.08) inset'
+        }}
+      >
+        <div className="py-12 sm:py-16 lg:py-20">
+          <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           {/* Top Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12 lg:mb-16">
             {/* Brand Section */}
@@ -42,7 +47,7 @@ const Footer = () => {
             >
               <div className="space-y-4 sm:space-y-6">
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text">
-                  Nitin.dev
+                  Warlock
                 </h3>
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-md">
                   Full Stack Developer & Cybersecurity Enthusiast crafting innovative digital solutions 
@@ -75,71 +80,10 @@ const Footer = () => {
             </motion.div>
 
             {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="space-y-4 sm:space-y-6"
-            >
-              <h4 className="text-lg sm:text-xl font-semibold text-foreground">Navigation</h4>
-              <nav className="space-y-3">
-                {quickLinks.map((link, index) => (
-                  <motion.button
-                    key={link.label}
-                    onClick={() => scrollToSection(link.href)}
-                    whileHover={{ x: 4 }}
-                    className="group block text-left text-muted-foreground hover:text-primary transition-all duration-300 text-sm sm:text-base"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                  >
-                    <span className="relative">
-                      {link.label}
-                      <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/50 group-hover:w-full transition-all duration-300"></span>
-                    </span>
-                  </motion.button>
-                ))}
-              </nav>
-            </motion.div>
-
+            
+           
             {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-4 sm:space-y-6"
-            >
-              <h4 className="text-lg sm:text-xl font-semibold text-foreground">Contact</h4>
-              <div className="space-y-3">
-                <motion.div 
-                  className="group"
-                  whileHover={{ x: 2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="text-sm sm:text-base text-muted-foreground group-hover:text-primary transition-colors duration-300 break-words">
-                    {personalInfo.email}
-                  </p>
-                </motion.div>
-                <motion.div 
-                  className="group"
-                  whileHover={{ x: 2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="text-sm sm:text-base text-muted-foreground group-hover:text-primary transition-colors duration-300">
-                    {personalInfo.phone}
-                  </p>
-                </motion.div>
-                <motion.div 
-                  className="group"
-                  whileHover={{ x: 2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <p className="text-sm sm:text-base text-muted-foreground group-hover:text-primary transition-colors duration-300">
-                    {personalInfo.location}
-                  </p>
-                </motion.div>
-              </div>
-            </motion.div>
+           
           </div>
 
           {/* Divider */}
@@ -161,7 +105,7 @@ const Footer = () => {
               © {currentYear} {personalInfo.name}. All rights reserved.
             </p>
             <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground order-1 sm:order-2">
-              <span>Built with</span>
+              <span></span>
               <motion.span
                 animate={{ 
                   scale: [1, 1.2, 1],
@@ -174,18 +118,14 @@ const Footer = () => {
                 }}
                 className="text-red-500"
               >
-                ❤️
+                
               </motion.span>
-              <span>using React & TypeScript</span>
+              <span></span>
             </div>
           </motion.div>
+          </div>
         </div>
-      </div>
-
-      {/* Modern background elements */}
-      <div className="absolute top-0 right-0 w-48 sm:w-64 lg:w-80 h-48 sm:h-64 lg:h-80 bg-gradient-to-bl from-primary/10 via-primary/5 to-transparent rounded-full blur-3xl opacity-60"></div>
-      <div className="absolute bottom-0 left-0 w-48 sm:w-64 lg:w-80 h-48 sm:h-64 lg:h-80 bg-gradient-to-tr from-secondary/10 via-accent/5 to-transparent rounded-full blur-3xl opacity-60"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-gradient-radial from-primary/5 to-transparent rounded-full blur-2xl"></div>
+      </motion.div>
     </footer>
   );
 };

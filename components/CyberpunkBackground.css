@@ -1,0 +1,243 @@
+/* Base container */
+.cyberpunk-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #001122;
+  overflow: hidden;
+  perspective: 800px;
+  z-index: -1;
+}
+
+/* Infinite grid plane */
+.grid-plane {
+  position: absolute;
+  width: 200vw;
+  height: 200vh;
+  left: -50vw;
+  top: -50vh;
+  transform: rotateX(65deg) translateZ(-200px);
+  transform-style: preserve-3d;
+  animation: gridScroll 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes gridScroll {
+  0% {
+    transform: rotateX(65deg) translateZ(-200px) translateY(0);
+  }
+  100% {
+    transform: rotateX(65deg) translateZ(-200px) translateY(60px);
+  }
+}
+
+/* Grid lines */
+.grid-lines-vertical,
+.grid-lines-horizontal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: 60px 60px;
+  opacity: 0.4;
+}
+
+.grid-lines-vertical {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 59px,
+    #00ff41 59px,
+    #00ff41 60px
+  );
+}
+
+.grid-lines-horizontal {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 59px,
+    #00ff41 59px,
+    #00ff41 60px
+  );
+}
+
+/* Prism container */
+.prism-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 128px;
+  height: 128px;
+  transform-style: preserve-3d;
+}
+
+/* Hexagonal prism */
+.hexagonal-prism {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: prismRotate 20s linear infinite;
+}
+
+@keyframes prismRotate {
+  0% {
+    transform: rotateY(0deg) rotateX(15deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(15deg);
+  }
+}
+
+/* Hexagon faces */
+.hex-face {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  transform-style: preserve-3d;
+}
+
+.hex-face.front {
+  transform: translateZ(32px);
+}
+
+.hex-face.back {
+  transform: translateZ(-32px) rotateY(180deg);
+}
+
+/* Hexagon edges */
+.hex-edge {
+  position: absolute;
+  width: 2px;
+  height: 64px;
+  background: #00ff41;
+  box-shadow: 0 0 20px #00ff41, 0 0 10px #00ff41;
+  top: 50%;
+  left: 50%;
+  transform-origin: center top;
+  --angle: calc(var(--edge-index) * 60deg);
+  transform: 
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(-32px);
+}
+
+/* Connecting edges between front and back hexagons */
+.connecting-edge {
+  position: absolute;
+  width: 2px;
+  height: 64px;
+  background: #00ff41;
+  box-shadow: 0 0 20px #00ff41, 0 0 10px #00ff41;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  --angle: calc(var(--edge-index) * 60deg);
+  --radius: 55px;
+  --x: calc(cos(var(--angle)) * var(--radius));
+  --y: calc(sin(var(--angle)) * var(--radius));
+  transform: 
+    translate(-50%, -50%)
+    rotate(var(--angle))
+    translateY(-55px)
+    rotateX(90deg);
+}
+
+/* Coordinate labels */
+.coord-label {
+  position: absolute;
+  color: #00ff41;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  text-shadow: 0 0 10px #00ff41;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: labelPulse 3s ease-in-out infinite;
+}
+
+@keyframes labelPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.coord-label .arrow {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.coord-1 {
+  top: 20%;
+  left: 10%;
+}
+
+.coord-2 {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.coord-3 {
+  top: 20%;
+  right: 10%;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .cyberpunk-background {
+    perspective: 600px;
+  }
+
+  .grid-plane {
+    animation-duration: 40s;
+  }
+
+  .hexagonal-prism {
+    width: 96px;
+    height: 96px;
+  }
+
+  .prism-container {
+    width: 96px;
+    height: 96px;
+  }
+
+  .hex-face {
+    width: 96px;
+    height: 96px;
+  }
+
+  .coord-label {
+    font-size: 9px;
+  }
+
+  .coord-label .arrow {
+    font-size: 12px;
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .grid-plane,
+  .hexagonal-prism,
+  .coord-label {
+    animation: none;
+  }
+}
+
+/* Force GPU acceleration */
+.cyberpunk-background,
+.grid-plane,
+.hexagonal-prism {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}

@@ -139,36 +139,8 @@ const Contact = () => {
               })}
             </div>
 
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="pt-6 sm:pt-8"
-            >
-              <p className="font-medium mb-3 sm:mb-4 text-sm sm:text-base">Follow me on social media</p>
-              <div className="flex space-x-3 sm:space-x-4">
-                {Object.entries(personalInfo.social).map(([platform, url]) => {
-                  const IconComponent = platform === 'github' ? Github : 
-                                      platform === 'linkedin' ? Linkedin : 
-                                      platform === 'twitter' ? Twitter : Mail;
-                  return (
-                    <motion.a
-                      key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-colors"
-                    >
-                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </motion.div>
           </motion.div>
+            
 
           {/* Contact Form */}
           <motion.div
