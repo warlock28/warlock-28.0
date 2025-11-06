@@ -2,51 +2,53 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { skills } from '@/data/portfolio';
 import { X } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface SkillPopupProps {
   category: string;
   items: { name: string; level: number; icon: string }[];
   onClose: () => void;
-  position?: { x: number; y: number };
-  isMobile?: boolean;
 }
 
-const SkillPopup = ({ category, items, onClose, position, isMobile }: SkillPopupProps) => {
+const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
   const popupVariants = {
     hidden: { 
-      opacity: 0, 
-      scale: 0.85,
-      y: isMobile ? 20 : 0 
+      opacity: 0,
+      y: -20,
+      scale: 0.95
     },
     visible: { 
-      opacity: 1, 
-      scale: 1,
+      opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 25
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1], // Custom cubic-bezier for smooth easing
+        opacity: { duration: 0.3 },
+        y: { duration: 0.4 },
+        scale: { duration: 0.3 }
       }
     },
     exit: { 
-      opacity: 0, 
-      scale: 0.85,
-      y: isMobile ? 20 : 0,
+      opacity: 0,
+      y: -10,
+      scale: 0.98,
       transition: {
-        duration: 0.2
+        duration: 0.25,
+        ease: [0.4, 0, 1, 1]
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -10 },
+    hidden: { opacity: 0, x: -15, scale: 0.95 },
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
+      scale: 1,
       transition: {
-        delay: i * 0.05,
-        duration: 0.3
+        delay: i * 0.04,
+        duration: 0.35,
+        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
       }
     })
   };
@@ -57,29 +59,23 @@ const SkillPopup = ({ category, items, onClose, position, isMobile }: SkillPopup
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`
-        ${isMobile ? 'relative w-full mt-3 mb-2' : 'fixed z-[60]'}
+      className="
+        relative w-full mt-3 mb-2 overflow-hidden
         bg-[#0a192f]/98 backdrop-blur-xl 
         border border-[#00ff41]/40 
         rounded-xl p-4 sm:p-5 md:p-6 
         shadow-2xl shadow-[#00ff41]/20
-        ${isMobile ? 'max-w-full' : 'min-w-[300px] max-w-[350px]'}
-      `}
-      style={!isMobile && position ? {
-        left: `max(16px, min(${position.x}px, calc(100vw - 350px - 16px)))`,
-        top: `${position.y + 10}px`,
-      } : undefined}
+        max-w-full
+      "
     >
-      {/* Close button - Mobile only */}
-      {isMobile && (
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 p-1 rounded-lg hover:bg-white/10 transition-colors"
-          aria-label="Close skill details"
-        >
-          <X className="w-4 h-4 text-[#00ff41]" />
-        </button>
-      )}
+      {/* Close button */}
+      <button
+        onClick={onClose}
+        className="absolute top-3 right-3 p-1 rounded-lg hover:bg-white/10 transition-colors z-10"
+        aria-label="Close skill details"
+      >
+        <X className="w-4 h-4 text-[#00ff41]" />
+      </button>
 
       {/* Header */}
       <div className="mb-3 sm:mb-4">
@@ -112,18 +108,18 @@ const SkillPopup = ({ category, items, onClose, position, isMobile }: SkillPopup
               </span>
             </div>
             {/* Progress bar */}
-            <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${skill.level}%` }}
                 transition={{ 
-                  delay: index * 0.05 + 0.2, 
-                  duration: 0.8,
-                  ease: "easeOut"
+                  delay: index * 0.04 + 0.25, 
+                  duration: 1,
+                  ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing curve
                 }}
-                className="h-full bg-gradient-to-r from-[#00ff41] to-[#00ff41]/60 rounded-full relative"
+                className="h-full bg-gradient-to-r from-[#00ff41] to-[#00ff41]/70 rounded-full relative shadow-sm shadow-[#00ff41]/30"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
               </motion.div>
             </div>
           </motion.div>
@@ -176,9 +172,13 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{ 
         scale: 1.02,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
       }}
       whileTap={{ scale: 0.98 }}
+      animate={{
+        scale: isActive ? 1.02 : 1,
+        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
+      }}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -240,8 +240,6 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
 
 const SkillsNew = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | undefined>();
-  const isMobile = useIsMobile();
   const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Desktop: Hover handlers
@@ -320,30 +318,12 @@ const SkillsNew = () => {
     }
 
     setActiveCategory(category);
-    
-    // For desktop, also set position for fixed popup
-    if (window.innerWidth >= 768) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      const scrollY = window.scrollY;
-      const viewportWidth = window.innerWidth;
-      const popupWidth = 350;
-      
-      // Position to the right if there's space, otherwise to the left
-      const x = rect.right + 20 + popupWidth < viewportWidth 
-        ? rect.right + 20 
-        : rect.left - popupWidth - 20;
-      
-      // Add scroll offset to Y position
-      const y = rect.top + scrollY;
-      
-      setPopupPosition({ x, y });
-    }
   };
 
   const activeSkillData = skills.find(s => s.category === activeCategory);
 
   return (
-    <section id="skills" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+    <section id="skills" className="py-12 sm:py-16 lg:py-20 relative overflow-x-hidden overflow-y-visible">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -373,42 +353,23 @@ const SkillsNew = () => {
                   index={index}
                   isActive={activeCategory === skill.category}
                   onClick={(e) => handleCategoryClick(skill.category, e)}
-                  onMouseEnter={(e) => handleCategoryHover(skill.category, e)}
-                  onMouseLeave={handleCategoryLeave}
+                  onMouseEnter={() => {}}
+                  onMouseLeave={() => {}}
                 />
                 
-                {/* Mobile: Show popup below */}
-                {isMobile && activeCategory === skill.category && activeSkillData && (
+                {/* Show popup below on both mobile and desktop */}
+                {activeCategory === skill.category && activeSkillData && (
                   <AnimatePresence>
                     <SkillPopup
                       category={activeSkillData.category}
                       items={activeSkillData.items}
                       onClose={() => setActiveCategory(null)}
-                      isMobile={true}
                     />
                   </AnimatePresence>
                 )}
               </div>
             ))}
           </div>
-
-          {/* Desktop: Floating popup */}
-          <AnimatePresence>
-            {!isMobile && activeCategory && activeSkillData && (
-              <div 
-                onMouseEnter={handlePopupEnter}
-                onMouseLeave={handlePopupLeave}
-              >
-                <SkillPopup
-                  category={activeSkillData.category}
-                  items={activeSkillData.items}
-                  onClose={() => setActiveCategory(null)}
-                  position={popupPosition}
-                  isMobile={false}
-                />
-              </div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
 

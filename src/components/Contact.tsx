@@ -156,7 +156,7 @@ const Contact = () => {
                   <Input
                     placeholder="Your Name"
                     {...register('name')}
-                    className={errors.name ? 'border-destructive' : ''}
+                    className={errors.name ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
                   />
                   {errors.name && (
                     <p className="text-destructive text-sm mt-1">{errors.name.message}</p>
@@ -167,7 +167,7 @@ const Contact = () => {
                     type="email"
                     placeholder="Your Email"
                     {...register('email')}
-                    className={errors.email ? 'border-destructive' : ''}
+                    className={errors.email ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
                   />
                   {errors.email && (
                     <p className="text-destructive text-sm mt-1">{errors.email.message}</p>
@@ -179,7 +179,7 @@ const Contact = () => {
                 <Input
                   placeholder="Subject"
                   {...register('subject')}
-                  className={errors.subject ? 'border-destructive' : ''}
+                  className={errors.subject ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
                 />
                 {errors.subject && (
                   <p className="text-destructive text-sm mt-1">{errors.subject.message}</p>
@@ -191,7 +191,7 @@ const Contact = () => {
                   placeholder="Your Message"
                   rows={6}
                   {...register('message')}
-                  className={errors.message ? 'border-destructive' : ''}
+                  className={errors.message ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
                 />
                 {errors.message && (
                   <p className="text-destructive text-sm mt-1">{errors.message.message}</p>

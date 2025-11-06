@@ -68,24 +68,29 @@ const Certifications = () => {
 
   return (
     <section id="certifications" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 gradient-text">
-            Certifications & Achievements
-          </h2>
-          <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-            Professional certifications that validate my expertise and commitment to continuous learning
-          </p>
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-8 sm:mb-12 lg:mb-16 p-4 sm:p-6 lg:p-8"
+      >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 gradient-text">
+          Certifications & Achievements
+        </h2>
+        <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+          Professional certifications that validate my expertise and commitment to continuous learning
+        </p>
+      </motion.div>
 
 
         {/* Mobile: Horizontal Scroll with Navigation */}
-        <div className="block sm:hidden relative">
+<motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="block sm:hidden relative px-4 sm:px-6 lg:px-8"
+        >
           {/* Navigation Buttons */}
           <div className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10">
             <Button
@@ -216,16 +221,15 @@ const Certifications = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-
+        </motion.div>
 
         {/* Desktop and Tablet: Enhanced Carousel - CHANGED */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="hidden sm:block relative"
+        <div className="hidden sm:block relative px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
         >
           <Carousel className="w-full max-w-6xl mx-auto">
             <CarouselContent className="-ml-2 md:-ml-4">
@@ -327,8 +331,8 @@ const Certifications = () => {
             <CarouselPrevious className="left-2 sm:left-4 w-10 h-10 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10" />
             <CarouselNext className="right-2 sm:right-4 w-10 h-10 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10" />
           </Carousel>
-        </motion.div>
-      </div>
+          </motion.div>
+        </div>
     </section>
   );
 };

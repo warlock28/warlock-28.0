@@ -207,7 +207,7 @@ const Blog = () => {
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       {post.featured && (
                         <Badge className="absolute top-4 left-4 bg-primary">Featured</Badge>
@@ -258,7 +258,7 @@ const Blog = () => {
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       {post.featured && (
                         <Badge className="absolute top-4 left-4 bg-primary">Featured</Badge>
