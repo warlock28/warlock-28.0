@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,10 +7,12 @@ import { certifications } from '@/data/certifications';
 import { ExternalLink, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 
+
 const Certifications = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -22,6 +23,7 @@ const Certifications = () => {
       }
     }
   };
+
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -34,6 +36,7 @@ const Certifications = () => {
     }
   };
 
+
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -41,6 +44,7 @@ const Certifications = () => {
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
   };
+
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -51,6 +55,7 @@ const Certifications = () => {
     }
   };
 
+
   const scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
@@ -59,6 +64,7 @@ const Certifications = () => {
       });
     }
   };
+
 
   return (
     <section id="certifications" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
@@ -76,6 +82,7 @@ const Certifications = () => {
             Professional certifications that validate my expertise and commitment to continuous learning
           </p>
         </motion.div>
+
 
         {/* Mobile: Horizontal Scroll with Navigation */}
         <div className="block sm:hidden relative">
@@ -107,6 +114,7 @@ const Certifications = () => {
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
+
 
           <div 
             ref={scrollContainerRef}
@@ -148,27 +156,28 @@ const Certifications = () => {
                       </CardContent>
                     </Card>
 
-                    {/* Back of card - Certificate Image */}
-                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180 overflow-hidden">
-                      <CardContent className="p-0 h-full relative">
+
+                    {/* Back of card - Certificate Image - CHANGED */}
+                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
+                      <CardContent className="p-0 h-full relative bg-muted/30">
                         {/* Certificate Image */}
                         {cert.image ? (
                           <>
                             <img
                               src={cert.image}
                               alt={`${cert.name} Certificate`}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain p-2 pb-14"
                             />
-                            {/* Overlay with action button */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-4">
+                            {/* Overlay with action button - CHANGED */}
+                            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/90 to-transparent flex items-end p-3">
                               {cert.credentialUrl && (
                                 <Button 
                                   variant="default" 
                                   size="sm"
-                                  className="w-full group bg-primary/90 hover:bg-primary"
+                                  className="w-full group bg-primary/90 hover:bg-primary text-xs h-8"
                                   onClick={() => window.open(cert.credentialUrl, '_blank')}
                                 >
-                                  <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                                  <ExternalLink className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-transform" />
                                   View Certificate
                                 </Button>
                               )}
@@ -209,7 +218,8 @@ const Certifications = () => {
           </div>
         </div>
 
-        {/* Desktop and Tablet: Enhanced Carousel */}
+
+        {/* Desktop and Tablet: Enhanced Carousel - CHANGED */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -220,7 +230,7 @@ const Certifications = () => {
           <Carousel className="w-full max-w-6xl mx-auto">
             <CarouselContent className="-ml-2 md:-ml-4">
               {certifications.map((cert, index) => (
-                <CarouselItem key={cert.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <CarouselItem key={cert.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <motion.div variants={itemVariants} className="h-full">
                     <div className="group perspective-1000 h-80">
                       <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
@@ -249,19 +259,20 @@ const Certifications = () => {
                           </CardContent>
                         </Card>
 
-                        {/* Back of card - Certificate Image */}
-                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180 overflow-hidden">
-                          <CardContent className="p-0 h-full relative">
+
+                        {/* Back of card - Certificate Image - CHANGED */}
+                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
+                          <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
                             {/* Certificate Image */}
                             {cert.image ? (
                               <>
                                 <img
                                   src={cert.image}
                                   alt={`${cert.name} Certificate`}
-                                  className="w-full h-full object-cover"
+                                  className="w-full h-full object-contain pt-4 px-4 pb-20"
                                 />
-                                {/* Overlay with action button */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
+                                {/* Overlay with action button - CHANGED */}
+                                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/90 to-transparent flex items-end p-6 pb-5">
                                   {cert.credentialUrl && (
                                     <Button 
                                       variant="default" 
@@ -321,5 +332,6 @@ const Certifications = () => {
     </section>
   );
 };
+
 
 export default Certifications;
