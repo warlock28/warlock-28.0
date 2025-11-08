@@ -73,27 +73,27 @@ const Hero = () => {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
-          >
-            <Button
-              size="lg"
-              onClick={() => scrollToSection('contact')}
-              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-primary/90 text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
-            >
-              Let's Talk
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={downloadResume}
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg glassmorphism"
-            >
-              Download Resume
-            </Button>
-          </motion.div>
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
+                >
+                <Button
+                  size="lg"
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-primary/90 text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                >
+                  Let's Talk
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => window.open(personalInfo.resumeUrl, '_blank')}
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg glassmorphism"
+                >
+                  Download Resume
+                </Button>
+                </motion.div>
 
           {/* Social Links */}
           <motion.div
