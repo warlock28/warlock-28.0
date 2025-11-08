@@ -1,17 +1,26 @@
 
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useStore } from '@/store/useStore';
 import Navbar from '@/components/Navbar';
 import NetworkBackground from '@/components/NetworkBackground';
 import Hero from '@/components/Hero';
-import About from '@/components/About';
-import SkillsNew from '@/components/SkillsNew';
-import Projects from '@/components/Projects';
-import Certifications from '@/components/Certifications';
-import Blog from '@/components/Blog';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+
+// Lazy load below-the-fold components
+const About = lazy(() => import('@/components/About'));
+const SkillsNew = lazy(() => import('@/components/SkillsNew'));
+const Projects = lazy(() => import('@/components/Projects'));
+const Certifications = lazy(() => import('@/components/Certifications'));
+const Blog = lazy(() => import('@/components/Blog'));
+const Contact = lazy(() => import('@/components/Contact'));
+const Footer = lazy(() => import('@/components/Footer'));
+
+// Loading fallback component
+const SectionLoader = () => (
+  <div className="flex items-center justify-center py-20">
+    <div className="w-12 h-12 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+  </div>
+);
 
 const Index = () => {
   const { setActiveSection } = useStore();
@@ -50,15 +59,29 @@ const Index = () => {
       
       <main>
         <Hero />
-        <About />
-        <SkillsNew />
-        <Projects />
-        <Certifications />
-        <Blog />
-        <Contact />
+        <Suspense fallback={<SectionLoader />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <SkillsNew />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Certifications />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Blog />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Contact />
+        </Suspense>
       </main>
       
-      <Footer />
+      <Suspense fallback={<div className="py-4"></div>}>
+        <Footer />
+      </Suspense>
     </motion.div>
   );
 };

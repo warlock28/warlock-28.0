@@ -37,7 +37,7 @@ export const certifications: Certification[] = [
     expiryDate: "2026",
     credentialId: "AWS-SAA-123456",
     credentialUrl: "https://aws.amazon.com/verification",
-    image: "/images/certifications/dcci.jpg", // Add your badge to public/images/certifications/
+    image: "/images/certifications/dcci.webp", // Add your badge to public/images/certifications/
     skills: ["AWS", "Cloud Architecture", "EC2", "S3", "Lambda", "RDS"],
     description: "Validates expertise in designing distributed systems and applications on AWS"
   },

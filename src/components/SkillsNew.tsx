@@ -442,3 +442,7 @@ const SkillsNew = () => {
 };
 
 export default SkillsNew;
+
+function setPopupPosition(arg0: { x: number; y: number; }) {
+  throw new Error('Function not implemented.');
+}

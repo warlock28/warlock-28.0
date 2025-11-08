@@ -124,7 +124,7 @@ As developers, understanding cybersecurity is crucial for building robust applic
 
 Security is everyone's responsibility in the development process.
     `,
-    image: "/images/blog/malware.png",
+    image: "/images/blog/malware.webp",
     author: "Nitin Kumar",
     date: "2023-12-20",
     readTime: 10,

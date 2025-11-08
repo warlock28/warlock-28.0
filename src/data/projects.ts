@@ -35,7 +35,7 @@ export const projects: Project[] = [
     title: "E-Commerce Platform",
     description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
     longDescription: "A complete e-commerce platform with user authentication, product management, shopping cart, payment processing, and order tracking. Built with modern technologies and best practices.",
-    image: "/images/projects/aws.png", // Add your image to public/images/projects/
+    image: "/images/projects/aws.webp", // Add your image to public/images/projects/
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "Redux", "Express"],
     category: "fullstack",
     demoUrl: "https://demo.example.com",
