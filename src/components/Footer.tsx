@@ -54,7 +54,7 @@ const Footer = () => {
                   with modern technologies and security-first approach.
                 </p>
                 
-                {/* Social Links with modern design */}
+                {/* Social Links - matching Hero section style */}
                 <div className="flex flex-wrap gap-3 sm:gap-4">
                   {Object.entries(personalInfo.social).map(([platform, url]) => {
                     const IconComponent = platform === 'github' ? Github : 
@@ -66,12 +66,11 @@ const Footer = () => {
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-sm border border-border/50 flex items-center justify-center hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-colors"
                       >
-                        <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/5 transition-all duration-300"></div>
+                        <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                       </motion.a>
                     );
                   })}
