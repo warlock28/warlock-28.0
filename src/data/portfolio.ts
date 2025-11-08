@@ -11,12 +11,12 @@ export const personalInfo = {
   location: "San Francisco, CA",
   bio: "Passionate full-stack developer with 5+ years of experience building scalable web applications and implementing robust security solutions. I specialize in React, Node.js, and modern cybersecurity practices.",
   profileImage: "/placeholder.svg",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "https://drive.google.com/file/d/1Klo1Q8P0jRtRclExZr7o1ht0Fqi414iu/view?usp=sharing",
   social: {
-    github: "https://github.com/nitin",
-    linkedin: "https://linkedin.com/in/nitin",
+    github: "https://github.com/warlock28",
+    linkedin: "https://www.linkedin.com/in/nitin-kumar-warlock/",
     twitter: "https://twitter.com/nitin",
-    email: "mailto:nitin@example.com"
+    email: "nitin.kum7280@gmail.com"
   }
 };
 
