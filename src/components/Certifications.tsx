@@ -1,17 +1,38 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { certifications } from '@/data/certifications';
+import { certifications, getFeaturedCertifications } from '@/data/certifications';
 import { ExternalLink, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 
+type CertificationsVariant = 'full' | 'featured';
 
-const Certifications = () => {
+interface CertificationsProps {
+  variant?: CertificationsVariant;
+  featuredLimit?: number;
+  ctaHref?: string;
+  ctaLabel?: string;
+  sectionId?: string;
+}
+
+
+const Certifications = ({
+  variant = 'full',
+  featuredLimit = 4,
+  ctaHref = '/certifications',
+  ctaLabel = 'View all certifications',
+  sectionId = 'certifications',
+}: CertificationsProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const isFeaturedVariant = variant === 'featured';
+  const displayCertifications = isFeaturedVariant
+    ? getFeaturedCertifications().slice(0, featuredLimit)
+    : certifications;
 
 
   const containerVariants = {
@@ -67,20 +88,17 @@ const Certifications = () => {
 
 
   return (
-    <section id="certifications" className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-8 sm:mb-12 lg:mb-16 p-4 sm:p-6 lg:p-8"
-      >
+    <section id={sectionId} className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+      <div className="text-center mb-8 sm:mb-12 lg:mb-16 p-4 sm:p-6 lg:p-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 gradient-text">
-          Certifications & Achievements
+          {isFeaturedVariant ? 'Featured Certifications' : 'Certifications & Achievements'}
         </h2>
         <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
-          Professional certifications that validate my expertise and commitment to continuous learning
+          {isFeaturedVariant
+            ? 'Industry credentials currently highlighted across the portfolio'
+            : 'Professional certifications that validate my expertise and commitment to continuous learning'}
         </p>
-      </motion.div>
+      </div>
 
 
         {/* Mobile: Horizontal Scroll with Navigation */}
@@ -126,18 +144,18 @@ const Certifications = () => {
             className="flex space-x-4 overflow-x-auto scrollbar-hide px-4 pb-4"
             onScroll={handleScroll}
           >
-            {certifications.map((cert, index) => (
+            {displayCertifications.map((cert, index) => (
               <motion.div
                 key={cert.id}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[280px]"
+                className="flex-shrink-0 w-[280px] card-shell"
               >
                 <div className="group perspective-1000 h-64">
                   <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                     {/* Front of card */}
-                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 backface-hidden">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden">
                       <CardContent className="p-4 h-full flex flex-col justify-center items-center text-center">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
                           <Award className="w-6 h-6 text-white" />
@@ -163,7 +181,7 @@ const Certifications = () => {
 
 
                     {/* Back of card - Certificate Image - CHANGED */}
-                    <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden rotate-y-180">
                       <CardContent className="p-0 h-full relative bg-muted/30">
                         {/* Certificate Image */}
                         {cert.image ? (
@@ -233,13 +251,13 @@ const Certifications = () => {
         >
           <Carousel className="w-full max-w-6xl mx-auto">
             <CarouselContent className="-ml-2 md:-ml-4">
-              {certifications.map((cert, index) => (
+              {displayCertifications.map((cert, index) => (
                 <CarouselItem key={cert.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <motion.div variants={itemVariants} className="h-full">
-                    <div className="group perspective-1000 h-80">
+                    <div className="group perspective-1000 h-80 card-shell">
                       <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
                         {/* Front of card */}
-                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 backface-hidden">
+                        <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden">
                           <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center items-center text-center">
                             <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
                               <Award className="w-8 h-8 text-white" />
@@ -265,7 +283,7 @@ const Certifications = () => {
 
 
                         {/* Back of card - Certificate Image - CHANGED */}
-                        <Card className="absolute inset-0 w-full h-full glassmorphism bg-gradient-to-br from-secondary/10 to-accent/10 border-secondary/20 backface-hidden rotate-y-180">
+                        <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden rotate-y-180">
                           <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
                             {/* Certificate Image */}
                             {cert.image ? (
@@ -333,6 +351,23 @@ const Certifications = () => {
           </Carousel>
           </motion.div>
         </div>
+      {isFeaturedVariant && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="flex justify-center mt-12 px-4"
+        >
+          <Button
+            variant="outline"
+            size="lg"
+            className="glassmorphism flex items-center gap-2 w-full sm:w-auto max-w-sm"
+            asChild
+          >
+            <Link to={ctaHref}>{ctaLabel}</Link>
+          </Button>
+        </motion.div>
+      )}
     </section>
   );
 };

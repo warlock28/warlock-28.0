@@ -69,6 +69,45 @@ export const projects: Project[] = [
     featured: false,
     date: "2023-06"
   },
+  {
+    id: 4,
+    title: "AI Portfolio Analyzer",
+    description: "LLM-powered analyst that reviews investment portfolios and surfaces actionable insights in minutes.",
+    longDescription: "Combines OpenAI functions, Pinecone vector search, and Next.js to let wealth advisors benchmark portfolios, detect risk drift, and export compliance-friendly PDFs.",
+    image: "/images/projects/ai-portfolio.webp",
+    technologies: ["Next.js", "TypeScript", "OpenAI", "Pinecone", "TailwindCSS"],
+    category: "fullstack",
+    demoUrl: "https://ai-portfolio.example.com",
+    githubUrl: "https://github.com/nitin/ai-portfolio-analyzer",
+    featured: true,
+    date: "2024-07"
+  },
+  {
+    id: 5,
+    title: "DevOps Monitoring Suite",
+    description: "Unified observability dashboard aggregating logs, traces, and uptime checks.",
+    longDescription: "Ships a Grafana-inspired interface with custom webhooks, PagerDuty integration, and anomaly detection to keep SRE teams proactive.",
+    image: "/images/projects/monitoring.webp",
+    technologies: ["React", "Go", "gRPC", "Grafana", "Docker"],
+    category: "backend",
+    demoUrl: "https://monitoring.example.com",
+    githubUrl: "https://github.com/nitin/devops-monitoring-suite",
+    featured: false,
+    date: "2024-03"
+  },
+  {
+    id: 6,
+    title: "Mobile Fitness Tracker",
+    description: "Cross-platform fitness coaching app with real-time insights and wearable sync.",
+    longDescription: "Uses React Native, Supabase, and sensor fusion to deliver adaptive workout plans, macros tracking, and shared leaderboards.",
+    image: "/images/projects/fitness.webp",
+    technologies: ["React Native", "Supabase", "Expo", "Redux Toolkit"],
+    category: "mobile",
+    demoUrl: "https://fitness.example.com",
+    githubUrl: "https://github.com/nitin/mobile-fitness-tracker",
+    featured: true,
+    date: "2024-05"
+  },
  
   
   /* 

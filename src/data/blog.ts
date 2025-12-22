@@ -133,48 +133,83 @@ Security is everyone's responsibility in the development process.
     published: true,
     featured: true
   },
-  
-  /* 
-   * TO ADD MORE BLOG POSTS:
-   * Copy the template below, uncomment it, and fill in your details
-   */
-  
-  /*
   {
-    id: 4, // Increment the ID
-    title: "Your Blog Post Title",
-    slug: "your-blog-post-title", // URL-friendly (lowercase, hyphens)
-    excerpt: "A short summary of your blog post in 1-2 sentences.",
+    id: 4,
+    title: "Design Systems that Scale",
+    slug: "design-systems-that-scale",
+    excerpt: "Practical lessons from building an enterprise design system that supports dozens of product squads.",
     content: `
-# Your Blog Post Title
+# Design Systems that Scale
 
-Write your full blog content here. You can use markdown formatting:
+In this article I break down the governance model, token strategy, and automation that helped us ship a multi-brand system:
 
-## Subheadings
+## Start with Accessibility
+- Contrast tokens
+- Keyboard-first patterns
 
-- Bullet points
-- More points
+## Automation
+- Visual regression testing via Chromatic
+- Automated changelog with Semantic Release
 
-### Code examples
-
-\`\`\`javascript
-const example = "code";
-\`\`\`
-
-**Bold text** and *italic text*
-
-[Links](https://example.com)
+Reusable systems are living products—treat them with roadmaps, metrics, and retrospectives.
     `,
-    image: "/images/blog/your-image.jpg", // Add to public/images/blog/
-    author: "Your Name",
-    date: "2024-01-20", // YYYY-MM-DD
-    readTime: 7, // Estimated minutes
-    category: "Tutorial", // Tutorial, News, Opinion, etc.
-    tags: ["Tag1", "Tag2", "Tag3"],
-    published: true, // true = visible, false = draft
-    featured: false // Optional: show in featured section
+    image: "/images/blog/design-system.webp",
+    author: "Nitin Kumar",
+    date: "2024-02-12",
+    readTime: 7,
+    category: "Product",
+    tags: ["Design Systems", "Accessibility", "Frontend"],
+    published: true,
+    featured: false
   },
-  */
+  {
+    id: 5,
+    title: "Ship Faster with Supabase Edge Functions",
+    slug: "ship-faster-with-supabase-edge-functions",
+    excerpt: "How I replaced a legacy Lambda fleet with Supabase edge functions and cut cold starts to milliseconds.",
+    content: `
+# Ship Faster with Supabase Edge Functions
+
+Edge functions sit close to your data, so latency plummets. Key tips:
+
+- Co-locate logic with the Supabase project
+- Use row level security helpers
+- Keep secrets in Vault-managed configs
+
+Finally, automate deployments with GitHub Actions + Supabase CLI for painless rollouts.
+    `,
+    image: "/images/blog/supabase.webp",
+    author: "Nitin Kumar",
+    date: "2024-03-05",
+    readTime: 5,
+    category: "Tutorial",
+    tags: ["Supabase", "Serverless", "Edge"],
+    published: true,
+    featured: true
+  },
+  {
+    id: 6,
+    title: "Incident Response Playbook for Startups",
+    slug: "incident-response-playbook-for-startups",
+    excerpt: "Lightweight tooling and rituals that help small teams stay calm during production fires.",
+    content: `
+# Incident Response Playbook
+
+1. **Detect**: centralize alerts with PagerDuty + Slack.
+2. **Diagnose**: use a shared debug doc and assign clear roles.
+3. **Document**: retro within 48 hours, categorize action items.
+
+You don't need a massive SRE org—just discipline, templates, and communication.
+    `,
+    image: "/images/blog/incident.webp",
+    author: "Nitin Kumar",
+    date: "2024-04-18",
+    readTime: 9,
+    category: "Operations",
+    tags: ["DevOps", "SRE", "Process"],
+    published: true,
+    featured: true
+  }
 ];
 
 // Helper functions
@@ -193,6 +228,9 @@ export const getRecentPosts = (limit: number = 3) =>
   getPublishedPosts()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit);
+
+export const getFeaturedPosts = () =>
+  getPublishedPosts().filter(post => post.featured);
 
 // Backwards compatibility: expose publishedDate for existing components
 export type BlogPostWithPublishedDate = BlogPost & { publishedDate: string };

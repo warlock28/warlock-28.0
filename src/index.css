@@ -6,89 +6,117 @@
 
 @layer base {
   :root {
-    --background: 0 34% 7%;
-    --foreground: 0 0% 98%;
+    --background: 10 60% 98%;
+    --foreground: 350 27% 16%;
 
-    --card: 0 34% 7%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 350 27% 18%;
 
-    --popover: 0 34% 7%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 350 27% 16%;
 
-    --primary: 262 83% 58%;
+    --primary: 352 78% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 5% 26%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 25 92% 58%;
+    --secondary-foreground: 350 27% 18%;
 
-    --muted: 0 34% 15%;
-    --muted-foreground: 240 5% 64%;
+    --muted: 10 30% 92%;
+    --muted-foreground: 352 20% 38%;
 
-    --accent: 262 83% 58%;
+    --accent: 358 70% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 75% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 10% 20%;
-    --input: 0 34% 15%;
-    --ring: 262 83% 58%;
+    --border: 10 22% 85%;
+    --input: 10 28% 94%;
+    --ring: 352 78% 52%;
 
     --radius: 0.75rem;
 
-    /* Professional Cyberpunk Colors */
-    --cyber-dark: #001122;
-    --cyber-green: #00ff41;
-    --cyber-purple: #9361e3;
-    --cyber-pink: #e361c7;
-    --gradient-primary: linear-gradient(135deg, #9361e3 0%, #e361c7 100%);
-    --gradient-secondary: linear-gradient(135deg, #e361c7 0%, #9361e3 100%);
-    --gradient-accent: linear-gradient(135deg, #6366f1 0%, #9361e3 100%);
-    --glassmorphism: rgba(147, 97, 227, 0.05);
-    --glassmorphism-border: rgba(147, 97, 227, 0.2);
-    
-    /* Background accent colors */
-    --graph-line: rgba(147, 97, 227, 0.15);
-    --graph-dot: rgba(147, 97, 227, 0.4);
-    --graph-glow: rgba(147, 97, 227, 0.1);
+    --page-background: #fff5f5;
+    --page-foreground: #35090c;
+    --grid-line-color: rgba(215, 38, 61, 0.28);
+    --grid-line-strong: rgba(215, 38, 61, 0.45);
+    --surface-glow: rgba(255, 139, 139, 0.2);
+    --surface-tint: rgba(194, 24, 46, 0.08);
+
+    --gradient-primary: linear-gradient(140deg, #ff8a7a 0%, #d7263d 100%);
+    --gradient-secondary: linear-gradient(140deg, #ffd362 0%, #ff5f45 100%);
+    --gradient-accent: linear-gradient(140deg, #f05f6b 0%, #8c1c13 100%);
+
+    --glassmorphism: rgba(255, 255, 255, 0.9);
+    --glassmorphism-border: rgba(53, 9, 12, 0.08);
+
+    --graph-line: rgba(215, 38, 61, 0.2);
+    --graph-dot: rgba(255, 110, 110, 0.4);
+    --graph-glow: rgba(255, 177, 133, 0.22);
   }
 
   .dark {
-    --background: 0 34% 7%;
-    --foreground: 0 0% 98%;
+    --background: 350 22% 8%;
+    --foreground: 0 15% 94%;
 
-    --card: 0 34% 7%;
-    --card-foreground: 0 0% 98%;
+    --card: 350 25% 12%;
+    --card-foreground: 0 15% 96%;
 
-    --popover: 0 34% 7%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 350 25% 10%;
+    --popover-foreground: 0 15% 96%;
 
-    --primary: 262 83% 65%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 354 82% 62%;
+    --primary-foreground: 350 20% 12%;
 
-    --secondary: 240 5% 26%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 28 92% 58%;
+    --secondary-foreground: 350 20% 12%;
 
-    --muted: 0 34% 15%;
-    --muted-foreground: 240 5% 64%;
+    --muted: 350 21% 20%;
+    --muted-foreground: 0 12% 72%;
 
-    --accent: 262 83% 65%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 0 72% 48%;
+    --accent-foreground: 350 20% 12%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 82% 58%;
+    --destructive-foreground: 350 20% 12%;
 
-    --border: 240 10% 20%;
-    --input: 0 34% 15%;
-    --ring: 262 83% 65%;
+    --border: 350 22% 22%;
+    --input: 350 22% 18%;
+    --ring: 354 82% 62%;
 
-    --glassmorphism: rgba(147, 97, 227, 0.08);
-    --glassmorphism-border: rgba(147, 97, 227, 0.25);
-    
-    /* Background accent colors */
-    --graph-line: rgba(147, 97, 227, 0.2);
-    --graph-dot: rgba(147, 97, 227, 0.5);
-    --graph-glow: rgba(147, 97, 227, 0.12);
+    --page-background: #140203;
+    --page-foreground: #ffeaea;
+    --grid-line-color: rgba(255, 105, 105, 0.18);
+    --grid-line-strong: rgba(255, 105, 105, 0.35);
+    --surface-glow: rgba(255, 111, 111, 0.28);
+    --surface-tint: rgba(0, 0, 0, 0.4);
+
+    --gradient-primary: linear-gradient(140deg, #ff6b6b 0%, #d7263d 100%);
+    --gradient-secondary: linear-gradient(140deg, #ffb347 0%, #ff3d60 100%);
+    --gradient-accent: linear-gradient(140deg, #ff8a65 0%, #a21313 100%);
+
+    --glassmorphism: rgba(20, 2, 3, 0.82);
+    --glassmorphism-border: rgba(255, 255, 255, 0.08);
+
+    --graph-line: rgba(255, 105, 105, 0.24);
+    --graph-dot: rgba(255, 147, 147, 0.45);
+    --graph-glow: rgba(255, 180, 146, 0.28);
+  }
+
+  section {
+    scroll-margin-top: 6rem;
+    margin-top: 2rem;
+  }
+
+  section:first-of-type {
+    margin-top: 0;
+  }
+
+  @media (min-width: 640px) {
+    section {
+      scroll-margin-top: 7rem;
+      margin-top: 3rem;
+    }
   }
 }
 
@@ -97,12 +125,23 @@
     @apply border-border;
   }
 
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  @media (max-width: 768px) {
+    html {
+      scroll-padding-top: 5.25rem;
+    }
+  }
+
   body {
     @apply text-foreground;
-    background: var(--cyber-dark);
+    background: var(--page-background);
     scroll-behavior: smooth;
     position: relative;
     overflow-x: hidden;
+    color: hsl(var(--foreground));
   }
 
   /* Subtle Ambient Glow */
@@ -115,21 +154,31 @@
     height: 100%;
     z-index: -2;
     background: 
-      radial-gradient(circle at 15% 25%, rgba(147, 97, 227, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 85% 75%, rgba(227, 97, 199, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(147, 97, 227, 0.04) 0%, transparent 50%);
-    opacity: 0.7;
+      radial-gradient(circle at 20% 25%, var(--surface-glow) 0%, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(60, 182, 255, 0.18) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(255, 143, 112, 0.12) 0%, transparent 55%);
+    opacity: 0.75;
   }
 }
 
 @layer components {
   .glassmorphism {
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--glassmorphism);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--glassmorphism-border);
     box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+      0 14px 45px 0 var(--surface-tint),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .card-shell {
+    @apply relative rounded-xl border border-border/60 bg-card/95 shadow-lg transition-all duration-300;
+  }
+
+  .card-shell:hover {
+    transform: translateY(-4px);
+    border-color: hsla(var(--primary) / 0.45);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   }
 
   /* Network Graph with Connected Nodes and Edges */
@@ -231,12 +280,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 2px 8px rgba(147, 97, 227, 0.3));
+    filter: drop-shadow(0 4px 16px rgba(65, 215, 177, 0.3));
   }
 
   .bg-gradient-primary {
     background: var(--gradient-primary);
-    box-shadow: 0 4px 20px rgba(147, 97, 227, 0.3);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
   }
 
   .animate-float {
@@ -254,9 +303,9 @@
 
   .skill-card:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 40px 0 rgba(147, 97, 227, 0.25);
-    border-color: rgba(147, 97, 227, 0.4);
-    background: rgba(30, 41, 59, 0.85);
+    box-shadow: 0 18px 45px 0 var(--surface-tint);
+    border-color: hsla(var(--primary) / 0.35);
+    background: hsl(var(--card) / 0.92);
   }
 
   .project-card {
@@ -265,24 +314,29 @@
 
   .project-card:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 40px 0 rgba(227, 97, 199, 0.25);
-    border-color: rgba(227, 97, 199, 0.4);
-    background: rgba(30, 41, 59, 0.85);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.12);
+    border-color: hsla(var(--accent) / 0.45);
+    background: hsl(var(--card) / 0.95);
   }
 
   /* Certificate Card Styles */
   .certificate-card {
-    @apply relative backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/20;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.05));
+    @apply relative backdrop-blur-xl border shadow-2xl shadow-black/10;
+    border-color: hsla(var(--primary) / 0.25);
+    background: linear-gradient(
+      140deg,
+      hsla(var(--card) / 0.98) 0%,
+      hsla(var(--card) / 0.9) 100%
+    );
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(147, 97, 227, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(227, 97, 199, 0.08) 0%, transparent 50%);
-    transition: all 0.3s ease;
+      radial-gradient(circle at 25% 75%, rgba(65, 215, 177, 0.16) 0%, transparent 55%),
+      radial-gradient(circle at 80% 20%, rgba(60, 182, 255, 0.12) 0%, transparent 50%);
+    transition: all 0.35s ease;
   }
 
   .certificate-card:hover {
-    border-color: rgba(147, 97, 227, 0.3);
-    box-shadow: 0 20px 60px 0 rgba(147, 97, 227, 0.15);
+    border-color: hsla(var(--primary) / 0.45);
+    box-shadow: 0 28px 65px 0 rgba(0, 0, 0, 0.12);
     transform: translateY(-2px);
   }
 

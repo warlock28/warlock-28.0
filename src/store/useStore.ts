@@ -7,6 +7,7 @@ interface AppState {
   isMenuOpen: boolean;
   projectFilter: string;
   toggleDarkMode: () => void;
+  setDarkMode: (value: boolean) => void;
   setActiveSection: (section: string) => void;
   toggleMenu: () => void;
   setProjectFilter: (filter: string) => void;
@@ -18,6 +19,7 @@ export const useStore = create<AppState>((set) => ({
   isMenuOpen: false,
   projectFilter: 'all',
   toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+  setDarkMode: (value) => set({ isDarkMode: value }),
   setActiveSection: (section) => set({ activeSection: section }),
   toggleMenu: () => set((state) => ({ isMenuOpen: !state.isMenuOpen })),
   setProjectFilter: (filter) => set({ projectFilter: filter }),

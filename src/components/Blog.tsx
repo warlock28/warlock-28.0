@@ -1,18 +1,35 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { blogPosts, BlogPost } from '@/data/blog';
+import { blogPosts, BlogPost, getFeaturedPosts } from '@/data/blog';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+type BlogVariant = 'full' | 'featured';
 
-const Blog = () => {
+interface BlogProps {
+  variant?: BlogVariant;
+  featuredLimit?: number;
+  ctaHref?: string;
+  ctaLabel?: string;
+  sectionId?: string;
+}
+
+const Blog = ({
+  variant = 'full',
+  featuredLimit = 3,
+  ctaHref = '/blog',
+  ctaLabel = 'View all articles',
+  sectionId = 'blog',
+}: BlogProps) => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isFeaturedVariant = variant === 'featured';
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -26,14 +43,18 @@ const Blog = () => {
     }
   };
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesTag = !selectedTag || post.tags.includes(selectedTag);
-    return matchesSearch && matchesTag;
-  });
+  const featuredPosts = getFeaturedPosts().slice(0, featuredLimit);
+  const basePosts = isFeaturedVariant ? featuredPosts : blogPosts;
+  const filteredPosts = isFeaturedVariant
+    ? basePosts
+    : basePosts.filter(post => {
+        const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesTag = !selectedTag || post.tags.includes(selectedTag);
+        return matchesSearch && matchesTag;
+      });
 
-  const allTags = Array.from(new Set(blogPosts.flatMap(post => post.tags)));
+  const allTags = Array.from(new Set(basePosts.flatMap(post => post.tags)));
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -56,9 +77,9 @@ const Blog = () => {
     }
   };
 
-  if (selectedPost) {
+  if (!isFeaturedVariant && selectedPost) {
     return (
-      <section id="blog" className="py-20 px-4 min-h-screen relative overflow-hidden">
+      <section id={sectionId} className="py-20 px-4 min-h-screen relative overflow-hidden">
         <div className="max-w-4xl mx-auto">
           <Button 
             onClick={() => setSelectedPost(null)}
@@ -99,7 +120,7 @@ const Blog = () => {
   }
 
   return (
-    <section id="blog" className="py-20 px-4 relative overflow-hidden">
+    <section id={sectionId} className="py-20 px-4 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -108,53 +129,57 @@ const Blog = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-            Blog & Insights
+            {isFeaturedVariant ? 'Latest on the Blog' : 'Blog & Insights'}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Sharing knowledge, tutorials, and insights about web development and cybersecurity
+            {isFeaturedVariant
+              ? 'A snapshot of recent writing—dive deeper via the full blog archive.'
+              : 'Sharing knowledge, tutorials, and insights about web development and cybersecurity'}
           </p>
         </motion.div>
 
         {/* Search and Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8"
-        >
-          <div className="glassmorphism rounded-xl p-6 mb-6">
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-background/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant={selectedTag === null ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedTag(null)}
-              >
-                All
-              </Button>
-              {allTags.map((tag) => (
+        {!isFeaturedVariant && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-8"
+          >
+            <div className="glassmorphism rounded-xl p-6 mb-6">
+              <div className="relative mb-4">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                <input
+                  type="text"
+                  placeholder="Search posts..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 bg-background/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              
+              <div className="flex flex-wrap gap-2">
                 <Button
-                  key={tag}
-                  variant={selectedTag === tag ? "default" : "outline"}
+                  variant={selectedTag === null ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setSelectedTag(tag)}
+                  onClick={() => setSelectedTag(null)}
                 >
-                  {tag}
+                  All
                 </Button>
-              ))}
+                {allTags.map((tag) => (
+                  <Button
+                    key={tag}
+                    variant={selectedTag === tag ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedTag(tag)}
+                  >
+                    {tag}
+                  </Button>
+                ))}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
         {/* Blog Posts Section with Navigation */}
         <div className="relative">
@@ -199,10 +224,14 @@ const Blog = () => {
                 <motion.div
                   key={post.id}
                   variants={itemVariants}
-                  className="group cursor-pointer flex-shrink-0 w-[80vw] max-w-[320px] snap-center"
-                  onClick={() => setSelectedPost(post)}
+                  className={`group ${isFeaturedVariant ? 'cursor-default' : 'cursor-pointer'} flex-shrink-0 w-[80vw] max-w-[320px] snap-center card-shell`}
+                  onClick={() => {
+                    if (!isFeaturedVariant) {
+                      setSelectedPost(post);
+                    }
+                  }}
                 >
-                  <Card className="project-card h-full bg-background/50 border-border/50">
+                  <Card className="bg-card/95 border border-border/40 rounded-2xl h-full overflow-hidden transition-all duration-300">
                     <div className="relative overflow-hidden rounded-t-xl">
                       <img
                         src={post.image}
@@ -250,10 +279,14 @@ const Blog = () => {
                 <motion.div
                   key={post.id}
                   variants={itemVariants}
-                  className="group cursor-pointer"
-                  onClick={() => setSelectedPost(post)}
+                  className={`group ${isFeaturedVariant ? 'cursor-default' : 'cursor-pointer'} card-shell`}
+                  onClick={() => {
+                    if (!isFeaturedVariant) {
+                      setSelectedPost(post);
+                    }
+                  }}
                 >
-                  <Card className="project-card h-full bg-background/50 border-border/50">
+                  <Card className="bg-card/95 border border-border/40 rounded-2xl h-full overflow-hidden transition-all duration-300">
                     <div className="relative overflow-hidden rounded-t-xl">
                       <img
                         src={post.image}
@@ -296,6 +329,24 @@ const Blog = () => {
             </div>
           </motion.div>
         </div>
+
+        {isFeaturedVariant && filteredPosts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex justify-center mt-12"
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              className="glassmorphism flex items-center gap-2 w-full sm:w-auto max-w-sm"
+              asChild
+            >
+              <Link to={ctaHref}>{ctaLabel}</Link>
+            </Button>
+          </motion.div>
+        )}
 
         {filteredPosts.length === 0 && (
           <motion.div

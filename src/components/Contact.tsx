@@ -1,3 +1,11 @@
+  const fieldClass = (hasError: boolean) =>
+    cn(
+      'bg-white text-foreground placeholder:text-muted-foreground',
+      'border border-border focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none',
+      'dark:bg-slate-900/70 dark:text-foreground dark:placeholder:text-muted-foreground',
+      'transition-colors duration-200',
+      hasError && 'border-destructive focus-visible:ring-destructive/60'
+    );
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -10,6 +18,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { personalInfo } from '@/data/portfolio';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -156,7 +165,7 @@ const Contact = () => {
                   <Input
                     placeholder="Your Name"
                     {...register('name')}
-                    className={errors.name ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
+                    className={fieldClass(!!errors.name)}
                   />
                   {errors.name && (
                     <p className="text-destructive text-sm mt-1">{errors.name.message}</p>
@@ -167,7 +176,7 @@ const Contact = () => {
                     type="email"
                     placeholder="Your Email"
                     {...register('email')}
-                    className={errors.email ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
+                    className={fieldClass(!!errors.email)}
                   />
                   {errors.email && (
                     <p className="text-destructive text-sm mt-1">{errors.email.message}</p>
@@ -179,7 +188,7 @@ const Contact = () => {
                 <Input
                   placeholder="Subject"
                   {...register('subject')}
-                  className={errors.subject ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
+                  className={fieldClass(!!errors.subject)}
                 />
                 {errors.subject && (
                   <p className="text-destructive text-sm mt-1">{errors.subject.message}</p>
@@ -191,7 +200,7 @@ const Contact = () => {
                   placeholder="Your Message"
                   rows={6}
                   {...register('message')}
-                  className={errors.message ? 'border-destructive bg-slate-800/90' : 'bg-slate-800/90'}
+                  className={cn(fieldClass(!!errors.message), 'min-h-[150px]')}
                 />
                 {errors.message && (
                   <p className="text-destructive text-sm mt-1">{errors.message.message}</p>

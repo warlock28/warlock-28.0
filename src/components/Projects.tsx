@@ -1,77 +1,89 @@
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { projects } from '@/data/projects';
+import { Link } from 'react-router-dom';
+import { projects, getFeaturedProjects } from '@/data/projects';
 import { useStore } from '@/store/useStore';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Github, Star, Calendar, Code2 } from 'lucide-react';
+type ProjectsVariant = 'full' | 'featured';
 
-const Projects = () => {
+interface ProjectsProps {
+  variant?: ProjectsVariant;
+  featuredLimit?: number;
+  ctaHref?: string;
+  ctaLabel?: string;
+  sectionId?: string;
+}
+
+const Projects = ({
+  variant = 'full',
+  featuredLimit = 3,
+  ctaHref = '/projects',
+  ctaLabel = 'View all projects',
+  sectionId = 'projects',
+}: ProjectsProps) => {
   const { projectFilter, setProjectFilter } = useStore();
+  const isFeaturedVariant = variant === 'featured';
   
-  const categories = ['all', 'fullstack', 'frontend', 'backend', 'security'];
+  const categories = ['all', 'fullstack', 'frontend', 'backend', 'security', 'mobile'];
+  const featuredProjects = getFeaturedProjects().slice(0, featuredLimit);
   const filteredProjects = projectFilter === 'all' 
     ? projects 
     : projects.filter(project => project.category === projectFilter);
+  const displayProjects = isFeaturedVariant ? featuredProjects : filteredProjects;
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section id={sectionId} className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 px-4"
-        >
+        <div className="text-center mb-12 sm:mb-16 px-4">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-            My <span className="gradient-text">Projects</span>
+            {isFeaturedVariant ? 'Featured' : 'My'} <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            A showcase of my recent work and side projects
+            {isFeaturedVariant
+              ? 'A curated selection of highlighted builds currently showcased on the homepage'
+              : 'A showcase of my recent work and side projects'}
           </p>
-        </motion.div>
+        </div>
 
         {/* Filter Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4"
-        >
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={projectFilter === category ? "default" : "outline"}
-              onClick={() => setProjectFilter(category)}
-              size="sm"
-              className={`capitalize text-xs sm:text-sm ${
-                projectFilter === category 
-                  ? 'bg-gradient-primary text-white' 
-                  : 'glassmorphism hover:bg-primary/10'
-              }`}
-            >
-              {category}
-            </Button>
-          ))}
-        </motion.div>
+        {!isFeaturedVariant && (
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={projectFilter === category ? "default" : "outline"}
+                onClick={() => setProjectFilter(category)}
+                size="sm"
+                className={`capitalize text-xs sm:text-sm ${
+                  projectFilter === category 
+                    ? 'bg-gradient-primary text-white' 
+                    : 'glassmorphism hover:bg-primary/10'
+                }`}
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+        )}
 
         {/* Projects - Mobile Certificate Style & Desktop Grid */}
         <div className="px-4">
           {/* Mobile: Horizontal Scrollable */}
           <div className="md:hidden">
             <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-              {filteredProjects.map((project, index) => (
+              {displayProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   layout
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex-shrink-0 w-[85vw] sm:w-[70vw] snap-center certificate-card group"
+                  className="flex-shrink-0 w-[85vw] sm:w-[70vw] snap-center card-shell group"
                 >
                   {/* Certificate Header */}
-                  <div className="glassmorphism rounded-t-2xl px-6 py-4 border-b border-white/10">
+                  <div className="rounded-t-2xl px-6 py-4 border-b border-border/40 bg-card/90">
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <Code2 className="w-5 h-5 text-primary" />
@@ -94,7 +106,7 @@ const Projects = () => {
                   {/* Certificate Body */}
                   <div className="glassmorphism rounded-b-2xl p-6">
                     {/* Project Image */}
-                    <div className="relative mb-4 overflow-hidden rounded-lg">
+                    <div className="relative mb-4 overflow-hidden rounded-lg bg-muted">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -127,7 +139,7 @@ const Projects = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => window.open(project.demoUrl, '_blank')}
-                        className="flex-1 text-xs"
+                    className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <ExternalLink className="w-3 h-3 mr-1" />
                         Demo
@@ -136,7 +148,7 @@ const Projects = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => window.open(project.githubUrl, '_blank')}
-                        className="flex-1 text-xs"
+                    className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <Github className="w-3 h-3 mr-1" />
                         Code
@@ -157,17 +169,17 @@ const Projects = () => {
 
           {/* Desktop: Grid Layout */}
           <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredProjects.map((project, index) => (
+            {displayProjects.map((project, index) => (
             <motion.div
               key={project.id}
               layout
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="project-card group"
+              className="card-shell group overflow-hidden"
             >
               {/* Project Image */}
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden rounded-t-xl bg-muted">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -233,15 +245,26 @@ const Projects = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex justify-center mt-12 px-4"
         >
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => window.open('https://github.com/nitin', '_blank')}
-            className="glassmorphism flex items-center gap-2 w-full sm:w-auto max-w-sm"
-          >
-            <Github className="w-5 h-5" />
-            View All Projects on GitHub
-          </Button>
+          {isFeaturedVariant ? (
+            <Button
+              variant="outline"
+              size="lg"
+              className="glassmorphism flex items-center gap-2 w-full sm:w-auto max-w-sm"
+              asChild
+            >
+              <Link to={ctaHref}>{ctaLabel}</Link>
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.open('https://github.com/nitin', '_blank')}
+              className="glassmorphism flex items-center gap-2 w-full sm:w-auto max-w-sm"
+            >
+              <Github className="w-5 h-5" />
+              View All Projects on GitHub
+            </Button>
+          )}
         </motion.div>
       </div>
     </section>

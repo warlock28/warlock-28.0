@@ -61,28 +61,28 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
       exit="exit"
       className="
         relative w-full mt-3 mb-2 overflow-hidden
-        bg-[#0a192f]/98 backdrop-blur-xl 
-        border border-[#00ff41]/40 
+        bg-card/95 backdrop-blur-xl 
+        border border-primary/30 
         rounded-xl p-4 sm:p-5 md:p-6 
-        shadow-2xl shadow-[#00ff41]/20
+        shadow-2xl shadow-primary/20
         max-w-full
       "
     >
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute top-3 right-3 p-1 rounded-lg hover:bg-white/10 transition-colors z-10"
+        className="absolute top-3 right-3 p-1 rounded-lg hover:bg-primary/10 transition-colors z-10"
         aria-label="Close skill details"
       >
-        <X className="w-4 h-4 text-[#00ff41]" />
+        <X className="w-4 h-4 text-primary" />
       </button>
 
       {/* Header */}
       <div className="mb-3 sm:mb-4">
-        <h3 className="text-lg sm:text-xl font-bold text-white mb-1">
+        <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
           {category}
         </h3>
-        <div className="h-[2px] w-12 bg-gradient-to-r from-[#00ff41] to-transparent rounded-full" />
+        <div className="h-[2px] w-12 bg-gradient-to-r from-primary to-transparent rounded-full" />
       </div>
 
       {/* Skills list */}
@@ -99,16 +99,16 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
             <div className="flex items-center justify-between mb-1.5">
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <span className="text-base sm:text-lg">{skill.icon}</span>
-                <span className="text-xs sm:text-sm font-medium text-white/90">
+                <span className="text-xs sm:text-sm font-medium text-foreground/80">
                   {skill.name}
                 </span>
               </div>
-              <span className="text-xs text-[#00ff41]/70 font-mono">
+              <span className="text-xs text-primary/80 font-mono">
                 {skill.level}%
               </span>
             </div>
             {/* Progress bar */}
-            <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-white/5 dark:bg-white/10 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${skill.level}%` }}
@@ -117,7 +117,7 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
                   duration: 1,
                   ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing curve
                 }}
-                className="h-full bg-gradient-to-r from-[#00ff41] to-[#00ff41]/70 rounded-full relative shadow-sm shadow-[#00ff41]/30"
+                className="h-full bg-gradient-to-r from-primary to-accent/70 rounded-full relative shadow-sm shadow-primary/30"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
               </motion.div>
@@ -127,7 +127,7 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
       </div>
 
       {/* Glow effect */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#00ff41]/5 via-transparent to-transparent rounded-xl blur-xl" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-transparent to-transparent rounded-xl blur-xl" />
     </motion.div>
   );
 };
@@ -185,22 +185,22 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
       className={`
         group relative
         w-full
-        bg-gradient-to-br from-[#0a192f]/80 to-[#001122]/80
+        bg-gradient-to-br from-card/95 to-card/80
         backdrop-blur-sm
         border-2 rounded-xl
         transition-all duration-300
         overflow-hidden
         py-6 px-4
         ${isActive 
-          ? 'border-[#00ff41] shadow-lg shadow-[#00ff41]/30' 
-          : 'border-[#00ff41]/20 hover:border-[#00ff41]/50 hover:shadow-lg hover:shadow-[#00ff41]/20'
+          ? 'border-primary shadow-lg shadow-primary/30' 
+          : 'border-primary/20 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20'
         }
       `}
       aria-expanded={isActive}
       aria-label={`View ${category} skills`}
     >
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#00ff41]/0 via-[#00ff41]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-between gap-3">
@@ -211,18 +211,18 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
         
         <div className="flex-1 text-left">
           {/* Category name */}
-          <h3 className="text-sm sm:text-base md:text-lg font-bold text-white mb-1">
+          <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground mb-1">
             {category}
           </h3>
           
           {/* Skills count */}
-          <div className="text-xs sm:text-sm text-[#00ff41]/70 font-mono">
+          <div className="text-xs sm:text-sm text-primary/80 font-mono">
             {items.length} {items.length === 1 ? 'skill' : 'skills'}
           </div>
         </div>
 
         {/* Arrow indicator */}
-        <div className="text-[#00ff41]/50 group-hover:text-[#00ff41] transition-colors flex-shrink-0">
+        <div className="text-primary/50 group-hover:text-primary transition-colors flex-shrink-0">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
@@ -231,8 +231,8 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
 
       {/* Corner accent */}
       <div className="absolute top-0 right-0 w-12 sm:w-16 h-12 sm:h-16 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
-        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-[#00ff41] to-transparent" />
-        <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-[#00ff41] to-transparent" />
+        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-primary to-transparent" />
+        <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-primary to-transparent" />
       </div>
     </motion.button>
   );

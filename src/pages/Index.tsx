@@ -1,6 +1,7 @@
 
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '@/store/useStore';
 import Navbar from '@/components/Navbar';
 import NetworkBackground from '@/components/NetworkBackground';
@@ -24,6 +25,21 @@ const SectionLoader = () => (
 
 const Index = () => {
   const { setActiveSection } = useStore();
+  const location = useLocation<{ scrollTo?: string }>();
+  const navigate = useNavigate();
+
+  const scrollToSection = useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navbarHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +62,13 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [setActiveSection]);
 
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      scrollToSection(location.state.scrollTo);
+      navigate('.', { replace: true, state: null });
+    }
+  }, [location, navigate, scrollToSection]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -66,13 +89,27 @@ const Index = () => {
           <SkillsNew />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <Projects />
+          <Projects
+            variant="featured"
+            featuredLimit={3}
+            ctaHref="/projects"
+            ctaLabel="Explore all projects"
+          />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <Certifications />
+          <Certifications
+            variant="featured"
+            featuredLimit={3}
+            ctaHref="/certifications"
+            ctaLabel="See all certifications"
+          />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <Blog />
+          <Blog
+            variant="featured"
+            ctaHref="/blog"
+            ctaLabel="Read the full blog"
+          />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
           <Contact />

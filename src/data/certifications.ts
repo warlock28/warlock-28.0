@@ -26,6 +26,7 @@ export interface Certification {
   image?: string; // Optional: Badge/Certificate image
   skills?: string[]; // Optional: Skills covered
   description?: string; // Optional: What this certification covers
+  featured?: boolean; // Optional: flag for homepage highlights
 }
 
 export const certifications: Certification[] = [
@@ -39,7 +40,76 @@ export const certifications: Certification[] = [
     credentialUrl: "https://aws.amazon.com/verification",
     image: "/images/certifications/dcci.webp", // Add your badge to public/images/certifications/
     skills: ["AWS", "Cloud Architecture", "EC2", "S3", "Lambda", "RDS"],
-    description: "Validates expertise in designing distributed systems and applications on AWS"
+    description: "Validates expertise in designing distributed systems and applications on AWS",
+    featured: true
+  },
+  {
+    id: 5,
+    name: "Microsoft Certified: DevOps Engineer Expert",
+    issuer: "Microsoft",
+    date: "2022",
+    credentialId: "AZ-400-556677",
+    credentialUrl: "https://learn.microsoft.com/azure/certifications/devops-engineer",
+    image: "/images/certifications/devops.webp",
+    skills: ["Azure DevOps", "CI/CD", "Infrastructure as Code", "Monitoring"],
+    description: "Highlights mastery in orchestrating CI/CD pipelines, IaC, and release governance across Azure environments.",
+    featured: false
+  },
+  {
+    id: 6,
+    name: "Offensive Security Web Expert (OSWE)",
+    issuer: "Offensive Security",
+    date: "2024",
+    credentialUrl: "https://www.offsec.com/courses/web-300/",
+    image: "/images/certifications/oswe.webp",
+    skills: ["Advanced Web Exploitation", "Secure Coding", "Security Automation"],
+    description: "Proves the ability to discover and weaponize complex modern web vulnerabilities through custom exploits.",
+    featured: true
+  },
+  {
+    id: 7,
+    name: "Certified Kubernetes Administrator (CKA)",
+    issuer: "The Linux Foundation",
+    date: "2023",
+    credentialUrl: "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+    image: "/images/certifications/cka.webp",
+    skills: ["Kubernetes", "Containers", "Networking", "Observability"],
+    description: "Demonstrates end-to-end mastery of Kubernetes cluster administration, troubleshooting, and security hardening.",
+    featured: false
+  },
+  {
+    id: 8,
+    name: "ISC2 Certified Cloud Security Professional (CCSP)",
+    issuer: "ISC2",
+    date: "2024",
+    credentialId: "CCSP-998877",
+    credentialUrl: "https://www.isc2.org/certifications/ccsp",
+    image: "/images/certifications/ccsp.webp",
+    skills: ["Cloud Security", "Governance", "Risk Management", "Data Protection"],
+    description: "Validates cloud architecture governance, compliance, and advanced data protection strategies across multi-cloud estates.",
+    featured: true
+  },
+  {
+    id: 9,
+    name: "HashiCorp Certified: Terraform Associate",
+    issuer: "HashiCorp",
+    date: "2023",
+    credentialUrl: "https://www.hashicorp.com/certification/terraform-associate",
+    image: "/images/certifications/terraform.webp",
+    skills: ["Terraform", "IaC", "Cloud Provisioning"],
+    description: "Demonstrates the ability to automate multi-cloud infrastructure deployments with Terraform best practices.",
+    featured: false
+  },
+  {
+    id: 10,
+    name: "Snowflake SnowPro Advanced: Architect",
+    issuer: "Snowflake",
+    date: "2024",
+    credentialUrl: "https://www.snowflake.com/certifications/",
+    image: "/images/certifications/snowflake.webp",
+    skills: ["Data Engineering", "Snowflake", "Cost Optimization", "Security"],
+    description: "Validates expertise in designing secure, performant Snowflake data platforms for enterprise workloads.",
+    featured: true
   },
   {
     id: 2,
@@ -50,7 +120,8 @@ export const certifications: Certification[] = [
     credentialUrl: "https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/",
     image: "/images/certifications/dcci.jpg",
     skills: ["Penetration Testing", "Network Security", "Ethical Hacking", "Security Assessment"],
-    description: "Industry-leading certification for ethical hacking and penetration testing"
+    description: "Industry-leading certification for ethical hacking and penetration testing",
+    featured: true
   },
   {
     id: 3,
@@ -60,7 +131,8 @@ export const certifications: Certification[] = [
     credentialUrl: "https://developers.facebook.com/developercircles/",
     image: "/images/certifications/dcci.jpg",
     skills: ["React", "JavaScript", "Component Design", "State Management"],
-    description: "Demonstrates proficiency in building React applications and understanding modern web development"
+    description: "Demonstrates proficiency in building React applications and understanding modern web development",
+    featured: true
   },
   {
     id: 4,
@@ -72,7 +144,8 @@ export const certifications: Certification[] = [
     credentialUrl: "https://cloud.google.com/certification",
     image: "/images/certifications/dcci.jpg",
     skills: ["Google Cloud", "Cloud Architecture", "Kubernetes", "BigQuery"],
-    description: "Validates ability to design, develop, and manage robust cloud solutions on GCP"
+    description: "Validates ability to design, develop, and manage robust cloud solutions on GCP",
+    featured: false
   },
   
   /* 
@@ -110,3 +183,6 @@ export const getCertificationById = (id: number) =>
 
 export const getCertificationsByIssuer = (issuer: string) => 
   certifications.filter(c => c.issuer === issuer);
+
+export const getFeaturedCertifications = () =>
+  certifications.filter(cert => cert.featured);

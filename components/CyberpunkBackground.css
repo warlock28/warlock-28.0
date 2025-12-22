@@ -5,10 +5,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #001122;
+  background: var(--page-background);
   overflow: hidden;
   perspective: 800px;
   z-index: -1;
+  transition: background 0.4s ease;
 }
 
 /* Infinite grid plane */
@@ -40,7 +41,7 @@
   width: 100%;
   height: 100%;
   background-size: 60px 60px;
-  opacity: 0.4;
+  opacity: 0.45;
 }
 
 .grid-lines-vertical {
@@ -48,8 +49,8 @@
     90deg,
     transparent,
     transparent 59px,
-    #00ff41 59px,
-    #00ff41 60px
+    var(--grid-line-color) 59px,
+    var(--grid-line-color) 60px
   );
 }
 
@@ -58,8 +59,8 @@
     0deg,
     transparent,
     transparent 59px,
-    #00ff41 59px,
-    #00ff41 60px
+    var(--grid-line-strong) 59px,
+    var(--grid-line-strong) 60px
   );
 }
 
@@ -113,8 +114,8 @@
   position: absolute;
   width: 2px;
   height: 64px;
-  background: #00ff41;
-  box-shadow: 0 0 20px #00ff41, 0 0 10px #00ff41;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent), 0 0 10px var(--accent);
   top: 50%;
   left: 50%;
   transform-origin: center top;
@@ -130,8 +131,8 @@
   position: absolute;
   width: 2px;
   height: 64px;
-  background: #00ff41;
-  box-shadow: 0 0 20px #00ff41, 0 0 10px #00ff41;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent), 0 0 10px var(--accent);
   top: 50%;
   left: 50%;
   transform-origin: center center;
@@ -149,11 +150,11 @@
 /* Coordinate labels */
 .coord-label {
   position: absolute;
-  color: #00ff41;
+  color: hsl(var(--accent));
   font-family: 'Courier New', monospace;
   font-size: 11px;
   white-space: nowrap;
-  text-shadow: 0 0 10px #00ff41;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   opacity: 0.8;
   display: flex;
   align-items: center;
