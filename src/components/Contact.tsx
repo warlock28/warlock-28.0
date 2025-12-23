@@ -19,6 +19,7 @@ import { useToast } from '@/hooks/use-toast';
 import { personalInfo } from '@/data/portfolio';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ButtonLoader } from '@/components/ui/loading-spinner';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -212,8 +213,17 @@ const Contact = () => {
                 disabled={isSubmitting}
                 className="w-full bg-gradient-primary hover:bg-gradient-primary/90 text-white py-3 text-lg font-semibold flex items-center justify-center gap-2"
               >
-                <Send className="w-5 h-5" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? (
+                  <>
+                    <ButtonLoader />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </motion.div>

@@ -1,19 +1,4 @@
-/**
- * PROJECTS CONTENT
- * 
- * Easy to add/edit projects manually
- * 
- * HOW TO ADD A NEW PROJECT:
- * 1. Add your project image to: public/images/projects/your-image.jpg
- * 2. Copy one of the project objects below
- * 3. Update all fields (id, title, description, image, etc.)
- * 4. Save this file
- * 
- * IMAGE RECOMMENDATIONS:
- * - Size: 1200x800px or 16:9 aspect ratio
- * - Format: .jpg, .png, or .webp
- * - Keep file size under 500KB for fast loading
- */
+
 
 export interface Project {
   id: number;

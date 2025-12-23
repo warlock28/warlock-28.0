@@ -182,7 +182,7 @@ const Projects = ({
               <div className="relative overflow-hidden rounded-t-xl bg-muted">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 {project.featured && (

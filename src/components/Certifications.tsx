@@ -290,7 +290,7 @@ const Certifications = ({
                               <>
                                 <img
                                   src={cert.image}
-                                  alt={`${cert.name} Certificate`}
+                                  
                                   className="w-full h-full object-contain pt-4 px-4 pb-20"
                                 />
                                 {/* Overlay with action button - CHANGED */}
