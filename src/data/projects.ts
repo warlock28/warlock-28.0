@@ -20,7 +20,7 @@ export const projects: Project[] = [
     title: "E-Commerce Platform",
     description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
     longDescription: "A complete e-commerce platform with user authentication, product management, shopping cart, payment processing, and order tracking. Built with modern technologies and best practices.",
-    image: "/images/projects/aws.webp", // Add your image to public/images/projects/
+    image: "/images/projects/creatorhub.webp", // Add your image to public/images/projects/
     technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "Redux", "Express"],
     category: "fullstack",
     demoUrl: "https://demo.example.com",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     title: "Security Audit Tool",
     description: "Automated web application security scanner with vulnerability reporting",
     longDescription: "Advanced security tool that performs comprehensive security audits including SQL injection testing, XSS detection, CSRF vulnerability checks, and generates detailed reports with remediation recommendations.",
-    image: "/images/projects/aws.png",
+    image: "/images/projects/lawedu.webp",
     technologies: ["Python", "Django", "SQLite", "BeautifulSoup", "Celery"],
     category: "security",
     demoUrl: "https://security-tool.example.com",
@@ -46,12 +46,12 @@ export const projects: Project[] = [
     title: "Task Management App",
     description: "Collaborative task management with real-time updates and team features",
     longDescription: "Modern task management application with real-time collaboration, drag-and-drop interface, team workspaces, calendar integration, and notification system.",
-    image: "/images/projects/aws.png",
+    image: "/images/projects/samajhub.webp",
     technologies: ["React", "Firebase", "Material-UI", "Redux"],
     category: "frontend",
     demoUrl: "https://tasks.example.com",
     githubUrl: "https://github.com/nitin/task-manager",
-    featured: false,
+    featured: true,
     date: "2023-06"
   },
   {
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     category: "fullstack",
     demoUrl: "https://ai-portfolio.example.com",
     githubUrl: "https://github.com/nitin/ai-portfolio-analyzer",
-    featured: true,
+    featured: false,
     date: "2024-07"
   },
   {
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     category: "mobile",
     demoUrl: "https://fitness.example.com",
     githubUrl: "https://github.com/nitin/mobile-fitness-tracker",
-    featured: true,
+    featured: false,
     date: "2024-05"
   },
  
