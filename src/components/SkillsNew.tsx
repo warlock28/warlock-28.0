@@ -16,16 +16,13 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
       y: -20,
       scale: 0.95
     },
-    visible: { 
+      visible: { 
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1], // Custom cubic-bezier for smooth easing
-        opacity: { duration: 0.3 },
-        y: { duration: 0.4 },
-        scale: { duration: 0.3 }
+        duration: 0.3,
+        ease: "easeOut"
       }
     },
     exit: { 
@@ -33,8 +30,8 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
       y: -10,
       scale: 0.98,
       transition: {
-        duration: 0.25,
-        ease: [0.4, 0, 1, 1]
+        duration: 0.2,
+        ease: "easeIn"
       }
     }
   };
@@ -46,9 +43,9 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
       x: 0,
       scale: 1,
       transition: {
-        delay: i * 0.04,
-        duration: 0.35,
-        ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing
+        delay: i * 0.03,
+        duration: 0.25,
+        ease: "easeOut"
       }
     })
   };
@@ -113,9 +110,9 @@ const SkillPopup = ({ category, items, onClose }: SkillPopupProps) => {
                 initial={{ width: 0 }}
                 animate={{ width: `${skill.level}%` }}
                 transition={{ 
-                  delay: index * 0.04 + 0.25, 
-                  duration: 1,
-                  ease: [0.25, 0.46, 0.45, 0.94] // Smooth easing curve
+                  delay: index * 0.03 + 0.2, 
+                  duration: 0.8,
+                  ease: "easeOut"
                 }}
                 className="h-full bg-gradient-to-r from-primary to-accent/70 rounded-full relative shadow-sm shadow-primary/30"
               >
@@ -154,8 +151,8 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
       y: 0,
       scale: 1,
       transition: {
-        delay: index * 0.1,
-        duration: 0.5,
+        delay: index * 0.08,
+        duration: 0.4,
         ease: "easeOut"
       }
     }
@@ -170,14 +167,8 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-50px" }}
-      whileHover={{ 
-        scale: 1.02,
-        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
-      }}
-      whileTap={{ scale: 0.98 }}
       animate={{
-        scale: isActive ? 1.02 : 1,
-        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
+        scale: isActive ? 1 : 1
       }}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
@@ -188,24 +179,24 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
         bg-gradient-to-br from-card/95 to-card/80
         backdrop-blur-sm
         border-2 rounded-xl
-        transition-all duration-300
         overflow-hidden
         py-6 px-4
         ${isActive 
-          ? 'border-primary shadow-lg shadow-primary/30' 
-          : 'border-primary/20 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20'
+          ? 'border-primary shadow-lg shadow-primary/25' 
+          : 'border-primary/20 hover:border-primary/40 hover:shadow-md hover:shadow-primary/15'
         }
       `}
+      style={{ transition: 'border-color 0.2s ease-out, box-shadow 0.2s ease-out' }}
       aria-expanded={isActive}
       aria-label={`View ${category} skills`}
     >
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-between gap-3">
         {/* Icon */}
-        <div className="text-3xl sm:text-4xl transform group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+        <div className="text-3xl sm:text-4xl flex-shrink-0" style={{ transition: 'transform 0.2s ease-out' }}>
           {mainIcon}
         </div>
         
@@ -222,7 +213,7 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
         </div>
 
         {/* Arrow indicator */}
-        <div className="text-primary/50 group-hover:text-primary transition-colors flex-shrink-0">
+        <div className="text-primary/50 group-hover:text-primary flex-shrink-0" style={{ transition: 'color 0.2s ease-out' }}>
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
@@ -230,7 +221,7 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
       </div>
 
       {/* Corner accent */}
-      <div className="absolute top-0 right-0 w-12 sm:w-16 h-12 sm:h-16 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
+      <div className="absolute top-0 right-0 w-12 sm:w-16 h-12 sm:h-16 opacity-20 group-hover:opacity-30 transition-opacity duration-200">
         <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-primary to-transparent" />
         <div className="absolute top-0 right-0 h-full w-[2px] bg-gradient-to-b from-primary to-transparent" />
       </div>
@@ -392,9 +383,10 @@ const SkillsNew = () => {
               {skills.flatMap(category => category.items).map((skill, index) => (
                 <div
                   key={`first-${skill.name}-${index}`}
-                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 cursor-pointer group backdrop-blur-md"
+                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-primary/20 hover:border-primary/35 cursor-pointer group backdrop-blur-md"
+                  style={{ transition: 'border-color 0.2s ease-out' }}
                 >
-                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3 group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3">{skill.icon}</span>
                   <span className="text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">{skill.name}</span>
                 </div>
               ))}
@@ -402,9 +394,10 @@ const SkillsNew = () => {
               {skills.flatMap(category => category.items).map((skill, index) => (
                 <div
                   key={`second-${skill.name}-${index}`}
-                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-primary/20 hover:border-primary/40 transition-all duration-300 hover:scale-105 cursor-pointer group backdrop-blur-md"
+                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-primary/20 hover:border-primary/35 cursor-pointer group backdrop-blur-md"
+                  style={{ transition: 'border-color 0.2s ease-out' }}
                 >
-                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3 group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3">{skill.icon}</span>
                   <span className="text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">{skill.name}</span>
                 </div>
               ))}
@@ -418,9 +411,10 @@ const SkillsNew = () => {
               {skills.flatMap(category => category.items).reverse().map((skill, index) => (
                 <div
                   key={`reverse-first-${skill.name}-${index}`}
-                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:scale-105 cursor-pointer group backdrop-blur-md"
+                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-accent/20 hover:border-accent/35 cursor-pointer group backdrop-blur-md"
+                  style={{ transition: 'border-color 0.2s ease-out' }}
                 >
-                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3 group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3">{skill.icon}</span>
                   <span className="text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">{skill.name}</span>
                 </div>
               ))}
@@ -428,9 +422,10 @@ const SkillsNew = () => {
               {skills.flatMap(category => category.items).reverse().map((skill, index) => (
                 <div
                   key={`reverse-second-${skill.name}-${index}`}
-                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:scale-105 cursor-pointer group backdrop-blur-md"
+                  className="flex-shrink-0 glassmorphism rounded-full px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-3 border border-accent/20 hover:border-accent/35 cursor-pointer group backdrop-blur-md"
+                  style={{ transition: 'border-color 0.2s ease-out' }}
                 >
-                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3 group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-sm sm:text-base lg:text-lg mr-1.5 sm:mr-2 lg:mr-3">{skill.icon}</span>
                   <span className="text-xs sm:text-sm lg:text-base font-medium whitespace-nowrap">{skill.name}</span>
                 </div>
               ))}

@@ -182,8 +182,9 @@ const Projects = ({
               <div className="relative overflow-hidden rounded-t-xl bg-muted">
                 <img
                   src={project.image}
-                  
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  alt={project.title}
+                  className="w-full h-48 object-cover"
+                  style={{ transition: 'transform 0.3s ease-out' }}
                 />
                 {project.featured && (
                   <Badge className="absolute top-4 right-4 bg-gradient-secondary text-white flex items-center gap-1">
@@ -195,7 +196,7 @@ const Projects = ({
 
               {/* Project Info */}
               <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-bold mb-3 group-hover:text-primary" style={{ transition: 'color 0.2s ease-out' }}>
                   {project.title}
                 </h3>
                 <p className="text-muted-foreground mb-4 line-clamp-3">

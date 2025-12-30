@@ -117,7 +117,7 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-[9999] px-3 sm:px-4 md:px-6"
       style={{ paddingTop: navbarPadding, paddingBottom: navbarPadding }}
     >
@@ -138,7 +138,7 @@ const Navbar = () => {
           backgroundColor: scrolled ? scrolledBackground : restingBackground,
           borderColor: scrolled ? scrolledBorder : restingBorder
         }}
-        transition={{ duration: 0.4, ease: 'easeInOut' }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         style={{
           boxShadow: scrolled ? scrolledShadow : restingShadow
         }}
@@ -149,26 +149,22 @@ const Navbar = () => {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
               style={{ scale: logoScale }}
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => handleNavSelection('home')}
             >
-              <motion.div 
+              <div 
                 className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                style={{ transition: 'transform 0.2s ease-out' }}
               >
                 <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </motion.div>
-              <motion.span 
+              </div>
+              <span 
                 className="text-xl sm:text-2xl font-bold gradient-text"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
               >
                 Warlock
-              </motion.span>
+              </span>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -179,9 +175,9 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: -15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ 
-                    duration: 0.4, 
-                    delay: 0.1 + (0.05 * index),
-                    ease: [0.22, 1, 0.36, 1]
+                    duration: 0.3, 
+                    delay: 0.1 + (0.04 * index),
+                    ease: "easeOut"
                   }}
                 >
                   <Button
@@ -201,9 +197,8 @@ const Navbar = () => {
                         layoutId="activeTab"
                         className="absolute inset-0 bg-primary/15 rounded-xl"
                         transition={{ 
-                          type: 'spring', 
-                          stiffness: 380, 
-                          damping: 30 
+                          duration: 0.2,
+                          ease: "easeOut"
                         }}
                       />
                     )}
@@ -214,9 +209,8 @@ const Navbar = () => {
                         layoutId="activeIndicator"
                         className="absolute bottom-1 left-2 right-2 h-0.5 bg-gradient-primary rounded-full"
                         transition={{ 
-                          type: 'spring', 
-                          stiffness: 380, 
-                          damping: 30 
+                          duration: 0.2,
+                          ease: "easeOut"
                         }}
                       />
                     )}
@@ -246,18 +240,13 @@ const Navbar = () => {
                 {isDarkMode ? <SunMedium className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
               {/* Mobile Menu Button */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              <div
                 className="lg:hidden"
               >
-                <motion.button
+                <button
                   onClick={toggleMenu}
                   className="rounded-xl relative overflow-hidden w-10 h-10 sm:w-11 sm:h-11 bg-card/80 border border-border flex items-center justify-center"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                  style={{ transition: 'transform 0.2s ease-out' }}
                 >
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -274,8 +263,8 @@ const Navbar = () => {
                       )}
                     </motion.div>
                   </AnimatePresence>
-                </motion.button>
-              </motion.div>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -286,7 +275,7 @@ const Navbar = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="lg:hidden overflow-hidden"
               >
                 <div className="px-2 pt-3 pb-5 space-y-1.5 border-t border-slate-700/50 mt-2">
@@ -298,19 +287,18 @@ const Navbar = () => {
                       exit={{ opacity: 0, x: -10 }}
                       transition={{ 
                         duration: 0.2, 
-                        delay: 0.03 * index,
-                        ease: [0.22, 1, 0.36, 1]
+                        delay: 0.025 * index,
+                        ease: "easeOut"
                       }}
                     >
-                      <motion.button
+                      <button
                         onClick={() => handleNavSelection(item.id)}
-                        className={`w-full text-left rounded-xl py-4 px-5 relative min-h-[52px] flex items-center border transition-colors duration-200 ${
+                        className={`w-full text-left rounded-xl py-4 px-5 relative min-h-[52px] flex items-center border ${
                           activeSection === item.id
                             ? 'text-primary bg-primary/15 font-semibold border-primary/20'
                             : 'text-foreground/80 hover:text-foreground hover:bg-slate-800/50 font-medium border-transparent'
                         }`}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                        style={{ transition: 'background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out' }}
                       >
                         {/* Active Indicator */}
                         {activeSection === item.id && (
@@ -318,14 +306,13 @@ const Navbar = () => {
                             className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-primary rounded-full"
                             layoutId="mobileActiveIndicator"
                             transition={{ 
-                              type: 'spring', 
-                              stiffness: 380, 
-                              damping: 30 
+                              duration: 0.2,
+                              ease: "easeOut"
                             }}
                           />
                         )}
                         <span className="relative z-10 text-base">{item.label}</span>
-                      </motion.button>
+                      </button>
                     </motion.div>
                   ))}
                 </div>

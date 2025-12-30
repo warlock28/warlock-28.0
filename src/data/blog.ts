@@ -1,19 +1,4 @@
-/**
- * BLOG POSTS CONTENT
- * 
- * Easy to add/edit blog posts manually
- * 
- * HOW TO ADD A NEW BLOG POST:
- * 1. Add featured image to: public/images/blog/your-post-image.jpg
- * 2. Copy one of the blog post objects below
- * 3. Update all fields (id, title, slug, excerpt, content, etc.)
- * 4. Save this file
- * 
- * IMAGE RECOMMENDATIONS:
- * - Size: 1200x630px (ideal for social sharing)
- * - Format: .jpg, .png, or .webp
- * - Use relevant, high-quality images
- */
+
 
 export interface BlogPost {
   id: number;

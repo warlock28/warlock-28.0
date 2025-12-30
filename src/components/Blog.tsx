@@ -236,7 +236,8 @@ const Blog = ({
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-48 object-cover"
+                        style={{ transition: 'transform 0.3s ease-out' }}
                       />
                       {post.featured && (
                         <Badge className="absolute top-4 left-4 bg-primary">Featured</Badge>
@@ -251,7 +252,7 @@ const Blog = ({
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl group-hover:text-primary" style={{ transition: 'color 0.2s ease-out' }}>
                         {post.title}
                       </CardTitle>
                       <CardDescription className="line-clamp-3">
@@ -290,8 +291,9 @@ const Blog = ({
                     <div className="relative overflow-hidden rounded-t-xl">
                       <img
                         src={post.image}
-                       
-                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                        alt={post.title}
+                        className="w-full h-48 object-cover"
+                        style={{ transition: 'transform 0.3s ease-out' }}
                       />
                       {post.featured && (
                         <Badge className="absolute top-4 left-4 bg-primary">Featured</Badge>
@@ -306,7 +308,7 @@ const Blog = ({
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                      <CardTitle className="text-xl group-hover:text-primary" style={{ transition: 'color 0.2s ease-out' }}>
                         {post.title}
                       </CardTitle>
                       <CardDescription className="line-clamp-3">

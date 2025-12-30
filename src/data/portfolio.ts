@@ -6,17 +6,17 @@ export { blogPosts, type BlogPost } from './blog';
 export const personalInfo = {
   name: "Nitin Kumar",
   title: "Full Stack Developer & Cybersecurity Enthusiast",
-  email: "nitin@example.com",
-  phone: "+1 (555) 123-4567",
-  location: "San Francisco, CA",
-  bio: "Passionate full-stack developer with 5+ years of experience building scalable web applications and implementing robust security solutions. I specialize in React, Node.js, and modern cybersecurity practices.",
-  profileImage: "/placeholder.svg",
+  email: "nitin.kush72800@gmail.com",
+  phone: "+91 2828282828",
+  location: "Agra, Uttar Pradesh, India",
+  bio: "Passionate full-stack developer with 2+ years of experience building scalable web applications and implementing robust security solutions. I specialize in React,Next.js, Node.js, and modern cybersecurity practices.",
+  profileImage: "/images/certifications/remo.webp",
   resumeUrl: "https://drive.google.com/file/d/1Klo1Q8P0jRtRclExZr7o1ht0Fqi414iu/view?usp=sharing",
   social: {
     github: "https://github.com/warlock28",
     linkedin: "https://www.linkedin.com/in/nitin-kumar-warlock/",
     twitter: "https://twitter.com/nitin",
-    email: "nitin.kum7280@gmail.com"
+    email: "nitin.kush72800@gmail.com"
   }
 };
 
@@ -25,11 +25,10 @@ export const skills = [
     category: "Frontend",
     items: [
       { name: "React", level: 95, icon: "⚛️" },
-      { name: "TypeScript", level: 90, icon: "🔷" },
-      { name: "Next.js", level: 85, icon: "▲" },
-      { name: "Tailwind CSS", level: 92, icon: "🎨" },
-      { name: "Framer Motion", level: 80, icon: "🎭" },
-      { name: "Vue.js", level: 75, icon: "💚" }
+      { name: "Next.js", level: 90, icon: "🔷" },
+      { name: "TypeScript", level: 85, icon: "▲" },
+      { name: "JavaScript", level: 92, icon: "🎨" },
+      { name: "Tailwind CSS", level: 88, icon: "🌬️" },
     ]
   },
   {
@@ -48,7 +47,9 @@ export const skills = [
       { name: "PostgreSQL", level: 82, icon: "🐘" },
       { name: "MongoDB", level: 78, icon: "🍃" },
       { name: "Redis", level: 80, icon: "🔴" },
-      { name: "MySQL", level: 75, icon: "💾" }
+      { name: "MySQL", level: 75, icon: "💾" },
+      { name: "Supabase", level: 85, icon: "🐳" },
+      { name: "Firebase", level: 70, icon: "⚙️" },
     ]
   },
   {
@@ -73,9 +74,10 @@ export const skills = [
     category: "Tools",
     items: [
       { name: "Git", level: 90, icon: "📝" },
-      { name: "Linux", level: 88, icon: "🐧" },
-      { name: "Figma", level: 70, icon: "🎨" },
-      { name: "VS Code", level: 95, icon: "💻" }
+      { name: "cursor", level: 88, icon: "🐧" },
+      { name: "warp", level: 70, icon: "🎨" },
+      { name: "VS Code", level: 95, icon: "💻" },
+      { name: "bun", level: 88, icon: "🐧" },
     ]
   }
 ];
@@ -113,29 +115,38 @@ export const services = [
 
 export const timeline = [
   {
-    year: "2023",
-    title: "Senior Full Stack Developer",
-    company: "TechCorp Inc.",
-    description: "Led development of multiple high-traffic web applications"
-  },
-  {
-    year: "2021",
-    title: "Full Stack Developer",
-    company: "StartupXYZ",
-    description: "Built the entire platform from scratch using React and Node.js"
-  },
-  {
-    year: "2020",
-    title: "Frontend Developer",
-    company: "WebSolutions",
-    description: "Developed responsive user interfaces and improved user experience"
-  },
-  {
-    year: "2019",
-    title: "Computer Science Graduate",
-    company: "University of Technology",
-    description: "Bachelor's degree in Computer Science with focus on cybersecurity"
-  }
+  year: "2025",
+  title: "Aspiring Full Stack & Security Engineer",
+  company: "Self-Driven Projects & Research",
+  description: "Building modern, secure web platforms using React, TypeScript, Node.js, and cybersecurity best practices. Focused on performance, privacy, and scalable system design."
+},
+
+ {
+  year: "2025",
+  title: "Cyber Crime Investigator Intern",
+  company: "Defronix Cyber Crime Investigation",
+  description: "Worked on real-world cyber crime investigation scenarios including digital evidence analysis, online fraud awareness, cyber laws fundamentals, and incident reporting workflows."
+},
+
+{
+  year: "2024",
+  title: "Frontend Developer Intern",
+  company: "Rajeev Gandhi Computer Saksharta Mission",
+  description: "Developed responsive and accessible user interfaces using React, Tailwind CSS, and JavaScript. Improved UI consistency, performance, and user experience across multiple modules."
+},
+{
+  year: "2023-2026",
+  title: "B.Tech in Cybersecurity",
+  company: "IBM Collaboration Program",
+  description: "Completed B.Tech with specialization in Cybersecurity. Gained hands-on exposure to network security, web application security, ethical hacking concepts, and secure architecture principles."
+},
+{
+  year: "2023",
+  title: "Diploma in Computer Science",
+  company: "Technical Education Program",
+  description: "Completed a diploma covering programming fundamentals, computer networks, databases, operating systems, and basic software development practices."
+}
+
 ];
 
 export const testimonials = [

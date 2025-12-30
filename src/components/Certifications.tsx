@@ -153,7 +153,7 @@ const Certifications = ({
                 className="flex-shrink-0 w-[280px] card-shell"
               >
                 <div className="group perspective-1000 h-64">
-                  <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                  <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
                     {/* Front of card */}
                     <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden">
                       <CardContent className="p-4 h-full flex flex-col justify-center items-center text-center">
@@ -255,7 +255,7 @@ const Certifications = ({
                 <CarouselItem key={cert.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                   <motion.div variants={itemVariants} className="h-full">
                     <div className="group perspective-1000 h-80 card-shell">
-                      <div className="relative w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
+                      <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
                         {/* Front of card */}
                         <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden">
                           <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center items-center text-center">

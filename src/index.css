@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -142,6 +144,10 @@
     position: relative;
     overflow-x: hidden;
     color: hsl(var(--foreground));
+    font-family: 'Playfair Display', serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
   }
 
   /* Subtle Ambient Glow */
@@ -172,13 +178,15 @@
   }
 
   .card-shell {
-    @apply relative rounded-xl border border-border/60 bg-card/95 shadow-lg transition-all duration-300;
+    @apply relative rounded-xl border border-border/60 bg-card/95 shadow-lg;
+    transition: transform 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    will-change: transform;
   }
 
   .card-shell:hover {
-    transform: translateY(-4px);
-    border-color: hsla(var(--primary) / 0.45);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    border-color: hsla(var(--primary) / 0.35);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   }
 
   /* Network Graph with Connected Nodes and Edges */
@@ -298,25 +306,27 @@
   }
 
   .skill-card {
-    @apply glassmorphism rounded-xl p-6 transition-all duration-300;
+    @apply glassmorphism rounded-xl p-6;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+    will-change: transform;
   }
 
   .skill-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 18px 45px 0 var(--surface-tint);
-    border-color: hsla(var(--primary) / 0.35);
-    background: hsl(var(--card) / 0.92);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px 0 var(--surface-tint);
+    border-color: hsla(var(--primary) / 0.3);
   }
 
   .project-card {
-    @apply glassmorphism rounded-xl overflow-hidden transition-all duration-500;
+    @apply glassmorphism rounded-xl overflow-hidden;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
+    will-change: transform;
   }
 
   .project-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.12);
-    border-color: hsla(var(--accent) / 0.45);
-    background: hsl(var(--card) / 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+    border-color: hsla(var(--accent) / 0.35);
   }
 
   /* Certificate Card Styles */
@@ -331,12 +341,13 @@
     background-image: 
       radial-gradient(circle at 25% 75%, rgba(65, 215, 177, 0.16) 0%, transparent 55%),
       radial-gradient(circle at 80% 20%, rgba(60, 182, 255, 0.12) 0%, transparent 50%);
-    transition: all 0.35s ease;
+    transition: transform 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
+    will-change: transform;
   }
 
   .certificate-card:hover {
-    border-color: hsla(var(--primary) / 0.45);
-    box-shadow: 0 28px 65px 0 rgba(0, 0, 0, 0.12);
+    border-color: hsla(var(--primary) / 0.35);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
 

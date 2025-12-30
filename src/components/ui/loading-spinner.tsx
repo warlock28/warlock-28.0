@@ -35,8 +35,8 @@ export const LoadingSpinner = ({ size = "md", className }: LoadingSpinnerProps) 
  * Centered loading spinner for sections
  */
 export const SectionLoader = () => (
-  <div className="flex items-center justify-center py-20">
-    <LoadingSpinner size="md" />
+  <div className="flex items-center justify-center min-h-[400px] w-full">
+    <LoadingSpinner size="lg" />
   </div>
 );
 
@@ -44,5 +44,5 @@ export const SectionLoader = () => (
  * Inline loading spinner for buttons
  */
 export const ButtonLoader = () => (
-  <LoadingSpinner size="sm" className="mr-2" />
+  <LoadingSpinner size="sm" />
 );

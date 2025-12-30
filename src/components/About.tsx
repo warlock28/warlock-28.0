@@ -39,11 +39,13 @@ const About = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-primary rounded-3xl blur-2xl opacity-20 scale-105"></div>
                   <div className="relative glassmorphism rounded-3xl p-2 border-2 border-white/20">
-                    <img
-                      src={personalInfo.profileImage}
-                      alt={personalInfo.name}
-                      className="w-full aspect-square object-cover rounded-2xl shadow-2xl"
-                    />
+                    <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-background/50 to-background/30">
+                      <img
+                        src={personalInfo.profileImage}
+                        alt={personalInfo.name}
+                        className="w-full h-full object-cover object-top rounded-2xl shadow-2xl"
+                      />
+                    </div>
                     {/* Overlay Gradient */}
                     <div className="absolute inset-2 rounded-2xl bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none"></div>
                   </div>
@@ -58,7 +60,7 @@ const About = () => {
                   className="absolute left-4 sm:-left-4 top-1/2 transform -translate-y-1/2 glassmorphism rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/20"
                 >
                   <div className="text-center">
-                    <div className="text-lg sm:text-2xl font-bold gradient-text">3+</div>
+                    <div className="text-lg sm:text-2xl font-bold gradient-text">2+</div>
                     <div className="text-xs text-muted-foreground whitespace-nowrap">Years</div>
                   </div>
                 </motion.div>
@@ -116,32 +118,23 @@ const About = () => {
                   return (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ 
-                      duration: 0.5,
-                      delay: index * 0.1,
-                      ease: [0.22, 1, 0.36, 1]
+                      duration: 0.4,
+                      delay: index * 0.08,
+                      ease: "easeOut"
                     }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      y: -5,
-                      transition: { type: "spring", stiffness: 400, damping: 17 }
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                    className="glassmorphism rounded-lg sm:rounded-xl p-4 sm:p-6 text-center border border-white/10 hover:border-primary/30 transition-all duration-300 group cursor-pointer relative overflow-hidden"
+                    className="glassmorphism rounded-lg sm:rounded-xl p-4 sm:p-6 text-center border border-white/10 hover:border-primary/25 group cursor-pointer relative overflow-hidden"
+                    style={{ transition: 'transform 0.2s ease-out, border-color 0.2s ease-out' }}
                   >
                     {/* Gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-accent/0 group-hover:from-primary/5 group-hover:to-accent/5 transition-all duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-accent/0 group-hover:from-primary/5 group-hover:to-accent/5 transition-all duration-200" />
                     
-                    <motion.div 
-                      className="mb-2 sm:mb-3 relative z-10"
-                      whileHover={{ rotate: [0, -10, 10, 0], scale: 1.2 }}
-                      transition={{ duration: 0.5 }}
-                    >
+                    <div className="mb-2 sm:mb-3 relative z-10">
                       <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 mx-auto text-primary drop-shadow-lg" />
-                    </motion.div>
+                    </div>
                     <h4 className="font-bold text-foreground mb-1 sm:mb-2 text-sm sm:text-base relative z-10">{strength.title}</h4>
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed relative z-10">{strength.desc}</p>
                   </motion.div>
@@ -156,29 +149,31 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ 
-                  duration: 0.6,
-                  delay: 0.6,
-                  ease: [0.22, 1, 0.36, 1]
+                  duration: 0.4,
+                  delay: 0.3,
+                  ease: "easeOut"
                 }}
               >
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <div style={{ transition: 'transform 0.2s ease-out' }}>
                   <Button
                     variant="default"
-                    className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 border-0 shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-xl hover:shadow-primary/30"
+                    className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 border-0 shadow-lg shadow-primary/25"
+                    style={{ transition: 'opacity 0.2s ease-out, box-shadow 0.2s ease-out' }}
                     onClick={() => window.open(personalInfo.social.linkedin, '_blank')}
                   >
                     Connect on LinkedIn
                   </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                </div>
+                <div style={{ transition: 'transform 0.2s ease-out' }}>
                   <Button
                     variant="outline"
-                    className="w-full sm:w-auto glassmorphism hover:bg-primary/10 border-primary/30 hover:border-primary/50 transition-all duration-300"
+                    className="w-full sm:w-auto glassmorphism hover:bg-primary/10 border-primary/30 hover:border-primary/40"
+                    style={{ transition: 'background-color 0.2s ease-out, border-color 0.2s ease-out' }}
                     onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     Get in Touch
                   </Button>
-                </motion.div>
+                </div>
               </motion.div>
             </motion.div>
           </div>
@@ -236,28 +231,26 @@ const About = () => {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ 
-                    type: "spring",
-                    stiffness: 200,
-                    delay: index * 0.1 + 0.2
+                    duration: 0.3,
+                    delay: index * 0.08 + 0.1,
+                    ease: "easeOut"
                   }}
-                  whileHover={{ scale: 1.2 }}
                 >
                   <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                 </motion.div>
                 
                 {/* Content with hover effect */}
-                <motion.div 
+                <div 
                   className={`ml-12 sm:ml-16 md:ml-0 md:w-5/12 ${index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'}`}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{ transition: 'transform 0.2s ease-out' }}
                 >
-                  <div className="glassmorphism rounded-lg p-4 sm:p-6 border border-white/10 hover:border-primary/30 transition-colors group cursor-pointer">
-                    <div className="text-primary font-bold text-base sm:text-lg mb-1 sm:mb-2 group-hover:scale-105 transition-transform">{item.year}</div>
+                  <div className="glassmorphism rounded-lg p-4 sm:p-6 border border-white/10 hover:border-primary/25 group cursor-pointer" style={{ transition: 'border-color 0.2s ease-out' }}>
+                    <div className="text-primary font-bold text-base sm:text-lg mb-1 sm:mb-2">{item.year}</div>
                     <h4 className="text-lg sm:text-xl font-semibold mb-1">{item.title}</h4>
                     <p className="text-primary/80 font-medium mb-1 sm:mb-2 text-sm sm:text-base">{item.company}</p>
                     <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">{item.description}</p>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             ))}
           </div>

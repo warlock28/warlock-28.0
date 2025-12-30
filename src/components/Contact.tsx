@@ -216,7 +216,7 @@ const Contact = () => {
                 {isSubmitting ? (
                   <>
                     <ButtonLoader />
-                    Sending...
+                    <span className="ml-2">Sending...</span>
                   </>
                 ) : (
                   <>

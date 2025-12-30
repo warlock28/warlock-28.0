@@ -61,17 +61,16 @@ const Footer = () => {
                                         platform === 'linkedin' ? Linkedin : 
                                         platform === 'twitter' ? Twitter : Mail;
                     return (
-                      <motion.a
+                      <a
                         key={platform}
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-colors"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary"
+                        style={{ transition: 'color 0.2s ease-out' }}
                       >
                         <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
-                      </motion.a>
+                      </a>
                     );
                   })}
                 </div>

@@ -18,8 +18,12 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
-			colors: {
+	extend: {
+		fontFamily: {
+			sans: ['Playfair Display', 'serif'],
+			serif: ['Playfair Display', 'serif'],
+		},
+		colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
