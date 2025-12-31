@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import NetworkBackground from '@/components/NetworkBackground';
 import Hero from '@/components/Hero';
 import { SectionLoader } from '@/components/ui/loading-spinner';
+import { BLOG_ENABLED } from '@/config/featureFlags';
 
 // Lazy load below-the-fold components
 const About = lazy(() => import('@/components/About'));
@@ -37,7 +38,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'blog', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'certifications', ...(BLOG_ENABLED ? ['blog'] : []), 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -98,13 +99,15 @@ const Index = () => {
             ctaLabel="See all certifications"
           />
         </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Blog
-            variant="featured"
-            ctaHref="/blog"
-            ctaLabel="Read the full blog"
-          />
-        </Suspense>
+        {BLOG_ENABLED && (
+          <Suspense fallback={<SectionLoader />}>
+            <Blog
+              variant="featured"
+              ctaHref="/blog"
+              ctaLabel="Read the full blog"
+            />
+          </Suspense>
+        )}
         <Suspense fallback={<SectionLoader />}>
           <Contact />
         </Suspense>

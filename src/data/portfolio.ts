@@ -1,7 +1,7 @@
 // Re-export from separated data files for backwards compatibility
 export { projects, type Project } from './projects';
 export { certifications, type Certification } from './certifications';
-export { blogPosts, type BlogPost } from './blog';
+// export { blogPosts, type BlogPost } from './blog';
 
 export const personalInfo = {
   name: "Nitin Kumar",

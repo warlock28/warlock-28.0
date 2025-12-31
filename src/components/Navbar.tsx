@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useStore } from '@/store/useStore';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Code2, SunMedium, Moon } from 'lucide-react';
+import { BLOG_ENABLED } from '@/config/featureFlags';
 
 const Navbar = () => {
   const { activeSection, isMenuOpen, isDarkMode, toggleMenu, toggleDarkMode, setActiveSection, setDarkMode } = useStore();
@@ -23,7 +24,7 @@ const Navbar = () => {
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'certifications', label: 'Certifications' },
-    { id: 'blog', label: 'Blog' },
+    ...(BLOG_ENABLED ? [{ id: 'blog', label: 'Blog' }] : []),
     { id: 'contact', label: 'Contact' },
   ];
 

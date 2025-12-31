@@ -6,7 +6,7 @@ import { Rocket, Handshake, Search, Lightbulb, MapPin } from 'lucide-react';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
+    <section id="about" className="py-14 sm:py-16 lg:py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
