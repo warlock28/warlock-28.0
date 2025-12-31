@@ -25,11 +25,11 @@ const Projects = ({
 }: ProjectsProps) => {
   const { projectFilter, setProjectFilter } = useStore();
   const isFeaturedVariant = variant === 'featured';
-  
+
   const categories = ['all', 'fullstack', 'frontend', 'backend', 'security', 'mobile'];
   const featuredProjects = getFeaturedProjects().slice(0, featuredLimit);
-  const filteredProjects = projectFilter === 'all' 
-    ? projects 
+  const filteredProjects = projectFilter === 'all'
+    ? projects
     : projects.filter(project => project.category === projectFilter);
   const displayProjects = isFeaturedVariant ? featuredProjects : filteredProjects;
 
@@ -56,11 +56,10 @@ const Projects = ({
                 variant={projectFilter === category ? "default" : "outline"}
                 onClick={() => setProjectFilter(category)}
                 size="sm"
-                className={`capitalize text-xs sm:text-sm ${
-                  projectFilter === category 
-                    ? 'bg-gradient-primary text-white' 
+                className={`capitalize text-xs sm:text-sm ${projectFilter === category
+                    ? 'bg-gradient-primary text-white'
                     : 'glassmorphism hover:bg-primary/10'
-                }`}
+                  }`}
               >
                 {category}
               </Button>
@@ -139,7 +138,7 @@ const Projects = ({
                         variant="outline"
                         size="sm"
                         onClick={() => window.open(project.demoUrl, '_blank')}
-                    className="flex-1 text-xs hover:bg-primary/10"
+                        className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <ExternalLink className="w-3 h-3 mr-1" />
                         Demo
@@ -148,7 +147,7 @@ const Projects = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => window.open(project.githubUrl, '_blank')}
-                    className="flex-1 text-xs hover:bg-primary/10"
+                        className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <Github className="w-3 h-3 mr-1" />
                         Code
@@ -167,75 +166,134 @@ const Projects = ({
             </div>
           </div>
 
-          {/* Desktop: Grid Layout */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {displayProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="card-shell group overflow-hidden"
-            >
-              {/* Project Image */}
-              <div className="relative overflow-hidden rounded-t-xl bg-muted">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover"
-                  style={{ transition: 'transform 0.3s ease-out' }}
-                />
-                {project.featured && (
-                  <Badge className="absolute top-4 right-4 bg-gradient-secondary text-white flex items-center gap-1">
-                    <Star className="w-3 h-3" />
-                    Featured
-                  </Badge>
-                )}
-              </div>
+          {/* Desktop: Alternating Layout */}
+          <div className="hidden md:block space-y-16 lg:space-y-24">
+            {displayProjects.map((project, index) => {
+              const isEven = index % 2 === 0;
 
-              {/* Project Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary" style={{ transition: 'color 0.2s ease-out' }}>
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center`}
+                >
+                  {/* Project Image Section */}
+                  <motion.div
+                    className="w-full lg:w-1/2 relative"
+                    initial={{ opacity: 0, x: isEven ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <div className="relative rounded-2xl shadow-xl border border-border/30 bg-card/50 p-4">
+                      {/* Image */}
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-[280px] lg:h-[320px] object-contain rounded-xl"
+                      />
 
-                {/* Project Links */}
-                <div className="flex space-x-3">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => window.open(project.demoUrl, '_blank')}
-                    className="flex-1 flex items-center gap-2"
+                      {/* Featured Badge */}
+                      {project.featured && (
+                        <Badge className="absolute top-8 right-8 bg-gradient-secondary text-white flex items-center gap-1 px-3 py-1.5 text-sm shadow-lg">
+                          <Star className="w-4 h-4" />
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
+                  </motion.div>
+
+                  {/* Project Content Section */}
+                  <motion.div
+                    className="w-full lg:w-1/2 space-y-6"
+                    initial={{ opacity: 0, x: isEven ? 50 : -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
                   >
-                    <ExternalLink className="w-4 h-4" />
-                    View Demo
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => window.open(project.githubUrl, '_blank')}
-                    className="flex items-center gap-2"
-                  >
-                    <Github className="w-4 h-4" />
-                    GitHub
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-            ))}
+                    {/* Project Title */}
+                    <div className="space-y-3">
+                      <motion.div
+                        className="flex items-center gap-3"
+                        whileHover={{ x: isEven ? 5 : -5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Code2 className="w-6 h-6 text-primary" />
+                        <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+                          Project {String(index + 1).padStart(2, '0')}
+                        </span>
+                      </motion.div>
+
+                      <h3 className="text-3xl lg:text-4xl font-bold leading-tight">
+                        <span className="gradient-text">{project.title}</span>
+                      </h3>
+                    </div>
+
+                    {/* Description Card */}
+                    <div className="glassmorphism p-6 rounded-xl border border-border/50 shadow-lg">
+                      <p className="text-base lg:text-lg text-muted-foreground leading-relaxed">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-semibold text-foreground/80 uppercase tracking-wide flex items-center gap-2">
+                        <div className="w-8 h-px bg-gradient-primary" />
+                        Technologies
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <motion.div
+                            key={tech}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: techIndex * 0.05 }}
+                            whileHover={{ scale: 1.1, y: -2 }}
+                          >
+                            <Badge
+                              variant="secondary"
+                              className="text-sm px-4 py-1.5 bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/20 hover:to-secondary/20 transition-all duration-300 border border-primary/20"
+                            >
+                              {tech}
+                            </Badge>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Project Links */}
+                    <div className="flex flex-wrap gap-4 pt-4">
+                      <Button
+                        variant="default"
+                        size="lg"
+                        onClick={() => window.open(project.demoUrl, '_blank')}
+                        className="flex items-center gap-2 bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        View Live Demo
+                      </Button>
+
+                      {project.githubUrl && (
+                        <Button
+                          variant="outline"
+                          size="lg"
+                          onClick={() => window.open(project.githubUrl, '_blank')}
+                          className="flex items-center gap-2 glassmorphism hover:bg-primary/10 transition-all duration-300"
+                        >
+                          <Github className="w-5 h-5" />
+                          Source Code
+                        </Button>
+                      )}
+                    </div>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 

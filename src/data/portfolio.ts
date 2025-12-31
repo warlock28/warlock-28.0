@@ -11,7 +11,7 @@ export const personalInfo = {
   location: "Agra, Uttar Pradesh, India",
   bio: "Passionate full-stack developer with 2+ years of experience building scalable web applications and implementing robust security solutions. I specialize in React,Next.js, Node.js, and modern cybersecurity practices.",
   profileImage: "/images/certifications/remo.webp",
-  resumeUrl: "https://drive.google.com/file/d/1Klo1Q8P0jRtRclExZr7o1ht0Fqi414iu/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1-mcIZAC8PR-7HBpCkYw5D9mPS7xAF6sQ/view?usp=sharing",
   social: {
     github: "https://github.com/warlock28",
     linkedin: "https://www.linkedin.com/in/nitin-kumar-warlock/",
