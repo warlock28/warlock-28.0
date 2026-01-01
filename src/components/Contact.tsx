@@ -1,11 +1,11 @@
-  const fieldClass = (hasError: boolean) =>
-    cn(
-      'bg-white text-foreground placeholder:text-muted-foreground',
-      'border border-border focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none',
-      'dark:bg-slate-900/70 dark:text-foreground dark:placeholder:text-muted-foreground',
-      'transition-colors duration-200',
-      hasError && 'border-destructive focus-visible:ring-destructive/60'
-    );
+const fieldClass = (hasError: boolean) =>
+  cn(
+    'bg-white text-foreground placeholder:text-muted-foreground',
+    'border border-border focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none',
+    'dark:bg-slate-900/70 dark:text-foreground dark:placeholder:text-muted-foreground',
+    'transition-colors duration-200',
+    hasError && 'border-destructive focus-visible:ring-destructive/60'
+  );
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { personalInfo } from '@/data/portfolio';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, Instagram } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ButtonLoader } from '@/components/ui/loading-spinner';
 
@@ -45,16 +45,16 @@ const Contact = () => {
 
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       toast({
         title: "Message sent successfully! 🎉",
         description: "Thank you for reaching out. I'll get back to you soon!",
       });
-      
+
       reset();
     } catch (error) {
       toast({
@@ -116,7 +116,7 @@ const Contact = () => {
             <div>
               <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Get in Touch</h3>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-                I'm always interested in hearing about new opportunities, 
+                I'm always interested in hearing about new opportunities,
                 whether that's a freelance project, a full-time role, or just a chat about technology.
               </p>
             </div>
@@ -147,10 +147,35 @@ const Contact = () => {
                   </motion.div>
                 );
               })}
+
+              {/* Social Links */}
+              <div className="pt-6 border-t border-border/50">
+                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Social Profiles</h4>
+                <div className="flex gap-4">
+                  {Object.entries(personalInfo.social).map(([platform, url]) => {
+                    const IconComponent = platform === 'github' ? Github :
+                      platform === 'linkedin' ? Linkedin :
+                        platform === 'twitter' ? Twitter :
+                          platform === 'instagram' ? Instagram : Mail;
+                    return (
+                      <a
+                        key={platform}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-all duration-200 hover:scale-110"
+                        title={platform.charAt(0).toUpperCase() + platform.slice(1)}
+                      >
+                        <IconComponent className="w-5 h-5" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
           </motion.div>
-            
+
 
           {/* Contact Form */}
           <motion.div

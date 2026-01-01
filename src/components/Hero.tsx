@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Button } from '@/components/ui/button';
 import { personalInfo } from '@/data/portfolio';
-import { Github, Linkedin, Twitter, Mail, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, ChevronDown, Instagram } from 'lucide-react';
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -76,29 +76,29 @@ const Hero = () => {
           </motion.p>
 
           <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
-                >
-                <Button
-                  size="lg"
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-primary/90 text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-lg"
-                  style={{ transition: 'box-shadow 0.2s ease-out' }}
-                >
-                  Let's Talk
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => window.open(personalInfo.resumeUrl, '_blank')}
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-lg glassmorphism"
-                  style={{ transition: 'box-shadow 0.2s ease-out' }}
-                >
-                  Download Resume
-                </Button>
-                </motion.div>
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
+          >
+            <Button
+              size="lg"
+              onClick={() => scrollToSection('contact')}
+              className="w-full sm:w-auto bg-gradient-primary hover:bg-gradient-primary/90 text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-lg"
+              style={{ transition: 'box-shadow 0.2s ease-out' }}
+            >
+              Let's Talk
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.open(personalInfo.resumeUrl, '_blank')}
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-lg glassmorphism"
+              style={{ transition: 'box-shadow 0.2s ease-out' }}
+            >
+              Download Resume
+            </Button>
+          </motion.div>
 
           {/* Social Links */}
           <motion.div
@@ -108,9 +108,10 @@ const Hero = () => {
             className="flex justify-center space-x-4 sm:space-x-6 mt-8 sm:mt-12 px-4"
           >
             {Object.entries(personalInfo.social).map(([platform, url]) => {
-              const IconComponent = platform === 'github' ? Github : 
-                                  platform === 'linkedin' ? Linkedin : 
-                                  platform === 'twitter' ? Twitter : Mail;
+              const IconComponent = platform === 'github' ? Github :
+                platform === 'linkedin' ? Linkedin :
+                  platform === 'twitter' ? Twitter :
+                    platform === 'instagram' ? Instagram : Mail;
               return (
                 <a
                   key={platform}

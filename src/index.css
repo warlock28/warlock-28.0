@@ -159,7 +159,7 @@
     width: 100%;
     height: 100%;
     z-index: -2;
-    background: 
+    background:
       radial-gradient(circle at 20% 25%, var(--surface-glow) 0%, transparent 45%),
       radial-gradient(circle at 80% 70%, rgba(60, 182, 255, 0.18) 0%, transparent 45%),
       radial-gradient(circle at 50% 50%, rgba(255, 143, 112, 0.12) 0%, transparent 55%);
@@ -172,7 +172,7 @@
     background: var(--glassmorphism);
     backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid var(--glassmorphism-border);
-    box-shadow: 
+    box-shadow:
       0 14px 45px 0 var(--surface-tint),
       inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
   }
@@ -271,12 +271,15 @@
       transform: translateX(0) translateY(0);
       opacity: 0;
     }
+
     10% {
       opacity: 1;
     }
+
     90% {
       opacity: 1;
     }
+
     100% {
       transform: translateX(200vw) translateY(-80px);
       opacity: 0;
@@ -291,6 +294,12 @@
     filter: drop-shadow(0 4px 16px rgba(65, 215, 177, 0.3));
   }
 
+  .gradient-text-secondary {
+    color: #341f20;
+    /* User requested specific color without gradient */
+    /* Note: #341f20 is very dark, so ensuring visibility in dark mode might require additional handling if this is intended for dark mode too. */
+  }
+
   .bg-gradient-primary {
     background: var(--gradient-primary);
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
@@ -301,8 +310,17 @@
   }
 
   @keyframes subtleFloat {
-    0%, 100% { transform: translateY(0px); opacity: 0.6; }
-    50% { transform: translateY(-5px); opacity: 0.8; }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+      opacity: 0.6;
+    }
+
+    50% {
+      transform: translateY(-5px);
+      opacity: 0.8;
+    }
   }
 
   .skill-card {
@@ -333,12 +351,10 @@
   .certificate-card {
     @apply relative backdrop-blur-xl border shadow-2xl shadow-black/10;
     border-color: hsla(var(--primary) / 0.25);
-    background: linear-gradient(
-      140deg,
-      hsla(var(--card) / 0.98) 0%,
-      hsla(var(--card) / 0.9) 100%
-    );
-    background-image: 
+    background: linear-gradient(140deg,
+        hsla(var(--card) / 0.98) 0%,
+        hsla(var(--card) / 0.9) 100%);
+    background-image:
       radial-gradient(circle at 25% 75%, rgba(65, 215, 177, 0.16) 0%, transparent 55%),
       radial-gradient(circle at 80% 20%, rgba(60, 182, 255, 0.12) 0%, transparent 50%);
     transition: transform 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out;
@@ -379,15 +395,41 @@
   }
 
   /* Blog post content styling */
-  .prose h1 { @apply text-3xl font-bold mt-8 mb-4; }
-  .prose h2 { @apply text-2xl font-bold mt-6 mb-3; }
-  .prose h3 { @apply text-xl font-bold mt-4 mb-2; }
-  .prose p { @apply mb-4 leading-relaxed; }
-  .prose ul { @apply list-disc pl-6 mb-4; }
-  .prose ol { @apply list-decimal pl-6 mb-4; }
-  .prose li { @apply mb-2; }
-  .prose code { @apply bg-muted px-2 py-1 rounded text-sm; }
-  .prose blockquote { @apply border-l-4 border-primary pl-4 italic my-4; }
+  .prose h1 {
+    @apply text-3xl font-bold mt-8 mb-4;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-bold mt-6 mb-3;
+  }
+
+  .prose h3 {
+    @apply text-xl font-bold mt-4 mb-2;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .prose ul {
+    @apply list-disc pl-6 mb-4;
+  }
+
+  .prose ol {
+    @apply list-decimal pl-6 mb-4;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose code {
+    @apply bg-muted px-2 py-1 rounded text-sm;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-4 italic my-4;
+  }
 
   .line-clamp-3 {
     display: -webkit-box;
@@ -417,6 +459,7 @@
     0% {
       transform: translateX(0%);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -426,6 +469,7 @@
     0% {
       transform: translateX(-50%);
     }
+
     100% {
       transform: translateX(0%);
     }
@@ -435,6 +479,7 @@
     0% {
       transform: translateX(0%);
     }
+
     100% {
       transform: translateX(-100%);
     }
@@ -444,6 +489,7 @@
     0% {
       transform: translateX(-100%);
     }
+
     100% {
       transform: translateX(0%);
     }
@@ -466,6 +512,7 @@
     0% {
       transform: translateX(-100%);
     }
+
     100% {
       transform: translateX(100%);
     }

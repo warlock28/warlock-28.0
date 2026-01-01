@@ -16,6 +16,7 @@ export const personalInfo = {
     github: "https://github.com/warlock28",
     linkedin: "https://www.linkedin.com/in/nitin-kumar-warlock/",
     twitter: "https://x.com/NitinKumar18186",
+    instagram: "https://www.instagram.com/nitin_kumar_warlock/",
     email: "nitin.kush72800@gmail.com"
   }
 };
@@ -115,37 +116,37 @@ export const services = [
 
 export const timeline = [
   {
-  year: "2025",
-  title: "Aspiring Full Stack & Security Engineer",
-  company: "Self-Driven Projects & Research",
-  description: "Building modern, secure web platforms using React, TypeScript, Node.js, and cybersecurity best practices. Focused on performance, privacy, and scalable system design."
-},
+    year: "2025",
+    title: "Aspiring Full Stack & Security Engineer",
+    company: "Self-Driven Projects & Research",
+    description: "Building modern, secure web platforms using React, TypeScript, Node.js, and cybersecurity best practices. Focused on performance, privacy, and scalable system design."
+  },
 
- {
-  year: "2025",
-  title: "Cyber Crime Investigator Intern",
-  company: "Defronix Cyber Crime Investigation",
-  description: "Worked on real-world cyber crime investigation scenarios including digital evidence analysis, online fraud awareness, cyber laws fundamentals, and incident reporting workflows."
-},
+  {
+    year: "2025",
+    title: "Cyber Crime Investigator Intern",
+    company: "Defronix Cyber Crime Investigation",
+    description: "Worked on real-world cyber crime investigation scenarios including digital evidence analysis, online fraud awareness, cyber laws fundamentals, and incident reporting workflows."
+  },
 
-{
-  year: "2024",
-  title: "Frontend Developer Intern",
-  company: "Rajeev Gandhi Computer Saksharta Mission",
-  description: "Developed responsive and accessible user interfaces using React, Tailwind CSS, and JavaScript. Improved UI consistency, performance, and user experience across multiple modules."
-},
-{
-  year: "2023-2026",
-  title: "B.Tech in Cybersecurity",
-  company: "IBM Collaboration Program",
-  description: "Completed B.Tech with specialization in Cybersecurity. Gained hands-on exposure to network security, web application security, ethical hacking concepts, and secure architecture principles."
-},
-{
-  year: "2023",
-  title: "Diploma in Computer Science",
-  company: "Technical Education Program",
-  description: "Completed a diploma covering programming fundamentals, computer networks, databases, operating systems, and basic software development practices."
-}
+  {
+    year: "2024",
+    title: "Frontend Developer Intern",
+    company: "Rajeev Gandhi Computer Saksharta Mission",
+    description: "Developed responsive and accessible user interfaces using React, Tailwind CSS, and JavaScript. Improved UI consistency, performance, and user experience across multiple modules."
+  },
+  {
+    year: "2023-2026",
+    title: "B.Tech in Cybersecurity",
+    company: "IBM Collaboration Program",
+    description: "Completed B.Tech with specialization in Cybersecurity. Gained hands-on exposure to network security, web application security, ethical hacking concepts, and secure architecture principles."
+  },
+  {
+    year: "2023",
+    title: "Diploma in Computer Science",
+    company: "Technical Education Program",
+    description: "Completed a diploma covering programming fundamentals, computer networks, databases, operating systems, and basic software development practices."
+  }
 
 ];
 

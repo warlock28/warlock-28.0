@@ -57,8 +57,8 @@ const Projects = ({
                 onClick={() => setProjectFilter(category)}
                 size="sm"
                 className={`capitalize text-xs sm:text-sm ${projectFilter === category
-                    ? 'bg-gradient-primary text-white'
-                    : 'glassmorphism hover:bg-primary/10'
+                  ? 'bg-gradient-primary text-white'
+                  : 'glassmorphism hover:bg-primary/10'
                   }`}
               >
                 {category}
@@ -95,7 +95,7 @@ const Projects = ({
                         </Badge>
                       )}
                     </div>
-                    <h3 className="text-xl font-bold text-center gradient-text mb-2">{project.title}</h3>
+                    <h3 className="text-xl font-bold text-center gradient-text-secondary mb-2">{project.title}</h3>
                     <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
                       <Calendar className="w-3 h-3" />
                       <span>Completed Project</span>
@@ -228,7 +228,7 @@ const Projects = ({
                       </motion.div>
 
                       <h3 className="text-3xl lg:text-4xl font-bold leading-tight">
-                        <span className="gradient-text">{project.title}</span>
+                        <span className="gradient-text-secondary">{project.title}</span>
                       </h3>
                     </div>
 
