@@ -2,23 +2,27 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { Button } from '@/components/ui/button';
-import { personalInfo } from '@/data/portfolio';
+import { useProfile } from '@/hooks/useProfile';
 import { Github, Linkedin, Twitter, Mail, ChevronDown, Instagram } from 'lucide-react';
 
 const Hero = () => {
+  const { profile } = useProfile();
+  const name = profile?.name ?? '';
+  const bio = profile?.bio ?? '';
+  const resumeUrl = profile?.resume_url ?? '#';
+  const socialLinks = [
+    { platform: 'github', url: profile?.github_url, Icon: Github },
+    { platform: 'linkedin', url: profile?.linkedin_url, Icon: Linkedin },
+    { platform: 'twitter', url: profile?.twitter_url, Icon: Twitter },
+    { platform: 'instagram', url: profile?.instagram_url, Icon: Instagram },
+    { platform: 'email', url: profile?.email ? `mailto:${profile.email}` : undefined, Icon: Mail },
+  ].filter(s => Boolean(s.url));
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const downloadResume = () => {
-    // Create a link element and trigger download
-    const link = document.createElement('a');
-    link.href = personalInfo.resumeUrl;
-    link.download = 'Nitin_Kumar_Resume.pdf';
-    link.click();
   };
 
   return (
@@ -39,7 +43,7 @@ const Hero = () => {
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               Hi, I'm{' '}
-              <span className="gradient-text">{personalInfo.name}</span>
+              <span className="gradient-text">{name}</span>
             </h1>
           </motion.div>
 
@@ -72,7 +76,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             className="text-sm sm:text-base lg:text-lg text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto px-4 leading-relaxed"
           >
-            {personalInfo.bio}
+            {bio}
           </motion.p>
 
           <motion.div
@@ -92,7 +96,7 @@ const Hero = () => {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.open(personalInfo.resumeUrl, '_blank')}
+              onClick={() => window.open(resumeUrl, '_blank')}
               className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-semibold transition-all duration-200 hover:shadow-lg glassmorphism"
               style={{ transition: 'box-shadow 0.2s ease-out' }}
             >
@@ -107,24 +111,18 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
             className="flex justify-center space-x-4 sm:space-x-6 mt-8 sm:mt-12 px-4"
           >
-            {Object.entries(personalInfo.social).map(([platform, url]) => {
-              const IconComponent = platform === 'github' ? Github :
-                platform === 'linkedin' ? Linkedin :
-                  platform === 'twitter' ? Twitter :
-                    platform === 'instagram' ? Instagram : Mail;
-              return (
-                <a
-                  key={platform}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-all duration-200"
-                  style={{ transition: 'transform 0.2s ease-out, color 0.2s ease-out' }}
-                >
-                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
-                </a>
-              );
-            })}
+            {socialLinks.map(({ platform, url, Icon }) => (
+              <a
+                key={platform}
+                href={url}
+                target={platform === 'email' ? '_self' : '_blank'}
+                rel="noopener noreferrer"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-all duration-200"
+                style={{ transition: 'transform 0.2s ease-out, color 0.2s ease-out' }}
+              >
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+              </a>
+            ))}
           </motion.div>
         </div>
       </div>

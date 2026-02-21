@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { certifications, getFeaturedCertifications } from '@/data/certifications';
+import { useCertifications } from '@/hooks/useCertifications';
 import { ExternalLink, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
@@ -30,8 +30,9 @@ const Certifications = ({
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const isFeaturedVariant = variant === 'featured';
+  const { certifications } = useCertifications(isFeaturedVariant);
   const displayCertifications = isFeaturedVariant
-    ? getFeaturedCertifications().slice(0, featuredLimit)
+    ? certifications.slice(0, featuredLimit)
     : certifications;
 
 
@@ -71,14 +72,14 @@ const Certifications = ({
     const timer = setTimeout(() => {
       handleScroll();
     }, 100);
-    
+
     // Also handle window resize
     const handleResize = () => {
       handleScroll();
     };
-    
+
     window.addEventListener('resize', handleResize);
-    
+
     return () => {
       clearTimeout(timer);
       window.removeEventListener('resize', handleResize);
@@ -123,153 +124,151 @@ const Certifications = ({
       </div>
 
 
-        {/* Mobile: Horizontal Scroll with Navigation */}
-<motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="block sm:hidden relative px-2"
-        >
-          {/* Navigation Buttons */}
-          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 pl-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className={`w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border-primary/30 shadow-lg ${
-                !canScrollLeft ? 'opacity-30 cursor-not-allowed' : 'hover:bg-primary/20 hover:border-primary/50'
+      {/* Mobile: Horizontal Scroll with Navigation */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="block sm:hidden relative px-2"
+      >
+        {/* Navigation Buttons */}
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 pl-1">
+          <Button
+            variant="outline"
+            size="icon"
+            className={`w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border-primary/30 shadow-lg ${!canScrollLeft ? 'opacity-30 cursor-not-allowed' : 'hover:bg-primary/20 hover:border-primary/50'
               }`}
-              onClick={scrollLeft}
-              disabled={!canScrollLeft}
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-          </div>
-          
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 pr-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className={`w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border-primary/30 shadow-lg ${
-                !canScrollRight ? 'opacity-30 cursor-not-allowed' : 'hover:bg-primary/20 hover:border-primary/50'
-              }`}
-              onClick={scrollRight}
-              disabled={!canScrollRight}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </Button>
-          </div>
-
-
-          <div 
-            ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide px-12 pb-4"
-            onScroll={handleScroll}
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
           >
-            {displayCertifications.map((cert, index) => (
-              <motion.div
-                key={cert.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[280px] card-shell"
-              >
-                <div className="group perspective-1000 h-64">
-                  <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
-                    {/* Front of card */}
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden">
-                      <CardContent className="p-4 h-full flex flex-col justify-center items-center text-center">
-                        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
-                          <Award className="w-6 h-6 text-white" />
-                        </div>
-                        
-                        <h3 className="text-lg font-bold mb-2 gradient-text">
-                          {cert.name}
-                        </h3>
-                        
-                        <p className="text-sm text-muted-foreground mb-3">
-                          {cert.issuer}
-                        </p>
-                        
-                        <Badge variant="secondary" className="mb-3 text-xs">
-                          {cert.date}
-                        </Badge>
-                        
-                        <p className="text-xs text-muted-foreground">
-                          Tap to see certificate
-                        </p>
-                      </CardContent>
-                    </Card>
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+        </div>
+
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 pr-1">
+          <Button
+            variant="outline"
+            size="icon"
+            className={`w-9 h-9 rounded-full bg-background/95 backdrop-blur-sm border-primary/30 shadow-lg ${!canScrollRight ? 'opacity-30 cursor-not-allowed' : 'hover:bg-primary/20 hover:border-primary/50'
+              }`}
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
 
 
-                    {/* Back of card - Certificate Image - CHANGED */}
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden rotate-y-180">
-                      <CardContent className="p-0 h-full relative bg-muted/30">
-                        {/* Certificate Image */}
-                        {cert.image ? (
-                          <>
-                            <img
-                              src={cert.image}
-                              alt={`${cert.name} Certificate`}
-                              className="w-full h-full object-contain p-2 pb-14"
-                            />
-                            {/* Overlay with action button - CHANGED */}
-                            <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/90 to-transparent flex items-end p-3">
-                              {cert.credentialUrl && (
-                                <Button 
-                                  variant="default" 
-                                  size="sm"
-                                  className="w-full group bg-primary/90 hover:bg-primary text-xs h-8"
-                                  onClick={() => window.open(cert.credentialUrl, '_blank')}
-                                >
-                                  <ExternalLink className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-transform" />
-                                  View Certificate
-                                </Button>
-                              )}
-                            </div>
-                          </>
-                        ) : (
-                          // Fallback if no image
-                          <div className="p-4 h-full flex flex-col justify-center items-center text-center">
-                            <Award className="w-12 h-12 text-primary mb-4" />
-                            <h4 className="text-base font-semibold mb-2 text-primary">
-                              {cert.name}
-                            </h4>
-                            <p className="text-xs text-muted-foreground mb-2">
-                              Issued by: <span className="font-medium">{cert.issuer}</span>
-                            </p>
-                            <p className="text-xs text-muted-foreground mb-4">
-                              Date: <span className="font-medium">{cert.date}</span>
-                            </p>
-                            {cert.credentialUrl && (
-                              <Button 
-                                variant="default" 
+        <div
+          ref={scrollContainerRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide px-12 pb-4"
+          onScroll={handleScroll}
+        >
+          {displayCertifications.map((cert, index) => (
+            <motion.div
+              key={cert.id}
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="flex-shrink-0 w-[280px] card-shell"
+            >
+              <div className="group perspective-1000 h-64">
+                <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
+                  {/* Front of card */}
+                  <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden">
+                    <CardContent className="p-4 h-full flex flex-col justify-center items-center text-center">
+                      <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
+                        <Award className="w-6 h-6 text-white" />
+                      </div>
+
+                      <h3 className="text-lg font-bold mb-2 gradient-text">
+                        {cert.name}
+                      </h3>
+
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {cert.issuer}
+                      </p>
+
+                      <Badge variant="secondary" className="mb-3 text-xs">
+                        {cert.date}
+                      </Badge>
+
+                      <p className="text-xs text-muted-foreground">
+                        Tap to see certificate
+                      </p>
+                    </CardContent>
+                  </Card>
+
+
+                  {/* Back of card - Certificate Image - CHANGED */}
+                  <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden rotate-y-180">
+                    <CardContent className="p-0 h-full relative bg-muted/30">
+                      {/* Certificate Image */}
+                      {cert.image_url ? (
+                        <>
+                          <img
+                            src={cert.image_url}
+                            alt={`${cert.name} Certificate`}
+                            className="w-full h-full object-contain p-2 pb-14"
+                          />
+                          {/* Overlay with action button - CHANGED */}
+                          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/90 to-transparent flex items-end p-3">
+                            {cert.credential_url && (
+                              <Button
+                                variant="default"
                                 size="sm"
-                                className="w-full group"
-                                onClick={() => window.open(cert.credentialUrl, '_blank')}
+                                className="w-full group bg-primary/90 hover:bg-primary text-xs h-8"
+                                onClick={() => window.open(cert.credential_url, '_blank')}
                               >
-                                <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                                <ExternalLink className="w-3 h-3 mr-1 group-hover:translate-x-1 transition-transform" />
                                 View Certificate
                               </Button>
                             )}
                           </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </div>
+                        </>
+                      ) : (
+                        // Fallback if no image
+                        <div className="p-4 h-full flex flex-col justify-center items-center text-center">
+                          <Award className="w-12 h-12 text-primary mb-4" />
+                          <h4 className="text-base font-semibold mb-2 text-primary">
+                            {cert.name}
+                          </h4>
+                          <p className="text-xs text-muted-foreground mb-2">
+                            Issued by: <span className="font-medium">{cert.issuer}</span>
+                          </p>
+                          <p className="text-xs text-muted-foreground mb-4">
+                            Date: <span className="font-medium">{cert.date}</span>
+                          </p>
+                          {cert.credential_url && (
+                            <Button
+                              variant="default"
+                              size="sm"
+                              className="w-full group"
+                              onClick={() => window.open(cert.credential_url, '_blank')}
+                            >
+                              <ExternalLink className="w-3 h-3 mr-2 group-hover:translate-x-1 transition-transform" />
+                              View Certificate
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
 
-        {/* Desktop and Tablet: Enhanced Carousel - CHANGED */}
-        <div className="hidden sm:block relative px-4 sm:px-8 lg:px-16">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+      {/* Desktop and Tablet: Enhanced Carousel - CHANGED */}
+      <div className="hidden sm:block relative px-4 sm:px-8 lg:px-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
         >
           <Carousel className="w-full max-w-6xl mx-auto" opts={{ align: "start", loop: false, slidesToScroll: 1, containScroll: "trimSnaps" }}>
             <CarouselContent className="-ml-2 md:-ml-4">
@@ -284,19 +283,19 @@ const Certifications = ({
                             <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
                               <Award className="w-8 h-8 text-white" />
                             </div>
-                            
+
                             <h3 className="text-xl font-bold mb-3 gradient-text">
                               {cert.name}
                             </h3>
-                            
+
                             <p className="text-muted-foreground mb-4">
                               {cert.issuer}
                             </p>
-                            
+
                             <Badge variant="secondary" className="mb-4">
                               {cert.date}
                             </Badge>
-                            
+
                             <p className="text-sm text-muted-foreground">
                               Hover to see certificate
                             </p>
@@ -308,22 +307,22 @@ const Certifications = ({
                         <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden rotate-y-180">
                           <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
                             {/* Certificate Image */}
-                            {cert.image ? (
+                            {cert.image_url ? (
                               <>
                                 <img
-                                  src={cert.image}
-                                  
+                                  src={cert.image_url}
+
                                   className="w-full h-full object-contain pt-4 px-4 pb-20"
                                 />
                                 {/* Overlay with action button - CHANGED */}
                                 <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/90 to-transparent flex items-end p-6 pb-5">
-                                  {cert.credentialUrl && (
-                                    <Button 
-                                      variant="default" 
+                                  {cert.credential_url && (
+                                    <Button
+                                      variant="default"
                                       className="w-full group bg-primary/90 hover:bg-primary"
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        window.open(cert.credentialUrl, '_blank');
+                                        window.open(cert.credential_url, '_blank');
                                       }}
                                     >
                                       <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
@@ -345,13 +344,13 @@ const Certifications = ({
                                 <p className="text-sm text-muted-foreground mb-6">
                                   Date: <span className="font-medium">{cert.date}</span>
                                 </p>
-                                {cert.credentialUrl && (
-                                  <Button 
-                                    variant="default" 
+                                {cert.credential_url && (
+                                  <Button
+                                    variant="default"
                                     className="w-full group"
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      window.open(cert.credentialUrl, '_blank');
+                                      window.open(cert.credential_url, '_blank');
                                     }}
                                   >
                                     <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
@@ -371,8 +370,8 @@ const Certifications = ({
             <CarouselPrevious className="-left-4 sm:-left-6 lg:-left-12 w-10 h-10 sm:w-11 sm:h-11 bg-background/95 backdrop-blur-sm border-primary/30 hover:bg-primary/20 hover:border-primary/50 hover:shadow-xl shadow-lg transition-all disabled:opacity-30" />
             <CarouselNext className="-right-4 sm:-right-6 lg:-right-12 w-10 h-10 sm:w-11 sm:h-11 bg-background/95 backdrop-blur-sm border-primary/30 hover:bg-primary/20 hover:border-primary/50 hover:shadow-xl shadow-lg transition-all disabled:opacity-30" />
           </Carousel>
-          </motion.div>
-        </div>
+        </motion.div>
+      </div>
       {isFeaturedVariant && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -427,20 +426,20 @@ const Certifications = ({
 
                     <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden rotate-y-180">
                       <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
-                        {cert.image ? (
+                        {cert.image_url ? (
                           <>
                             <img
-                              src={cert.image}
+                              src={cert.image_url}
                               className="w-full h-full object-contain pt-4 px-4 pb-20"
                             />
                             <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/90 to-transparent flex items-end p-6 pb-5">
-                              {cert.credentialUrl && (
-                                <Button 
-                                  variant="default" 
+                              {cert.credential_url && (
+                                <Button
+                                  variant="default"
                                   className="w-full group bg-primary/90 hover:bg-primary"
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    window.open(cert.credentialUrl, '_blank');
+                                    window.open(cert.credential_url, '_blank');
                                   }}
                                 >
                                   <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
@@ -461,13 +460,13 @@ const Certifications = ({
                             <p className="text-sm text-muted-foreground mb-6">
                               Date: <span className="font-medium">{cert.date}</span>
                             </p>
-                            {cert.credentialUrl && (
-                              <Button 
-                                variant="default" 
+                            {cert.credential_url && (
+                              <Button
+                                variant="default"
                                 className="w-full group"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  window.open(cert.credentialUrl, '_blank');
+                                  window.open(cert.credential_url, '_blank');
                                 }}
                               >
                                 <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />

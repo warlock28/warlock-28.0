@@ -1,10 +1,20 @@
 
 import { motion } from 'framer-motion';
-import { personalInfo } from '@/data/portfolio';
-import { Github, Linkedin, Twitter, Mail, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useProfile } from '@/hooks/useProfile';
+import { Github, Linkedin, Twitter, Mail, Instagram, LayoutDashboard } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { profile } = useProfile();
+  const name = profile?.name ?? '';
+  const socialLinks = [
+    { platform: 'github', url: profile?.github_url, Icon: Github },
+    { platform: 'linkedin', url: profile?.linkedin_url, Icon: Linkedin },
+    { platform: 'twitter', url: profile?.twitter_url, Icon: Twitter },
+    { platform: 'instagram', url: profile?.instagram_url, Icon: Instagram },
+    { platform: 'email', url: profile?.email ? `mailto:${profile.email}` : undefined, Icon: Mail },
+  ].filter(s => Boolean(s.url));
 
   const quickLinks = [
     { label: 'About', href: '#about' },
@@ -56,24 +66,18 @@ const Footer = () => {
 
                   {/* Social Links - matching Hero section style */}
                   <div className="flex flex-wrap gap-3 sm:gap-4">
-                    {Object.entries(personalInfo.social).map(([platform, url]) => {
-                      const IconComponent = platform === 'github' ? Github :
-                        platform === 'linkedin' ? Linkedin :
-                          platform === 'twitter' ? Twitter :
-                            platform === 'instagram' ? Instagram : Mail;
-                      return (
-                        <a
-                          key={platform}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary"
-                          style={{ transition: 'color 0.2s ease-out' }}
-                        >
-                          <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
-                        </a>
-                      );
-                    })}
+                    {socialLinks.map(({ platform, url, Icon }) => (
+                      <a
+                        key={platform}
+                        href={url}
+                        target={platform === 'email' ? '_self' : '_blank'}
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center hover:text-primary"
+                        style={{ transition: 'color 0.2s ease-out' }}
+                      >
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -100,9 +104,16 @@ const Footer = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6"
             >
-              <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left order-2 sm:order-1">
-                © {currentYear} {personalInfo.name}. All rights reserved.
-              </p>
+              <div className="flex items-center gap-3 text-xs sm:text-sm text-muted-foreground text-center sm:text-left order-2 sm:order-1">
+                <p>© {currentYear} {name}. All rights reserved.</p>
+                <Link
+                  to="/admin"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground/40 hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                  title="Admin Dashboard"
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                </Link>
+              </div>
               <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground order-1 sm:order-2">
                 <span></span>
                 <motion.span

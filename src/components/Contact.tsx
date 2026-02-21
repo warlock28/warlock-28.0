@@ -1,12 +1,3 @@
-const fieldClass = (hasError: boolean) =>
-  cn(
-    'bg-white text-foreground placeholder:text-muted-foreground',
-    'border border-border focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none',
-    'dark:bg-slate-900/70 dark:text-foreground dark:placeholder:text-muted-foreground',
-    'transition-colors duration-200',
-    hasError && 'border-destructive focus-visible:ring-destructive/60'
-  );
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
@@ -17,9 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { personalInfo } from '@/data/portfolio';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, Instagram } from 'lucide-react';
+import {
+  Mail, Phone, MapPin, Github, Linkedin, Twitter,
+  Send, Instagram, ArrowUpRight, Sparkles,
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ButtonLoader } from '@/components/ui/loading-spinner';
+
+/* ── Validation ─────────────────────────────────────────────── */
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -27,8 +23,38 @@ const contactSchema = z.object({
   subject: z.string().min(5, 'Subject must be at least 5 characters'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
-
 type ContactForm = z.infer<typeof contactSchema>;
+
+/* ── Helpers ────────────────────────────────────────────────── */
+
+const fieldClass = (hasError: boolean) =>
+  cn(
+    'h-12 rounded-xl px-4 text-sm',
+    'bg-white/80 dark:bg-white/5 text-foreground placeholder:text-muted-foreground/60',
+    'border border-border/40 dark:border-white/10',
+    'focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/30 focus-visible:outline-none',
+    'transition-all duration-200',
+    hasError && 'border-destructive/60 focus-visible:ring-destructive/40',
+  );
+
+const textareaClass = (hasError: boolean) =>
+  cn(
+    'rounded-xl px-4 py-3 text-sm min-h-[160px] resize-none',
+    'bg-white/80 dark:bg-white/5 text-foreground placeholder:text-muted-foreground/60',
+    'border border-border/40 dark:border-white/10',
+    'focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:border-primary/30 focus-visible:outline-none',
+    'transition-all duration-200',
+    hasError && 'border-destructive/60 focus-visible:ring-destructive/40',
+  );
+
+const SOCIALS = [
+  { key: 'github', Icon: Github, label: 'GitHub' },
+  { key: 'linkedin', Icon: Linkedin, label: 'LinkedIn' },
+  { key: 'twitter', Icon: Twitter, label: 'X / Twitter' },
+  { key: 'instagram', Icon: Instagram, label: 'Instagram' },
+] as const;
+
+/* ── Component ──────────────────────────────────────────────── */
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,218 +65,244 @@ const Contact = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ContactForm>({
-    resolver: zodResolver(contactSchema),
-  });
+  } = useForm<ContactForm>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = async (data: ContactForm) => {
+  const onSubmit = async (_data: ContactForm) => {
     setIsSubmitting(true);
-
-    // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-
       toast({
-        title: "Message sent successfully! 🎉",
+        title: 'Message sent successfully! 🎉',
         description: "Thank you for reaching out. I'll get back to you soon!",
       });
-
       reset();
-    } catch (error) {
+    } catch {
       toast({
-        title: "Error sending message",
-        description: "Please try again or contact me directly via email.",
-        variant: "destructive",
+        title: 'Error sending message',
+        description: 'Please try again or contact me directly via email.',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: personalInfo.email,
-      href: `mailto:${personalInfo.email}`,
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: personalInfo.phone,
-      href: `tel:${personalInfo.phone}`,
-    },
-    {
-      icon: MapPin,
-      label: 'Location',
-      value: personalInfo.location,
-      href: '#',
-    },
+  /* ── Contact detail cards ─────────────────────── */
+  const contactItems = [
+    { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
+    { icon: Phone, label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
+    { icon: MapPin, label: 'Location', value: personalInfo.location, href: '#' },
   ];
 
   return (
-    <section id="contact" className="py-14 sm:py-16 lg:py-20 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="py-20 sm:py-24 lg:py-28 relative overflow-hidden">
+
+      {/* ── Background decoration ─── */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-20 right-[10%] w-72 h-72 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-20 left-[10%] w-64 h-64 rounded-full bg-secondary/5 blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* ── Section Header ─── */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 px-4"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="text-center mb-16 sm:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 border border-primary/15 text-primary text-xs font-semibold tracking-wider uppercase mb-6">
+            <Sparkles className="w-3.5 h-3.5" />
+            Get in touch
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
             Let's <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can work together
+          <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+            Have an idea, project, or opportunity? I'd love to hear from you.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto px-4">
-          {/* Contact Info */}
+        {/* ── Main Grid ─── */}
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 max-w-6xl mx-auto">
+
+          {/* ── Left: Contact info (2 cols) ─── */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            viewport={{ once: true }}
+            className="lg:col-span-2 flex flex-col gap-6"
           >
-            <div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Get in Touch</h3>
-              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-                I'm always interested in hearing about new opportunities,
-                whether that's a freelance project, a full-time role, or just a chat about technology.
+            {/* Intro */}
+            <div className="mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3">
+                Reach out anytime
+              </h3>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                Whether it's a freelance project, full-time opportunity, or just a conversation about tech — I'm always open to connecting.
               </p>
             </div>
 
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => {
-                const IconComponent = info.icon;
+            {/* Contact detail cards */}
+            <div className="space-y-3">
+              {contactItems.map((item, idx) => {
+                const Icon = item.icon;
                 return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="flex items-center space-x-3 sm:space-x-4"
+                  <motion.a
+                    key={idx}
+                    href={item.href}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 * idx }}
+                    viewport={{ once: true }}
+                    className={cn(
+                      'group flex items-center gap-4 p-4 rounded-xl',
+                      'bg-card/80 dark:bg-card/60 border border-border/40 dark:border-white/8',
+                      'hover:border-primary/25 hover:shadow-lg hover:shadow-primary/5',
+                      'transition-all duration-300',
+                      item.href === '#' && 'pointer-events-none',
+                    )}
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full glassmorphism flex items-center justify-center flex-shrink-0">
-                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <div className="w-11 h-11 rounded-lg bg-primary/8 dark:bg-primary/15 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                      <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-medium text-muted-foreground text-sm sm:text-base">{info.label}</p>
-                      <a
-                        href={info.href}
-                        className="text-base sm:text-lg font-semibold hover:text-primary transition-colors break-words"
-                      >
-                        {info.value}
-                      </a>
+                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-0.5">{item.label}</p>
+                      <p className="text-sm font-semibold truncate">{item.value}</p>
                     </div>
-                  </motion.div>
+                    {item.href !== '#' && (
+                      <ArrowUpRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-primary transition-colors flex-shrink-0" />
+                    )}
+                  </motion.a>
                 );
               })}
-
-              {/* Social Links */}
-              <div className="pt-6 border-t border-border/50">
-                <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Social Profiles</h4>
-                <div className="flex gap-4">
-                  {Object.entries(personalInfo.social).map(([platform, url]) => {
-                    const IconComponent = platform === 'github' ? Github :
-                      platform === 'linkedin' ? Linkedin :
-                        platform === 'twitter' ? Twitter :
-                          platform === 'instagram' ? Instagram : Mail;
-                    return (
-                      <a
-                        key={platform}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-10 h-10 rounded-full glassmorphism flex items-center justify-center hover:text-primary transition-all duration-200 hover:scale-110"
-                        title={platform.charAt(0).toUpperCase() + platform.slice(1)}
-                      >
-                        <IconComponent className="w-5 h-5" />
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
             </div>
 
+            {/* Social links */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              viewport={{ once: true }}
+              className="pt-4"
+            >
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+                Follow me
+              </p>
+              <div className="flex gap-3">
+                {SOCIALS.map(({ key, Icon, label }) => {
+                  const url = personalInfo.social[key as keyof typeof personalInfo.social];
+                  if (!url) return null;
+                  return (
+                    <a
+                      key={key}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={label}
+                      className={cn(
+                        'w-11 h-11 rounded-xl flex items-center justify-center',
+                        'bg-card/80 dark:bg-card/60 border border-border/40 dark:border-white/8',
+                        'hover:border-primary/30 hover:text-primary hover:shadow-md hover:shadow-primary/5',
+                        'transition-all duration-300 hover:-translate-y-0.5',
+                      )}
+                    >
+                      <Icon className="w-[18px] h-[18px]" />
+                    </a>
+                  );
+                })}
+              </div>
+            </motion.div>
           </motion.div>
 
-
-          {/* Contact Form */}
+          {/* ── Right: Contact Form (3 cols) ─── */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="glassmorphism rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8"
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            viewport={{ once: true }}
+            className="lg:col-span-3"
           >
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Send me a message</h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    placeholder="Your Name"
-                    {...register('name')}
-                    className={fieldClass(!!errors.name)}
-                  />
-                  {errors.name && (
-                    <p className="text-destructive text-sm mt-1">{errors.name.message}</p>
-                  )}
+            <div className={cn(
+              'rounded-2xl p-6 sm:p-8 lg:p-10',
+              'bg-card/70 dark:bg-card/50 border border-border/40 dark:border-white/8',
+              'shadow-xl shadow-black/[0.03] dark:shadow-black/20',
+            )}>
+              <h3 className="text-xl sm:text-2xl font-bold mb-1">Send a message</h3>
+              <p className="text-muted-foreground text-sm mb-8">I'll get back to you within 24 hours.</p>
+
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Name</label>
+                    <Input
+                      placeholder="Your name"
+                      {...register('name')}
+                      className={fieldClass(!!errors.name)}
+                    />
+                    {errors.name && <p className="text-destructive text-xs mt-1.5">{errors.name.message}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Email</label>
+                    <Input
+                      type="email"
+                      placeholder="you@example.com"
+                      {...register('email')}
+                      className={fieldClass(!!errors.email)}
+                    />
+                    {errors.email && <p className="text-destructive text-xs mt-1.5">{errors.email.message}</p>}
+                  </div>
                 </div>
+
                 <div>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Subject</label>
                   <Input
-                    type="email"
-                    placeholder="Your Email"
-                    {...register('email')}
-                    className={fieldClass(!!errors.email)}
+                    placeholder="What's this about?"
+                    {...register('subject')}
+                    className={fieldClass(!!errors.subject)}
                   />
-                  {errors.email && (
-                    <p className="text-destructive text-sm mt-1">{errors.email.message}</p>
-                  )}
+                  {errors.subject && <p className="text-destructive text-xs mt-1.5">{errors.subject.message}</p>}
                 </div>
-              </div>
 
-              <div>
-                <Input
-                  placeholder="Subject"
-                  {...register('subject')}
-                  className={fieldClass(!!errors.subject)}
-                />
-                {errors.subject && (
-                  <p className="text-destructive text-sm mt-1">{errors.subject.message}</p>
-                )}
-              </div>
+                <div>
+                  <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Message</label>
+                  <Textarea
+                    placeholder="Tell me about your project, idea, or question…"
+                    rows={6}
+                    {...register('message')}
+                    className={textareaClass(!!errors.message)}
+                  />
+                  {errors.message && <p className="text-destructive text-xs mt-1.5">{errors.message.message}</p>}
+                </div>
 
-              <div>
-                <Textarea
-                  placeholder="Your Message"
-                  rows={6}
-                  {...register('message')}
-                  className={cn(fieldClass(!!errors.message), 'min-h-[150px]')}
-                />
-                {errors.message && (
-                  <p className="text-destructive text-sm mt-1">{errors.message.message}</p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-primary hover:bg-gradient-primary/90 text-white py-3 text-lg font-semibold flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <ButtonLoader />
-                    <span className="ml-2">Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={cn(
+                    'w-full h-12 rounded-xl text-sm font-semibold tracking-wide',
+                    'bg-gradient-primary text-white',
+                    'hover:opacity-90 active:scale-[0.98]',
+                    'transition-all duration-200',
+                    'flex items-center justify-center gap-2.5',
+                  )}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <ButtonLoader />
+                      <span>Sending…</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              </form>
+            </div>
           </motion.div>
         </div>
       </div>

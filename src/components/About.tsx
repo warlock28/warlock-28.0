@@ -1,10 +1,16 @@
 
 import { motion } from 'framer-motion';
-import { personalInfo, timeline } from '@/data/portfolio';
+import { timeline } from '@/data/portfolio';
+import { useProfile } from '@/hooks/useProfile';
 import { Button } from '@/components/ui/button';
 import { Rocket, Handshake, Search, Lightbulb, MapPin } from 'lucide-react';
 
 const About = () => {
+  const { profile } = useProfile();
+  const bio = profile?.bio ?? '';
+  const profileImage = profile?.profile_image_url ?? '';
+  const linkedinUrl = profile?.linkedin_url ?? '#';
+
   return (
     <section id="about" className="py-14 sm:py-16 lg:py-20 relative overflow-hidden">
       <div className="container mx-auto px-4 relative">
@@ -42,8 +48,8 @@ const About = () => {
                   <div className="relative glassmorphism rounded-3xl p-2 border-2 border-white/20">
                     <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-background/50 to-background/30">
                       <img
-                        src={personalInfo.profileImage}
-                        alt={personalInfo.name}
+                        src={profileImage}
+                        alt={profile?.name ?? 'Profile'}
                         className="w-full h-full object-cover object-top rounded-2xl shadow-2xl"
                       />
                     </div>
@@ -96,7 +102,7 @@ const About = () => {
 
                 <div className="prose prose-lg max-w-none">
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                    {personalInfo.bio}
+                    {bio}
                   </p>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                     When I'm not coding, you can find me exploring cutting-edge technologies,
@@ -142,7 +148,7 @@ const About = () => {
                 <Button
                   variant="default"
                   className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 border-0 shadow-lg shadow-primary/25 transition-opacity duration-300"
-                  onClick={() => window.open(personalInfo.social.linkedin, '_blank')}
+                  onClick={() => window.open(linkedinUrl, '_blank')}
                 >
                   Connect on LinkedIn
                 </Button>

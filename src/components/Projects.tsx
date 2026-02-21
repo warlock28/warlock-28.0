@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { projects, getFeaturedProjects } from '@/data/projects';
+import { useProjects } from '@/hooks/useProjects';
 import { useStore } from '@/store/useStore';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -25,9 +25,10 @@ const Projects = ({
 }: ProjectsProps) => {
   const { projectFilter, setProjectFilter } = useStore();
   const isFeaturedVariant = variant === 'featured';
+  const { projects } = useProjects(isFeaturedVariant);
 
   const categories = ['all', 'fullstack', 'frontend', 'backend', 'security', 'mobile'];
-  const featuredProjects = getFeaturedProjects().slice(0, featuredLimit);
+  const featuredProjects = projects.slice(0, featuredLimit);
   const filteredProjects = projectFilter === 'all'
     ? projects
     : projects.filter(project => project.category === projectFilter);
@@ -107,7 +108,7 @@ const Projects = ({
                     {/* Project Image */}
                     <div className="relative mb-4 overflow-hidden rounded-lg bg-muted">
                       <img
-                        src={project.image}
+                        src={project.image_url ?? ''}
                         alt={project.title}
                         className="w-full h-32 object-cover"
                       />
@@ -137,7 +138,7 @@ const Projects = ({
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => window.open(project.demoUrl, '_blank')}
+                        onClick={() => window.open(project.demo_url, '_blank')}
                         className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <ExternalLink className="w-3 h-3 mr-1" />
@@ -146,7 +147,7 @@ const Projects = ({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => window.open(project.githubUrl, '_blank')}
+                        onClick={() => window.open(project.github_url, '_blank')}
                         className="flex-1 text-xs hover:bg-primary/10"
                       >
                         <Github className="w-3 h-3 mr-1" />
@@ -191,7 +192,7 @@ const Projects = ({
                     <div className="relative rounded-2xl shadow-xl border border-border/30 bg-card/50 p-4">
                       {/* Image */}
                       <img
-                        src={project.image}
+                        src={project.image_url ?? ''}
                         alt={project.title}
                         className="w-full h-[280px] lg:h-[320px] object-contain rounded-xl"
                       />
@@ -271,18 +272,18 @@ const Projects = ({
                       <Button
                         variant="default"
                         size="lg"
-                        onClick={() => window.open(project.demoUrl, '_blank')}
+                        onClick={() => window.open(project.demo_url, '_blank')}
                         className="flex items-center gap-2 bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/50 transition-all duration-300"
                       >
                         <ExternalLink className="w-5 h-5" />
                         View Live Demo
                       </Button>
 
-                      {project.githubUrl && (
+                      {project.github_url && (
                         <Button
                           variant="outline"
                           size="lg"
-                          onClick={() => window.open(project.githubUrl, '_blank')}
+                          onClick={() => window.open(project.github_url, '_blank')}
                           className="flex items-center gap-2 glassmorphism hover:bg-primary/10 transition-all duration-300"
                         >
                           <Github className="w-5 h-5" />

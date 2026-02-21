@@ -1,1 +1,21 @@
+# Dependencies
+node_modules
+
+# Build output — never track compiled artifacts
+dist
+dist-ssr
+*.local
+
+# Editor & OS artifacts
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+*.log
+npm-debug.log*
+node_modules
 node_modules
