@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ButtonLoader } from '@/components/ui/loading-spinner';
+import { useMessages } from '@/hooks/useMessages';
 
 /* ── Validation ─────────────────────────────────────────────── */
 
@@ -67,10 +68,12 @@ const Contact = () => {
     reset,
   } = useForm<ContactForm>({ resolver: zodResolver(contactSchema) });
 
-  const onSubmit = async (_data: ContactForm) => {
+  const { sendMessage } = useMessages();
+
+  const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await sendMessage(data);
       toast({
         title: 'Message sent successfully! 🎉',
         description: "Thank you for reaching out. I'll get back to you soon!",

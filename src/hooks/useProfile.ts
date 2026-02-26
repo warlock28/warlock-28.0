@@ -1,53 +1,31 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase, uploadAsset, isSupabaseConfigured } from '@/lib/supabase';
 import type { Profile } from '@/types/database';
 
 const PROFILE_ID = '00000000-0000-0000-0000-000000000001'; // fixed single-row ID
 
 export function useProfile() {
-    const [profile, setProfile] = useState<Profile | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const mountedRef = useRef(true);
+    const queryClient = useQueryClient();
 
-    const fetchProfile = useCallback(async () => {
-        if (!isSupabaseConfigured) {
-            setError('Supabase is not configured. Please check your .env.local file.');
-            setLoading(false);
-            return;
-        }
-
-        setLoading(true);
-        setError(null);
-        try {
+    const { data: profile, isLoading, error: queryError, refetch } = useQuery({
+        queryKey: ['profile'],
+        queryFn: async () => {
+            if (!isSupabaseConfigured) {
+                throw new Error('Supabase is not configured. Please check your .env.local file.');
+            }
             const { data, error: dbError } = await supabase
                 .from('profile')
                 .select('*')
                 .eq('id', PROFILE_ID)
                 .single();
 
-            if (!mountedRef.current) return;
-            if (dbError) {
-                setError(dbError.message);
-            } else {
-                setProfile(data as Profile);
-            }
-        } catch {
-            if (mountedRef.current) {
-                setError('Failed to load profile. Please check your connection.');
-            }
-        } finally {
-            if (mountedRef.current) setLoading(false);
-        }
-    }, []);
+            if (dbError) throw new Error(dbError.message);
+            return data as Profile;
+        },
+        staleTime: 5 * 60 * 1000,
+    });
 
-    useEffect(() => {
-        mountedRef.current = true;
-        fetchProfile();
-        return () => { mountedRef.current = false; };
-    }, [fetchProfile]);
-
-    const updateProfile = useCallback(async (updates: Partial<Profile>, imageFile?: File) => {
+    const updateProfile = async (updates: Partial<Profile>, imageFile?: File) => {
         if (!isSupabaseConfigured) return { error: 'Supabase is not configured.' };
 
         try {
@@ -65,12 +43,20 @@ export function useProfile() {
                     updated_at: new Date().toISOString(),
                 } as never);
 
-            if (!dbError) await fetchProfile();
+            if (!dbError) {
+                await queryClient.invalidateQueries({ queryKey: ['profile'] });
+            }
             return { error: dbError?.message ?? null };
         } catch (err) {
             return { error: err instanceof Error ? err.message : 'Failed to update profile. Please try again.' };
         }
-    }, [fetchProfile]);
+    };
 
-    return { profile, loading, error, refetch: fetchProfile, updateProfile };
+    return {
+        profile: profile ?? null,
+        loading: isLoading,
+        error: queryError instanceof Error ? queryError.message : (queryError ? "Failed to load profile." : null),
+        refetch,
+        updateProfile
+    };
 }

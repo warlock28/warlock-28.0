@@ -85,6 +85,16 @@ export interface Skill {
     sort_order: number;
 }
 
+export interface Message {
+    id: string; // UUID
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+    is_read: boolean;
+    created_at: string;
+}
+
 // ── Supabase DB type map (used by createClient generic) ──
 // We use Record<string, unknown> for Row/Insert/Update so Supabase SDK
 // accepts our objects without constraint errors.
@@ -109,6 +119,7 @@ export interface Database {
             blog_posts: TableDef<BlogPost, Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>>;
             skill_categories: TableDef<SkillCategory, Omit<SkillCategory, 'id' | 'skills'>>;
             skills: TableDef<Skill, Omit<Skill, 'id'>>;
+            messages: TableDef<Message, Omit<Message, 'id' | 'created_at' | 'is_read'>>;
         };
         Views: Record<string, never>;
         Functions: Record<string, never>;

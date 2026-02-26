@@ -1,15 +1,18 @@
 import { lazy, Suspense, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Loader2, LogOut, User, Briefcase, Award, BookOpen, LayoutDashboard, ChevronRight } from 'lucide-react';
+import { Loader2, LogOut, User, Briefcase, Award, BookOpen, LayoutDashboard, ChevronRight, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useSessionTimeout } from '@/hooks/useSessionTimeout';
+import { toast } from 'sonner';
 
 const ProfileSection = lazy(() => import('./sections/ProfileSection'));
 const ProjectsSection = lazy(() => import('./sections/ProjectsSection'));
 const CertificationsSection = lazy(() => import('./sections/CertificationsSection'));
 const BlogSection = lazy(() => import('./sections/BlogSection'));
+const MessagesSection = lazy(() => import('./sections/MessagesSection'));
 
 const SectionLoader = () => (
     <div className="flex justify-center items-center py-20">
@@ -22,6 +25,7 @@ const TABS = [
     { value: 'projects', label: 'Projects', icon: Briefcase },
     { value: 'certifications', label: 'Certifications', icon: Award },
     { value: 'blog', label: 'Blog', icon: BookOpen },
+    { value: 'messages', label: 'Messages', icon: Mail },
 ] as const;
 
 const AdminDashboard = () => {
@@ -44,6 +48,16 @@ const AdminDashboard = () => {
             setSigningOut(false);
         }
     }, [signOut, navigate]);
+
+    // Setup session timeout (15 minutes of inactivity)
+    useSessionTimeout(() => {
+        if (isAdmin) {
+            toast.error("Session Expired", {
+                description: "You have been logged out due to inactivity for security reasons.",
+            });
+            handleSignOut();
+        }
+    }, 15 * 60 * 1000);
 
     // ── Early return AFTER all hooks ──
     if (loading) {
@@ -135,6 +149,12 @@ const AdminDashboard = () => {
                     <TabsContent value="blog">
                         <Suspense fallback={<SectionLoader />}>
                             <BlogSection />
+                        </Suspense>
+                    </TabsContent>
+
+                    <TabsContent value="messages">
+                        <Suspense fallback={<SectionLoader />}>
+                            <MessagesSection />
                         </Suspense>
                     </TabsContent>
                 </Tabs>
