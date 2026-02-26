@@ -16,22 +16,6 @@ const Footer = () => {
     { platform: 'email', url: profile?.email ? `mailto:${profile.email}` : undefined, Icon: Mail },
   ].filter(s => Boolean(s.url));
 
-  const quickLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Contact', href: '#contact' },
-  ];
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <footer className="relative overflow-hidden pb-4 px-2.5">
       {/* Floating glassmorphism container - matches Navbar */}

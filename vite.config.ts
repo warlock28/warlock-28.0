@@ -90,15 +90,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Enable minification
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'],
-      },
-    },
+    // Enable minification (esbuild is built into Vite — no extra dep needed)
+    minify: 'esbuild',
     // Code splitting optimization
     rollupOptions: {
       output: {

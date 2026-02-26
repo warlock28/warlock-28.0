@@ -74,44 +74,18 @@
   .grid-plane {
     animation-duration: 40s;
   }
-
-  .hexagonal-prism {
-    width: 96px;
-    height: 96px;
-  }
-
-  .prism-container {
-    width: 96px;
-    height: 96px;
-  }
-
-  .hex-face {
-    width: 96px;
-    height: 96px;
-  }
-
-  .coord-label {
-    font-size: 9px;
-  }
-
-  .coord-label .arrow {
-    font-size: 12px;
-  }
 }
 
 /* Performance optimizations */
 @media (prefers-reduced-motion: reduce) {
-  .grid-plane,
-  .hexagonal-prism,
-  .coord-label {
+  .grid-plane {
     animation: none;
   }
 }
 
 /* Force GPU acceleration */
 .cyberpunk-background,
-.grid-plane,
-.hexagonal-prism {
+.grid-plane {
   backface-visibility: hidden;
   transform: translateZ(0);
 }

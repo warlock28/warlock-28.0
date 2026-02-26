@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { skills } from '@/data/portfolio';
 import { X } from 'lucide-react';
@@ -231,84 +231,10 @@ const CategoryBox = ({ category, items, index, isActive, onClick, onMouseEnter, 
 
 const SkillsNew = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  // Desktop: Hover handlers
-  const handleCategoryHover = (
-    category: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    // Check if device supports hover (desktop)
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-    if (!supportsHover || window.innerWidth < 768) return;
-    
-    // Clear any pending close timeout
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    
-    setActiveCategory(category);
-    
-    const rect = event.currentTarget.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    const viewportWidth = window.innerWidth;
-    const popupWidth = 350;
-    
-    // Position to the right if there's space, otherwise to the left
-    const x = rect.right + 20 + popupWidth < viewportWidth 
-      ? rect.right + 20 
-      : rect.left - popupWidth - 20;
-    
-    // Add scroll offset to Y position
-    const y = rect.top + scrollY;
-    
-    setPopupPosition({ x, y });
-  };
-
-  const handleCategoryLeave = () => {
-    // Check if device supports hover (desktop)
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-    if (!supportsHover || window.innerWidth < 768) return;
-    
-    // Delay closing to allow moving to popup
-    closeTimeoutRef.current = setTimeout(() => {
-      setActiveCategory(null);
-    }, 100);
-  };
-
-  const handlePopupEnter = () => {
-    // Clear close timeout when entering popup
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  };
-
-  const handlePopupLeave = () => {
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-    if (!supportsHover || window.innerWidth < 768) return;
-    setActiveCategory(null);
-  };
-
-  // Click handler - works on both mobile and desktop
-  const handleCategoryClick = (
-    category: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    // Clear any pending close timeout
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    
-    // Toggle: close if same category, open if different
-    if (activeCategory === category) {
-      setActiveCategory(null);
-      return;
-    }
-
-    setActiveCategory(category);
+  // Toggle skill category popup on click
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(activeCategory === category ? null : category);
   };
 
   const activeSkillData = skills.find(s => s.category === activeCategory);
@@ -343,7 +269,7 @@ const SkillsNew = () => {
                   items={skill.items}
                   index={index}
                   isActive={activeCategory === skill.category}
-                  onClick={(e) => handleCategoryClick(skill.category, e)}
+                  onClick={() => handleCategoryClick(skill.category)}
                   onMouseEnter={() => {}}
                   onMouseLeave={() => {}}
                 />
@@ -437,7 +363,3 @@ const SkillsNew = () => {
 };
 
 export default SkillsNew;
-
-function setPopupPosition(arg0: { x: number; y: number; }) {
-  throw new Error('Function not implemented.');
-}

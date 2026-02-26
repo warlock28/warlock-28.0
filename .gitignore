@@ -37,3 +37,4 @@ supabase_migration.sql
 
 # Build analysis
 stats.html
+node_modules

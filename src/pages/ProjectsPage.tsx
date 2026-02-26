@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import NetworkBackground from '@/components/NetworkBackground';
-import Footer from '@/components/Footer';
-import Projects from '@/components/Projects';
 import { useStore } from '@/store/useStore';
+import { SectionLoader } from '@/components/ui/loading-spinner';
+
+// Lazy-load shared components to avoid mixed static/dynamic import warnings
+const Footer = lazy(() => import('@/components/Footer'));
+const Projects = lazy(() => import('@/components/Projects'));
 
 const ProjectsPage = () => {
   const { setActiveSection } = useStore();
@@ -19,10 +22,13 @@ const ProjectsPage = () => {
       <div className="relative z-10">
         <Navbar />
         <main className="pt-24 sm:pt-28 pb-16">
-        
-          <Projects sectionId="projects" />
+          <Suspense fallback={<SectionLoader />}>
+            <Projects sectionId="projects" />
+          </Suspense>
         </main>
-        <Footer />
+        <Suspense fallback={<div className="py-4" />}>
+          <Footer />
+        </Suspense>
       </div>
     </div>
   );
