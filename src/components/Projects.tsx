@@ -91,14 +91,14 @@ const Projects = ({
           <div className="px-4">
             {/* Mobile: Horizontal Scrollable */}
             <div className="md:hidden">
-              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-                {displayProjects.map((project, index) => (
+              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory px-4">
+                {displayProjects.map((project) => (
                   <motion.div
                     key={project.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4 }}
                     className="flex-shrink-0 w-[85vw] sm:w-[70vw] snap-center card-shell group"
                   >
                     {/* Certificate Header */}

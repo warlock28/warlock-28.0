@@ -73,7 +73,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
     try {
-      await sendMessage(data);
+      await sendMessage(data as any);
       toast({
         title: 'Message sent successfully! 🎉',
         description: "Thank you for reaching out. I'll get back to you soon!",

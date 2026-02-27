@@ -181,16 +181,17 @@ const Certifications = ({
 
           <div
             ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide px-12 pb-4"
+            className="flex gap-4 overflow-x-auto scrollbar-hide px-12 pb-4 snap-x snap-mandatory"
             onScroll={handleScroll}
           >
-            {displayCertifications.map((cert, index) => (
+            {displayCertifications.map((cert) => (
               <motion.div
                 key={cert.id}
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex-shrink-0 w-[280px] card-shell"
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="flex-shrink-0 w-[280px] snap-center card-shell group"
               >
                 <div className="group perspective-1000 h-64">
                   <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
