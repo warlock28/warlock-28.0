@@ -114,11 +114,12 @@ const Certifications = ({
 
   return (
     <section id={sectionId} className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
-      <div className="text-center mb-8 sm:mb-12 lg:mb-16 p-4 sm:p-6 lg:p-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 gradient-text">
-          {isFeaturedVariant ? 'Recent Certifications' : 'Certifications & Achievements'}
+      <div className="text-center mb-12 sm:mb-16 px-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+          {isFeaturedVariant ? 'Recent' : 'My'}{' '}
+          <span className="gradient-text">Certifications</span>
         </h2>
-        <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           {isFeaturedVariant
             ? 'Industry credentials showcasing my expertise'
             : 'Professional certifications that validate my expertise and commitment to continuous learning'}
@@ -194,7 +195,7 @@ const Certifications = ({
                 <div className="group perspective-1000 h-64">
                   <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
                     {/* Front of card */}
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden [transform:rotateY(0deg)]">
                       <CardContent className="p-4 h-full flex flex-col justify-center items-center text-center">
                         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mb-4">
                           <Award className="w-6 h-6 text-white" />
@@ -220,7 +221,7 @@ const Certifications = ({
 
 
                     {/* Back of card - Certificate Image - CHANGED */}
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden rotate-y-180">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-2xl backface-hidden [transform:rotateY(180deg)]">
                       <CardContent className="p-0 h-full relative bg-muted/30">
                         {/* Certificate Image */}
                         {cert.image_url ? (
@@ -298,7 +299,7 @@ const Certifications = ({
                       <div className="group perspective-1000 h-80 card-shell">
                         <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
                           {/* Front of card */}
-                          <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden">
+                          <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden [transform:rotateY(0deg)]">
                             <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center items-center text-center">
                               <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
                                 <Award className="w-8 h-8 text-white" />
@@ -324,7 +325,7 @@ const Certifications = ({
 
 
                           {/* Back of card - Certificate Image - CHANGED */}
-                          <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden rotate-y-180">
+                          <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden [transform:rotateY(180deg)]">
                             <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
                               {/* Certificate Image */}
                               {cert.image_url ? (
@@ -433,7 +434,7 @@ const Certifications = ({
               >
                 <div className="group perspective-1000 h-80 card-shell">
                   <div className="relative w-full h-full transform-style-preserve-3d group-hover:rotate-y-180" style={{ transition: 'transform 0.5s ease-out' }}>
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden [transform:rotateY(0deg)]">
                       <CardContent className="p-6 lg:p-8 h-full flex flex-col justify-center items-center text-center">
                         <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mb-6">
                           <Award className="w-8 h-8 text-white" />
@@ -453,7 +454,7 @@ const Certifications = ({
                       </CardContent>
                     </Card>
 
-                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden rotate-y-180">
+                    <Card className="absolute inset-0 w-full h-full bg-card/95 border border-border/40 rounded-3xl backface-hidden [transform:rotateY(180deg)]">
                       <CardContent className="p-0 h-full relative bg-muted/30 flex items-center justify-center">
                         {cert.image_url ? (
                           <>

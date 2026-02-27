@@ -185,11 +185,11 @@ const Navbar = () => {
                     variant="ghost"
                     onClick={() => handleNavSelection(item.id)}
                     className={`relative px-4 py-2 rounded-xl transition-colors duration-200 group ${activeSection === item.id
-                        ? 'text-primary font-semibold'
-                        : `${navButtonBase} font-medium`
+                      ? 'text-primary font-semibold'
+                      : `${navButtonBase} font-medium`
                       }`}
                   >
-                    <span className="relative z-10">{item.label}</span>
+                    <span className="relative z-10 text-base lg:text-lg">{item.label}</span>
 
                     {/* Active Background with smooth animation */}
                     {activeSection === item.id && (
@@ -294,8 +294,8 @@ const Navbar = () => {
                       <button
                         onClick={() => handleNavSelection(item.id)}
                         className={`w-full text-left rounded-xl py-4 px-5 relative min-h-[52px] flex items-center border ${activeSection === item.id
-                            ? 'text-primary bg-primary/15 font-semibold border-primary/20'
-                            : 'text-foreground/80 hover:text-foreground hover:bg-slate-800/50 font-medium border-transparent'
+                          ? 'text-primary bg-primary/15 font-semibold border-primary/20'
+                          : 'text-foreground/80 hover:text-foreground hover:bg-slate-800/50 font-medium border-transparent'
                           }`}
                         style={{ transition: 'background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out' }}
                       >
@@ -310,7 +310,7 @@ const Navbar = () => {
                             }}
                           />
                         )}
-                        <span className="relative z-10 text-base">{item.label}</span>
+                        <span className="relative z-10 text-lg">{item.label}</span>
                       </button>
                     </motion.div>
                   ))}

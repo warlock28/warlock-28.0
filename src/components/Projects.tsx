@@ -123,9 +123,9 @@ const Projects = ({
                     </div>
 
                     {/* Certificate Body */}
-                    <div className="glassmorphism rounded-b-2xl p-6">
+                    <div className="glassmorphism rounded-b-2xl p-6 relative z-10">
                       {/* Project Image */}
-                      <div className="relative mb-4 overflow-hidden rounded-lg bg-muted">
+                      <div className="relative mb-4 overflow-hidden rounded-lg bg-muted pointer-events-none">
                         <img
                           src={project.image_url ?? ''}
                           alt={project.title}
@@ -134,7 +134,7 @@ const Projects = ({
                       </div>
 
                       {/* Description */}
-                      <p className="text-sm text-muted-foreground mb-4 text-center italic">
+                      <p className="text-sm text-muted-foreground mb-4 text-center italic pointer-events-none">
                         "{project.description}"
                       </p>
 
@@ -153,13 +153,16 @@ const Projects = ({
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 relative z-20">
                         {project.demo_url && (
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => window.open(project.demo_url, '_blank')}
-                            className="flex-1 text-xs hover:bg-primary/10"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.demo_url, '_blank');
+                            }}
+                            className="flex-1 text-xs hover:bg-primary/10 cursor-pointer"
                           >
                             <ExternalLink className="w-3 h-3 mr-1" />
                             Demo
@@ -169,8 +172,11 @@ const Projects = ({
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => window.open(project.github_url, '_blank')}
-                            className="flex-1 text-xs hover:bg-primary/10"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.github_url, '_blank')
+                            }}
+                            className="flex-1 text-xs hover:bg-primary/10 cursor-pointer"
                           >
                             <Github className="w-3 h-3 mr-1" />
                             Code

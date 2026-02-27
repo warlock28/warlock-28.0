@@ -1,1 +1,1 @@
-export const BLOG_ENABLED = false;
+export const BLOG_ENABLED = true;
