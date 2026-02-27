@@ -68,19 +68,21 @@ const ProfileSection = () => {
     if (loading) return <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-6">
             {/* Profile Photo */}
-            <div className="glassmorphism rounded-2xl p-6 border border-border/40">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><User className="h-5 w-5 text-primary" /> Profile Photo</h3>
-                <div className="flex items-center gap-6">
-                    <div className="h-24 w-24 rounded-full overflow-hidden border-2 border-primary/30 bg-muted flex-shrink-0">
+            <div className="glassmorphism rounded-2xl p-4 sm:p-6 border border-border/40">
+                <h3 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2">
+                    <User className="h-5 w-5 text-primary" /> Profile Photo
+                </h3>
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                    <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-hidden border-2 border-primary/30 bg-muted flex-shrink-0">
                         <img
                             src={imagePreview ?? profile?.profile_image_url ?? '/images/certifications/remo.webp'}
                             alt="Profile"
                             className="h-full w-full object-cover"
                         />
                     </div>
-                    <div>
+                    <div className="text-center sm:text-left">
                         <Label htmlFor="photo-upload" className="cursor-pointer">
                             <Button variant="outline" size="sm" asChild>
                                 <span><Upload className="h-4 w-4 mr-2" /> Upload Photo</span>
@@ -93,9 +95,11 @@ const ProfileSection = () => {
             </div>
 
             {/* Basic Info */}
-            <div className="glassmorphism rounded-2xl p-6 border border-border/40">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><FileText className="h-5 w-5 text-primary" /> Basic Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="glassmorphism rounded-2xl p-4 sm:p-6 border border-border/40">
+                <h3 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-primary" /> Basic Information
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                         { key: 'name', label: 'Full Name', placeholder: 'Nitin Kumar' },
                         { key: 'title', label: 'Title / Role', placeholder: 'Full Stack Developer' },
@@ -105,17 +109,17 @@ const ProfileSection = () => {
                         { key: 'resume_url', label: 'Resume URL', placeholder: 'https://drive.google.com/...' },
                     ].map(({ key, label, placeholder }) => (
                         <div key={key} className="space-y-1.5">
-                            <Label>{label}</Label>
+                            <Label className="text-xs sm:text-sm">{label}</Label>
                             <Input
                                 value={form[key as keyof typeof form]}
                                 onChange={(e) => setForm(f => ({ ...f, [key]: e.target.value }))}
                                 placeholder={placeholder}
-                                className="bg-background/50"
+                                className="bg-background/50 text-sm"
                             />
                         </div>
                     ))}
-                    <div className="md:col-span-2 space-y-1.5">
-                        <Label>Bio</Label>
+                    <div className="sm:col-span-2 space-y-1.5">
+                        <Label className="text-xs sm:text-sm">Bio</Label>
                         <textarea
                             value={form.bio}
                             onChange={(e) => setForm(f => ({ ...f, bio: e.target.value }))}
@@ -128,9 +132,11 @@ const ProfileSection = () => {
             </div>
 
             {/* Social Links */}
-            <div className="glassmorphism rounded-2xl p-6 border border-border/40">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Link className="h-5 w-5 text-primary" /> Social Links</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="glassmorphism rounded-2xl p-4 sm:p-6 border border-border/40">
+                <h3 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2">
+                    <Link className="h-5 w-5 text-primary" /> Social Links
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {[
                         { key: 'github_url', label: 'GitHub URL' },
                         { key: 'linkedin_url', label: 'LinkedIn URL' },
@@ -138,20 +144,21 @@ const ProfileSection = () => {
                         { key: 'instagram_url', label: 'Instagram URL' },
                     ].map(({ key, label }) => (
                         <div key={key} className="space-y-1.5">
-                            <Label>{label}</Label>
+                            <Label className="text-xs sm:text-sm">{label}</Label>
                             <Input
                                 value={form[key as keyof typeof form]}
                                 onChange={(e) => setForm(f => ({ ...f, [key]: e.target.value }))}
                                 placeholder="https://..."
-                                className="bg-background/50"
+                                className="bg-background/50 text-sm"
                             />
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="flex justify-end">
-                <Button onClick={handleSave} disabled={saving} className="bg-gradient-to-r from-primary to-accent hover:opacity-90 font-semibold px-8">
+            {/* Sticky save bar on mobile, inline on desktop */}
+            <div className="flex justify-end sticky bottom-4 z-10">
+                <Button onClick={handleSave} disabled={saving} className="bg-gradient-to-r from-primary to-accent hover:opacity-90 font-semibold px-6 sm:px-8 shadow-lg">
                     {saving ? <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Saving…</> : <><Save className="h-4 w-4 mr-2" /> Save Changes</>}
                 </Button>
             </div>

@@ -11,14 +11,15 @@ export function useBlog(publishedOnly = false) {
             if (!isSupabaseConfigured) {
                 throw new Error('Supabase is not configured. Please check your .env.local file.');
             }
-            let query = supabase.from('blog_posts').select('*').order('published_at', { ascending: false });
+            let query = supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
             if (publishedOnly) query = query.eq('published', true);
             const { data, error: dbError } = await query;
 
             if (dbError) throw new Error(dbError.message);
             return (data as BlogPost[]) ?? [];
         },
-        staleTime: 5 * 60 * 1000,
+        staleTime: 2 * 60 * 1000, // 2 min — quick refresh after admin changes
+        refetchOnWindowFocus: true,
     });
 
     const addPost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>, coverFile?: File) => {

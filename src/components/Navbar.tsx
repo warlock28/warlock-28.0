@@ -13,7 +13,7 @@ const Navbar = () => {
   const { scrollY } = useScroll();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   // Smooth transform values for scroll animations
   const navbarPadding = useTransform(scrollY, [0, 100], ['1rem', '0.5rem']);
   const logoScale = useTransform(scrollY, [0, 100], [1, 0.92]);
@@ -46,8 +46,8 @@ const Navbar = () => {
     } else if (storedTheme === 'light') {
       setDarkMode(false);
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setDarkMode(prefersDark);
+      // Default to light mode instead of matching system preference
+      setDarkMode(false);
     }
   }, [setDarkMode]);
 
@@ -133,7 +133,7 @@ const Navbar = () => {
           />
         )}
       </AnimatePresence>
-      <motion.div 
+      <motion.div
         className="relative max-w-7xl mx-auto rounded-2xl sm:rounded-3xl backdrop-blur-xl border z-[9999]"
         animate={{
           backgroundColor: scrolled ? scrolledBackground : restingBackground,
@@ -155,13 +155,13 @@ const Navbar = () => {
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => handleNavSelection('home')}
             >
-              <div 
+              <div
                 className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30"
                 style={{ transition: 'transform 0.2s ease-out' }}
               >
                 <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <span 
+              <span
                 className="text-xl sm:text-2xl font-bold gradient-text"
               >
                 Warlock
@@ -175,8 +175,8 @@ const Navbar = () => {
                   key={item.id}
                   initial={{ opacity: 0, y: -15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.3, 
+                  transition={{
+                    duration: 0.3,
                     delay: 0.1 + (0.04 * index),
                     ease: "easeOut"
                   }}
@@ -184,32 +184,31 @@ const Navbar = () => {
                   <Button
                     variant="ghost"
                     onClick={() => handleNavSelection(item.id)}
-                    className={`relative px-4 py-2 rounded-xl transition-colors duration-200 group ${
-                      activeSection === item.id
+                    className={`relative px-4 py-2 rounded-xl transition-colors duration-200 group ${activeSection === item.id
                         ? 'text-primary font-semibold'
                         : `${navButtonBase} font-medium`
-                    }`}
+                      }`}
                   >
                     <span className="relative z-10">{item.label}</span>
-                    
+
                     {/* Active Background with smooth animation */}
                     {activeSection === item.id && (
                       <motion.div
                         layoutId="activeTab"
                         className="absolute inset-0 bg-primary/15 rounded-xl"
-                        transition={{ 
+                        transition={{
                           duration: 0.2,
                           ease: "easeOut"
                         }}
                       />
                     )}
-                    
+
                     {/* Smooth Bottom Indicator */}
                     {activeSection === item.id && (
                       <motion.div
                         layoutId="activeIndicator"
                         className="absolute bottom-1 left-2 right-2 h-0.5 bg-gradient-primary rounded-full"
-                        transition={{ 
+                        transition={{
                           duration: 0.2,
                           ease: "easeOut"
                         }}
@@ -286,19 +285,18 @@ const Navbar = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
-                      transition={{ 
-                        duration: 0.2, 
+                      transition={{
+                        duration: 0.2,
                         delay: 0.025 * index,
                         ease: "easeOut"
                       }}
                     >
                       <button
                         onClick={() => handleNavSelection(item.id)}
-                        className={`w-full text-left rounded-xl py-4 px-5 relative min-h-[52px] flex items-center border ${
-                          activeSection === item.id
+                        className={`w-full text-left rounded-xl py-4 px-5 relative min-h-[52px] flex items-center border ${activeSection === item.id
                             ? 'text-primary bg-primary/15 font-semibold border-primary/20'
                             : 'text-foreground/80 hover:text-foreground hover:bg-slate-800/50 font-medium border-transparent'
-                        }`}
+                          }`}
                         style={{ transition: 'background-color 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out' }}
                       >
                         {/* Active Indicator */}
@@ -306,7 +304,7 @@ const Navbar = () => {
                           <motion.div
                             className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-primary rounded-full"
                             layoutId="mobileActiveIndicator"
-                            transition={{ 
+                            transition={{
                               duration: 0.2,
                               ease: "easeOut"
                             }}

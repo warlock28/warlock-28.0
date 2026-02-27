@@ -73,35 +73,33 @@ const MessagesSection = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card/60 p-4 rounded-xl border border-border/50">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 glassmorphism p-3 sm:p-4 rounded-xl border border-border/40">
                 <div className="relative w-full sm:w-80">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
                         placeholder="Search messages..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-9 bg-background/50 border-border/50 focus-visible:ring-primary/20"
+                        className="pl-9 bg-background/50 border-border/50 focus-visible:ring-primary/20 text-sm"
                     />
                 </div>
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={fetchMessages}
-                        disabled={loading}
-                        className="gap-2 w-full sm:w-auto whitespace-nowrap"
-                    >
-                        <RefreshCcw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-                        Refresh
-                    </Button>
-                </div>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={fetchMessages}
+                    disabled={loading}
+                    className="gap-2 w-full sm:w-auto whitespace-nowrap"
+                >
+                    <RefreshCcw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                    Refresh
+                </Button>
             </div>
 
             {filteredMessages.length === 0 ? (
-                <div className="text-center py-20 bg-card/30 rounded-2xl border border-border/50 border-dashed">
-                    <Mail className="h-12 w-12 mx-auto text-muted-foreground/30 mb-4" />
-                    <h3 className="text-lg font-medium text-foreground">No messages found</h3>
-                    <p className="text-sm text-muted-foreground mt-2">
+                <div className="text-center py-16 bg-card/30 rounded-2xl border border-border/40 border-dashed">
+                    <Mail className="h-12 w-12 mx-auto text-muted-foreground/30 mb-3" />
+                    <h4 className="text-base font-medium text-foreground">No messages found</h4>
+                    <p className="text-sm text-muted-foreground mt-1">
                         {searchQuery ? "Try adjusting your search criteria." : "When someone contacts you, their message will appear here."}
                     </p>
                 </div>
@@ -184,7 +182,7 @@ const MessagesSection = () => {
 
             {/* Read Message Dialog */}
             <Dialog open={!!selectedMessage} onOpenChange={(open) => !open && setSelectedMessage(null)}>
-                <DialogContent className="max-w-2xl bg-card border-border/50">
+                <DialogContent className="max-w-2xl bg-card border-border/50 w-[calc(100%-2rem)] sm:w-full">
                     {selectedMessage && (
                         <>
                             <DialogHeader>

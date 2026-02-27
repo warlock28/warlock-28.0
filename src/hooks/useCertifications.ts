@@ -2,23 +2,25 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase, uploadAsset, isSupabaseConfigured } from '@/lib/supabase';
 import type { Certification } from '@/types/database';
 
-export function useCertifications(featuredOnly = false) {
+export function useCertifications() {
     const queryClient = useQueryClient();
 
     const { data: certifications, isLoading, error: queryError, refetch } = useQuery({
-        queryKey: ['certifications', featuredOnly],
+        queryKey: ['certifications'],
         queryFn: async () => {
             if (!isSupabaseConfigured) {
                 throw new Error('Supabase is not configured. Please check your .env.local file.');
             }
-            let query = supabase.from('certifications').select('*').order('sort_order');
-            if (featuredOnly) query = query.eq('featured', true);
-            const { data, error: dbError } = await query;
+            const { data, error: dbError } = await supabase
+                .from('certifications')
+                .select('*')
+                .order('sort_order');
 
             if (dbError) throw new Error(dbError.message);
             return (data as Certification[]) ?? [];
         },
-        staleTime: 5 * 60 * 1000,
+        staleTime: 2 * 60 * 1000, // 2 min — quick refresh after admin changes
+        refetchOnWindowFocus: true,
     });
 
     const addCertification = async (cert: Omit<Certification, 'id' | 'created_at' | 'updated_at'>, imageFile?: File) => {

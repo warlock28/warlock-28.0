@@ -2,23 +2,25 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase, uploadAsset, isSupabaseConfigured } from '@/lib/supabase';
 import type { Project } from '@/types/database';
 
-export function useProjects(featuredOnly = false) {
+export function useProjects() {
     const queryClient = useQueryClient();
 
     const { data: projects, isLoading, error: queryError, refetch } = useQuery({
-        queryKey: ['projects', featuredOnly],
+        queryKey: ['projects'],
         queryFn: async () => {
             if (!isSupabaseConfigured) {
                 throw new Error('Supabase is not configured. Please check your .env.local file.');
             }
-            let query = supabase.from('projects').select('*').order('sort_order');
-            if (featuredOnly) query = query.eq('featured', true);
-            const { data, error: dbError } = await query;
+            const { data, error: dbError } = await supabase
+                .from('projects')
+                .select('*')
+                .order('sort_order');
 
             if (dbError) throw new Error(dbError.message);
             return (data as Project[]) ?? [];
         },
-        staleTime: 5 * 60 * 1000,
+        staleTime: 2 * 60 * 1000, // 2 min — quick refresh after admin changes
+        refetchOnWindowFocus: true,
     });
 
     const addProject = async (project: Omit<Project, 'id' | 'created_at' | 'updated_at'>, imageFile?: File) => {

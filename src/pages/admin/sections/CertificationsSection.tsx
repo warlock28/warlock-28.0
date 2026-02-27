@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Pencil, Trash2, Loader2, ExternalLink, Upload, X } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, ExternalLink, Upload, X, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -68,66 +68,117 @@ const CertificationsSection = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
                 <h3 className="text-lg font-semibold">Certifications <span className="ml-2 text-sm font-normal text-muted-foreground">({certifications.length})</span></h3>
-                <Button onClick={openAdd} className="bg-gradient-to-r from-primary to-accent hover:opacity-90">
-                    <Plus className="h-4 w-4 mr-2" /> Add Certification
+                <Button onClick={openAdd} size="sm" className="bg-gradient-to-r from-primary to-accent hover:opacity-90 gap-1.5">
+                    <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Add Certification</span><span className="sm:hidden">Add</span>
                 </Button>
             </div>
 
             {loading ? (
                 <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
-            ) : (
-                <div className="glassmorphism rounded-2xl border border-border/40 overflow-hidden">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="border-border/40 hover:bg-transparent">
-                                <TableHead>Certification</TableHead>
-                                <TableHead>Issuer</TableHead>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Featured</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            <AnimatePresence>
-                                {certifications.map((c) => (
-                                    <motion.tr key={c.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                                        className="border-border/40 hover:bg-muted/20 transition-colors">
-                                        <TableCell>
-                                            <div className="flex items-center gap-3">
-                                                {c.image_url && <img src={c.image_url} alt={c.name} className="h-10 w-10 rounded-lg object-contain border border-border/40 bg-muted/30 p-1" />}
-                                                <p className="font-medium text-sm">{c.name}</p>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="text-sm text-muted-foreground">{c.issuer}</TableCell>
-                                        <TableCell className="text-sm text-muted-foreground">{c.date}</TableCell>
-                                        <TableCell><Badge className={c.featured ? 'bg-primary/10 text-primary border-primary/20' : 'bg-muted text-muted-foreground'}>{c.featured ? 'Yes' : 'No'}</Badge></TableCell>
-                                        <TableCell className="text-right">
-                                            <div className="flex justify-end gap-2">
-                                                {c.credential_url && <a href={c.credential_url} target="_blank" rel="noreferrer"><Button variant="ghost" size="icon" className="h-8 w-8"><ExternalLink className="h-3.5 w-3.5" /></Button></a>}
-                                                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(c)}><Pencil className="h-3.5 w-3.5" /></Button>
-                                                <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => handleDelete(c.id)} disabled={deletingId === c.id}>
-                                                    {deletingId === c.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
-                                                </Button>
-                                            </div>
-                                        </TableCell>
-                                    </motion.tr>
-                                ))}
-                            </AnimatePresence>
-                            {certifications.length === 0 && (
-                                <TableRow><TableCell colSpan={5} className="text-center py-12 text-muted-foreground">No certifications yet.</TableCell></TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+            ) : certifications.length === 0 ? (
+                <div className="text-center py-16 bg-card/30 rounded-2xl border border-border/40 border-dashed">
+                    <Award className="h-12 w-12 mx-auto text-muted-foreground/30 mb-3" />
+                    <h4 className="text-base font-medium">No certifications yet</h4>
+                    <p className="text-sm text-muted-foreground mt-1">Add your credentials and badges.</p>
                 </div>
+            ) : (
+                <>
+                    {/* Desktop table (hidden below md) */}
+                    <div className="hidden md:block glassmorphism rounded-2xl border border-border/40 overflow-hidden">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="border-border/40 hover:bg-transparent">
+                                    <TableHead>Certification</TableHead>
+                                    <TableHead>Issuer</TableHead>
+                                    <TableHead>Date</TableHead>
+                                    <TableHead>Featured</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                <AnimatePresence>
+                                    {certifications.map((c) => (
+                                        <motion.tr key={c.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                            className="border-border/40 hover:bg-muted/20 transition-colors">
+                                            <TableCell>
+                                                <div className="flex items-center gap-3">
+                                                    {c.image_url && <img src={c.image_url} alt={c.name} className="h-10 w-10 rounded-lg object-contain border border-border/40 bg-muted/30 p-1" />}
+                                                    <p className="font-medium text-sm">{c.name}</p>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="text-sm text-muted-foreground">{c.issuer}</TableCell>
+                                            <TableCell className="text-sm text-muted-foreground">{c.date}</TableCell>
+                                            <TableCell><Badge className={c.featured ? 'bg-primary/10 text-primary border-primary/20' : 'bg-muted text-muted-foreground'}>{c.featured ? 'Yes' : 'No'}</Badge></TableCell>
+                                            <TableCell className="text-right">
+                                                <div className="flex justify-end gap-2">
+                                                    {c.credential_url && <a href={c.credential_url} target="_blank" rel="noreferrer"><Button variant="ghost" size="icon" className="h-8 w-8"><ExternalLink className="h-3.5 w-3.5" /></Button></a>}
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => openEdit(c)}><Pencil className="h-3.5 w-3.5" /></Button>
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:text-destructive" onClick={() => handleDelete(c.id)} disabled={deletingId === c.id}>
+                                                        {deletingId === c.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                        </motion.tr>
+                                    ))}
+                                </AnimatePresence>
+                            </TableBody>
+                        </Table>
+                    </div>
+
+                    {/* Mobile card view (hidden md+) */}
+                    <div className="md:hidden grid gap-3">
+                        <AnimatePresence>
+                            {certifications.map((c) => (
+                                <motion.div
+                                    key={c.id}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    className="glassmorphism rounded-xl border border-border/40 p-4 space-y-3"
+                                >
+                                    <div className="flex items-start gap-3">
+                                        {c.image_url && (
+                                            <img src={c.image_url} alt={c.name} className="h-12 w-12 rounded-lg object-contain border border-border/40 bg-muted/30 p-1 flex-shrink-0" />
+                                        )}
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-start justify-between gap-2">
+                                                <p className="font-semibold text-sm leading-tight">{c.name}</p>
+                                                {c.featured && <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] shrink-0">Featured</Badge>}
+                                            </div>
+                                            <p className="text-xs text-muted-foreground mt-0.5">{c.issuer}</p>
+                                            {c.date && <p className="text-[11px] text-muted-foreground mt-0.5">{c.date}</p>}
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center justify-end gap-1 pt-1 border-t border-border/30">
+                                        {c.credential_url && (
+                                            <a href={c.credential_url} target="_blank" rel="noreferrer">
+                                                <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5">
+                                                    <ExternalLink className="h-3 w-3" /> View
+                                                </Button>
+                                            </a>
+                                        )}
+                                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5" onClick={() => openEdit(c)}>
+                                            <Pencil className="h-3 w-3" /> Edit
+                                        </Button>
+                                        <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 text-destructive hover:text-destructive" onClick={() => handleDelete(c.id)} disabled={deletingId === c.id}>
+                                            {deletingId === c.id ? <Loader2 className="h-3 w-3 animate-spin" /> : <Trash2 className="h-3 w-3" />}
+                                            Delete
+                                        </Button>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </div>
+                </>
             )}
 
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto sm:max-h-[85vh] w-[calc(100%-2rem)] sm:w-full">
                     <DialogHeader><DialogTitle>{editId ? 'Edit Certification' : 'Add Certification'}</DialogTitle></DialogHeader>
                     <div className="space-y-4 py-2">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="col-span-2 space-y-1.5"><Label>Name *</Label><Input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="e.g. AWS Solutions Architect" /></div>
                             <div className="space-y-1.5"><Label>Issuer *</Label><Input value={form.issuer} onChange={e => setForm(f => ({ ...f, issuer: e.target.value }))} placeholder="Amazon Web Services" /></div>
                             <div className="space-y-1.5"><Label>Date (YYYY or YYYY-MM)</Label><Input value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} placeholder="2024-03" /></div>
