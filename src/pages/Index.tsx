@@ -13,6 +13,7 @@ import { SectionLoader } from '@/components/ui/loading-spinner';
 const About = lazy(() => import('@/components/About'));
 const SkillsNew = lazy(() => import('@/components/SkillsNew'));
 const Projects = lazy(() => import('@/components/Projects'));
+const Services = lazy(() => import('@/components/Services'));
 const Certifications = lazy(() => import('@/components/Certifications'));
 const Blog = lazy(() => import('@/components/Blog'));
 const Contact = lazy(() => import('@/components/Contact'));
@@ -20,7 +21,7 @@ const Footer = lazy(() => import('@/components/Footer'));
 
 const Index = () => {
   const { setActiveSection } = useStore();
-  const location = useLocation<{ scrollTo?: string }>();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const scrollToSection = useCallback((sectionId: string) => {
@@ -38,7 +39,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'blog', 'contact'];
+      const sections = ['home', 'about', 'skills', 'projects', 'services', 'certifications', 'blog', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -58,8 +59,9 @@ const Index = () => {
   }, [setActiveSection]);
 
   useEffect(() => {
-    if (location.state?.scrollTo) {
-      scrollToSection(location.state.scrollTo);
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo) {
+      scrollToSection(state.scrollTo);
       navigate('.', { replace: true, state: null });
     }
   }, [location, navigate, scrollToSection]);
@@ -74,7 +76,7 @@ const Index = () => {
     >
       <NetworkBackground />
       <Navbar />
-      
+
       <main>
         <Hero />
         <Suspense fallback={<SectionLoader />}>
@@ -82,6 +84,14 @@ const Index = () => {
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
           <SkillsNew />
+        </Suspense>
+        <Suspense fallback={<SectionLoader />}>
+          <Services
+            variant="featured"
+            featuredLimit={3}
+            ctaHref="/services"
+            ctaLabel="Explore all services"
+          />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
           <Projects
@@ -110,7 +120,7 @@ const Index = () => {
           <Contact />
         </Suspense>
       </main>
-      
+
       <Suspense fallback={<div className="py-4"></div>}>
         <Footer />
       </Suspense>

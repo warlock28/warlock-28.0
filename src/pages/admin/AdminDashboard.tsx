@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Loader2, LogOut, User, Briefcase, Award, BookOpen,
-    LayoutDashboard, ChevronRight, Mail, Menu, X, ExternalLink,
+    LayoutDashboard, ChevronRight, Mail, Menu, X, ExternalLink, Layers
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 const ProfileSection = lazy(() => import('./sections/ProfileSection'));
 const ProjectsSection = lazy(() => import('./sections/ProjectsSection'));
 const CertificationsSection = lazy(() => import('./sections/CertificationsSection'));
+const ServicesSection = lazy(() => import('./sections/ServicesSection'));
 const BlogSection = lazy(() => import('./sections/BlogSection'));
 const MessagesSection = lazy(() => import('./sections/MessagesSection'));
 
@@ -28,6 +29,7 @@ const SectionLoader = () => (
 const NAV_ITEMS = [
     { value: 'profile', label: 'Profile', icon: User, description: 'Your personal info' },
     { value: 'projects', label: 'Projects', icon: Briefcase, description: 'Manage portfolio' },
+    { value: 'services', label: 'Services', icon: Layers, description: 'Manage services' },
     { value: 'certifications', label: 'Certifications', icon: Award, description: 'Credentials & badges' },
     { value: 'blog', label: 'Blog', icon: BookOpen, description: 'Write & publish' },
     { value: 'messages', label: 'Messages', icon: Mail, description: 'Contact inbox' },
@@ -38,6 +40,7 @@ const SectionContent = ({ activeSection }: { activeSection: string }) => {
     switch (activeSection) {
         case 'profile': return <Suspense fallback={<SectionLoader />}><ProfileSection /></Suspense>;
         case 'projects': return <Suspense fallback={<SectionLoader />}><ProjectsSection /></Suspense>;
+        case 'services': return <Suspense fallback={<SectionLoader />}><ServicesSection /></Suspense>;
         case 'certifications': return <Suspense fallback={<SectionLoader />}><CertificationsSection /></Suspense>;
         case 'blog': return <Suspense fallback={<SectionLoader />}><BlogSection /></Suspense>;
         case 'messages': return <Suspense fallback={<SectionLoader />}><MessagesSection /></Suspense>;
@@ -169,17 +172,15 @@ const AdminDashboard = () => {
                             <button
                                 key={value}
                                 onClick={() => handleNavClick(value)}
-                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 group ${
-                                    activeSection === value
-                                        ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
-                                        : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground border border-transparent'
-                                }`}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-200 group ${activeSection === value
+                                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
+                                    : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground border border-transparent'
+                                    }`}
                             >
-                                <div className={`h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                                    activeSection === value
-                                        ? 'bg-primary/15 text-primary'
-                                        : 'bg-muted/50 text-muted-foreground group-hover:bg-muted group-hover:text-foreground'
-                                }`}>
+                                <div className={`h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${activeSection === value
+                                    ? 'bg-primary/15 text-primary'
+                                    : 'bg-muted/50 text-muted-foreground group-hover:bg-muted group-hover:text-foreground'
+                                    }`}>
                                     <Icon className="h-4 w-4" />
                                 </div>
                                 <div className="min-w-0">
@@ -241,17 +242,15 @@ const AdminDashboard = () => {
                                         <button
                                             key={value}
                                             onClick={() => handleNavClick(value)}
-                                            className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 group ${
-                                                activeSection === value
-                                                    ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
-                                                    : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground border border-transparent'
-                                            }`}
+                                            className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 group ${activeSection === value
+                                                ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
+                                                : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground border border-transparent'
+                                                }`}
                                         >
-                                            <div className={`h-10 w-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                                                activeSection === value
-                                                    ? 'bg-primary/15 text-primary'
-                                                    : 'bg-muted/50 text-muted-foreground group-hover:bg-muted group-hover:text-foreground'
-                                            }`}>
+                                            <div className={`h-10 w-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${activeSection === value
+                                                ? 'bg-primary/15 text-primary'
+                                                : 'bg-muted/50 text-muted-foreground group-hover:bg-muted group-hover:text-foreground'
+                                                }`}>
                                                 <Icon className="h-5 w-5" />
                                             </div>
                                             <div className="min-w-0">
@@ -312,11 +311,10 @@ const AdminDashboard = () => {
                                 <button
                                     key={value}
                                     onClick={() => handleNavClick(value)}
-                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
-                                        activeSection === value
-                                            ? 'bg-primary text-primary-foreground shadow-sm'
-                                            : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
-                                    }`}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${activeSection === value
+                                        ? 'bg-primary text-primary-foreground shadow-sm'
+                                        : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground'
+                                        }`}
                                 >
                                     <Icon className="h-3.5 w-3.5" />
                                     {label}

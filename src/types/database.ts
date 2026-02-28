@@ -69,6 +69,18 @@ export interface BlogPost {
     updated_at: string;
 }
 
+export interface Service {
+    id: string; // UUID
+    title: string;
+    description: string;
+    icon?: string;
+    features: string[]; // jsonb array of text
+    featured: boolean;
+    sort_order: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface SkillCategory {
     id: string;
     category: string;
@@ -117,6 +129,7 @@ export interface Database {
             projects: TableDef<Project, Omit<Project, 'id' | 'created_at' | 'updated_at'>>;
             certifications: TableDef<Certification, Omit<Certification, 'id' | 'created_at' | 'updated_at'>>;
             blog_posts: TableDef<BlogPost, Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>>;
+            services: TableDef<Service, Omit<Service, 'id' | 'created_at' | 'updated_at'>>;
             skill_categories: TableDef<SkillCategory, Omit<SkillCategory, 'id' | 'skills'>>;
             skills: TableDef<Skill, Omit<Skill, 'id'>>;
             messages: TableDef<Message, Omit<Message, 'id' | 'created_at' | 'is_read'>>;

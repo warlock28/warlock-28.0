@@ -296,8 +296,10 @@
 
   .gradient-text-secondary {
     color: #341f20;
-    /* User requested specific color without gradient */
-    /* Note: #341f20 is very dark, so ensuring visibility in dark mode might require additional handling if this is intended for dark mode too. */
+  }
+
+  .dark .gradient-text-secondary {
+    color: #f0c8cb;
   }
 
   .bg-gradient-primary {

@@ -1,0 +1,62 @@
+[36mvite v5.4.6 [32mbuilding for production...[36m[39m
+transforming...
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+src/components/ui/label.tsx (1:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+[32m✓[39m 2813 modules transformed.
+rendering chunks...
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/components/Footer.tsx is dynamically imported by D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/BlogPage.tsx, D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/CertificationsPage.tsx, D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/Index.tsx, D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/ProjectsPage.tsx but also statically imported by D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/BlogPostPage.tsx, D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/ServicesPage.tsx, dynamic import will not move module into another chunk.
+[39m
+[1m[33m[plugin:vite:reporter][39m[22m [33m[plugin vite:reporter] 
+(!) D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/components/Services.tsx is dynamically imported by D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/Index.tsx but also statically imported by D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/src/pages/ServicesPage.tsx, dynamic import will not move module into another chunk.
+[39m
+computing gzip size...
+[2mdist/[22m[32mregisterSW.js                                [39m[1m[2m  0.13 kB[22m[1m[22m
+[2mdist/[22m[32mmanifest.webmanifest                         [39m[1m[2m  0.32 kB[22m[1m[22m
+[2mdist/[22m[32mindex.html                                   [39m[1m[2m  2.52 kB[22m[1m[22m[2m │ gzip:   1.18 kB[22m
+[2mdist/[22m[35massets/css/index-DuLcidHZ.css                [39m[1m[2m 73.27 kB[22m[1m[22m[2m │ gzip:  12.84 kB[22m
+[2mdist/[22m[36massets/js/index-R5esmdJj.js                  [39m[1m[2m  0.74 kB[22m[1m[22m[2m │ gzip:   0.43 kB[22m
+[2mdist/[22m[36massets/js/textarea-JOkFlrP4.js               [39m[1m[2m  1.11 kB[22m[1m[22m[2m │ gzip:   0.61 kB[22m
+[2mdist/[22m[36massets/js/input-CnJwBJ1e.js                  [39m[1m[2m  1.21 kB[22m[1m[22m[2m │ gzip:   0.65 kB[22m
+[2mdist/[22m[36massets/js/useAdminAuth-B2LW5jX1.js           [39m[1m[2m  1.26 kB[22m[1m[22m[2m │ gzip:   0.66 kB[22m
+[2mdist/[22m[36massets/js/useMessages-BG-hV7ln.js            [39m[1m[2m  2.00 kB[22m[1m[22m[2m │ gzip:   0.90 kB[22m
+[2mdist/[22m[36massets/js/table-DNC8unLG.js                  [39m[1m[2m  2.37 kB[22m[1m[22m[2m │ gzip:   0.82 kB[22m
+[2mdist/[22m[36massets/js/useProjects-m-2vvkYx.js            [39m[1m[2m  2.54 kB[22m[1m[22m[2m │ gzip:   1.01 kB[22m
+[2mdist/[22m[36massets/js/useCertifications-Chrfip_i.js      [39m[1m[2m  2.64 kB[22m[1m[22m[2m │ gzip:   1.02 kB[22m
+[2mdist/[22m[36massets/js/dialog-DejuSBv0.js                 [39m[1m[2m  3.09 kB[22m[1m[22m[2m │ gzip:   1.21 kB[22m
+[2mdist/[22m[36massets/js/useBlog-N6zmNQ5v.js                [39m[1m[2m  3.15 kB[22m[1m[22m[2m │ gzip:   1.14 kB[22m
+[2mdist/[22m[36massets/js/portfolio-3R6rWJXg.js              [39m[1m[2m  3.47 kB[22m[1m[22m[2m │ gzip:   1.57 kB[22m
+[2mdist/[22m[36massets/js/label-ml5rH9Il.js                  [39m[1m[2m  3.50 kB[22m[1m[22m[2m │ gzip:   1.60 kB[22m
+[2mdist/[22m[36massets/js/AdminLogin-DRU5e1lU.js             [39m[1m[2m  4.41 kB[22m[1m[22m[2m │ gzip:   1.87 kB[22m
+[2mdist/[22m[36massets/js/Blog-KNmiAQsO.js                   [39m[1m[2m  5.47 kB[22m[1m[22m[2m │ gzip:   2.00 kB[22m
+[2mdist/[22m[36massets/js/ProfileSection-CvZ8oie-.js         [39m[1m[2m  5.99 kB[22m[1m[22m[2m │ gzip:   2.30 kB[22m
+[2mdist/[22m[36massets/js/About-cH6cxF7U.js                  [39m[1m[2m  7.65 kB[22m[1m[22m[2m │ gzip:   2.30 kB[22m
+[2mdist/[22m[36massets/js/Projects-BX1TDpfY.js               [39m[1m[2m  8.76 kB[22m[1m[22m[2m │ gzip:   2.68 kB[22m
+[2mdist/[22m[36massets/js/SkillsNew-BqmcPjsr.js              [39m[1m[2m  8.92 kB[22m[1m[22m[2m │ gzip:   2.40 kB[22m
+[2mdist/[22m[36massets/js/ServicesSection-Q2aDbVk1.js        [39m[1m[2m 10.12 kB[22m[1m[22m[2m │ gzip:   3.73 kB[22m
+[2mdist/[22m[36massets/js/CertificationsSection-BXw2MEF-.js  [39m[1m[2m 11.84 kB[22m[1m[22m[2m │ gzip:   3.57 kB[22m
+[2mdist/[22m[36massets/js/BlogSection-DWk5n5Qr.js            [39m[1m[2m 12.27 kB[22m[1m[22m[2m │ gzip:   3.73 kB[22m
+[2mdist/[22m[36massets/js/AdminDashboard-DnIbWMpk.js         [39m[1m[2m 12.49 kB[22m[1m[22m[2m │ gzip:   3.43 kB[22m
+[2mdist/[22m[36massets/js/MessagesSection-a6ulgLmp.js        [39m[1m[2m 27.01 kB[22m[1m[22m[2m │ gzip:   8.09 kB[22m
+[2mdist/[22m[36massets/js/Certifications-BY5r_MmS.js         [39m[1m[2m 36.32 kB[22m[1m[22m[2m │ gzip:  11.87 kB[22m
+[2mdist/[22m[36massets/js/ui-components-BqXkOqdj.js          [39m[1m[2m 60.03 kB[22m[1m[22m[2m │ gzip:  20.31 kB[22m
+[2mdist/[22m[36massets/js/ProjectsSection-CS9ECjU8.js        [39m[1m[2m 67.76 kB[22m[1m[22m[2m │ gzip:  22.24 kB[22m
+[2mdist/[22m[36massets/js/Contact-DmEdcdfx.js                [39m[1m[2m 88.51 kB[22m[1m[22m[2m │ gzip:  24.69 kB[22m
+[2mdist/[22m[36massets/js/framer-motion-BAAnziTw.js          [39m[1m[2m135.99 kB[22m[1m[22m[2m │ gzip:  45.61 kB[22m
+[2mdist/[22m[36massets/js/react-vendor-BYbdLECi.js           [39m[1m[2m162.22 kB[22m[1m[22m[2m │ gzip:  52.86 kB[22m
+[2mdist/[22m[36massets/js/index-CthE5Dmf.js                  [39m[1m[2m526.38 kB[22m[1m[22m[2m │ gzip: 151.83 kB[22m
+[2mdist/[22m[36massets/js/icons-DVkAIRf4.js                  [39m[1m[2m778.93 kB[22m[1m[22m[2m │ gzip: 135.99 kB[22m
+[32m✓ built in 17.45s[39m
+[31merror during build:
+Error: Unable to write the service worker file. '_browserslist.findConfigFile is not a function'
+    at writeSWUsingDefaultTemplate (D:\warlocknitin\Hands-on-prectice\warlock-28.0-portfolio\node_modules\workbox-build\build\lib\write-sw-using-default-template.js:68:15)
+    at async generateSW (D:\warlocknitin\Hands-on-prectice\warlock-28.0-portfolio\node_modules\workbox-build\build\generate-sw.js:95:23)
+    at async generateServiceWorker (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite-plugin-pwa/dist/index.js:352:23)
+    at async _generateSW (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite-plugin-pwa/dist/index.js:486:5)
+    at async Object.handler (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite-plugin-pwa/dist/index.js:644:13)
+    at async PluginDriver.hookParallel (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite/node_modules/rollup/dist/es/shared/node-entry.js:19841:17)
+    at async Object.close (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite/node_modules/rollup/dist/es/shared/node-entry.js:20774:13)
+    at async build (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite/dist/node/chunks/dep-DyBnyoVI.js:65408:17)
+    at async CAC.<anonymous> (file:///D:/warlocknitin/Hands-on-prectice/warlock-28.0-portfolio/node_modules/vite/dist/node/cli.js:828:5)[39m

@@ -23,6 +23,7 @@ const Navbar = () => {
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
+    { id: 'services', label: 'Services' },
     { id: 'certifications', label: 'Certifications' },
     ...(BLOG_ENABLED ? [{ id: 'blog', label: 'Blog' }] : []),
     { id: 'contact', label: 'Contact' },
